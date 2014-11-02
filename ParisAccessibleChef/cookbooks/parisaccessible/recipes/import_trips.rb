@@ -17,11 +17,12 @@ Dir["#{node['parisaccessible']['home']}/inject/gtfs/trips.txt.*"].each do |file 
 	 
 	#   EOH
 	# end
-	bash "import base" do
+	bash "import trips #{file}" do
 	  user "root"
 	  cwd "#{node['parisaccessible']['home']}"
 	  code <<-EOH
-	   echo $file
+	  	echo #{file}
+	   java -jar -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war -r gtfs/#{file} > #{node['parisaccessible']['log']}/inject.#{file}.log &
 	  EOH
 	end
 end

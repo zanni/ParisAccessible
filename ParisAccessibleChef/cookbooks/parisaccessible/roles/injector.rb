@@ -3,9 +3,10 @@ description "Configuration for injector nodes"
 
 run_list    "role[base]",
 			"recipe[java]",
+			"recipe[maven]",
 			"recipe[parisaccessible::install]",
 			"recipe[parisaccessible::ratp_gtfs]",
-			"recipe[parisaccessible::import_base]"
+			"recipe[parisaccessible::import_trips]"
 
             
 

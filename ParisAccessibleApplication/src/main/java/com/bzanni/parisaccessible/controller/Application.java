@@ -53,24 +53,22 @@ public class Application {
 
 				ratpGtfs.importRoute(line.getOptionValue("route"), 500);
 
-			} if (line.hasOption("route_accessibility")) {
+			}
+			if (line.hasOption("route_accessibility")) {
 
 				ratpGtfs.importRouteAccessibility(
 						line.getOptionValue("route_accessibility"), 500);
 
-			}
-			else if (line.hasOption("stop")) {
+			} else if (line.hasOption("stop")) {
 
 				ratpGtfs.importStop(line.getOptionValue("stop"), 2000);
 
-			}
-			else if (line.hasOption("stop_accessibility")) {
+			} else if (line.hasOption("stop_accessibility")) {
 
 				ratpGtfs.importStopAccessibility(
 						line.getOptionValue("stop_accessibility"), 2000);
 
-			}
-			else if (line.hasOption("service")) {
+			} else if (line.hasOption("service")) {
 
 				ratpGtfs.importService(line.getOptionValue("service"), 500);
 

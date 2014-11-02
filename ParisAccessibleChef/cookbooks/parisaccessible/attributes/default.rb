@@ -1,6 +1,8 @@
 
 
-node.default["parisaccessible"]["home"] = "/srv/parisaccessible"
+node.default["parisaccessible"]["home"] = "/srv/ParisAccessible" 
+
+node.default["parisaccessible"]["repository"] = "git://github.com/zanni/ParisAccessible.git"
 
 node.default["parisaccessible"]["log"] = "/var/log/parisaccessible"
 
@@ -14,7 +16,7 @@ node.default["parisaccessible"]["accessibility_equipement_url"] = "http://openda
 
 node.default["parisaccessible"]["elasticsearch_url"] = "http://192.168.33.10:9200"
 
-node.default["parisaccessible"]["inject_path"] = "/srv/parisaccessible/inject/"
+node.default["parisaccessible"]["inject_path"] = "/srv/ParisAccessible/inject/"
 
 node.default["parisaccessible"]["ratp_gtfs_index_name"] = "ratp_gtfs"
 
