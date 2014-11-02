@@ -1,0 +1,9 @@
+.project
+.settings
+ParisAccessibleVagrant
+inject
+*/.classpath
+*/.project
+*/.settings
+*/target
+parisaccessible.properties

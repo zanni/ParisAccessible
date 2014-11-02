@@ -1,0 +1,8 @@
+site :opscode
+
+cookbook "apt"
+cookbook "ntp"
+cookbook "openssh"
+cookbook "tomcat"
+cookbook "elasticsearch"
+cookbook 'neo4j-server', git: 'https://github.com/michaelklishin/neo4j-server-chef-cookbook'

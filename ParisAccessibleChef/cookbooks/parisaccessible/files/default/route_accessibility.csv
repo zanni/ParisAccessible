@@ -1,0 +1,377 @@
+1001000070001;Balabus;LA DEFENSE;GARE DE LYON;1;1;1;1;1
+1001000080001;Montmartrobus;PIGALLE                                                                         ;MAIRIE DU XVIII-JULES JOFFRIN                                                   ;0;1;1;1;0
+1001000200001;20;GARE DE LYON.                                                                   ;GARE SAINT-LAZARE                                                               ;1;1;1;1;1
+1001000210001;21;STADE CHARLETY-PORTE DE GENTILLY                                                ;GARE SAINT LAZARE                                                               ;1;1;1;1;1
+1001000220001;22;PORTE DE SAINT CLOUD                                                            ;OPERA                                                                           ;1;1;1;1;0
+1001000240001;24;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;GARE SAINT LAZARE                                                               ;1;1;1;1;1
+1001000260001;26;NATION-PLACE DES ANTILLES                                                       ;GARE SAINT LAZARE                                                               ;1;1;1;1;1
+1001000270001;27;PORTE D'IVRY-CLAUDE REGAUD                                                      ;GARE SAINT LAZARE                                                               ;1;1;1;1;1
+1001000280001;28;PORTE D'ORLEANS                                                                 ;GARE SAINT LAZARE                                                               ;1;1;1;1;0
+1001000290001;29;PORTE DE MONTEMPOIVRE                                                           ;GARE SAINT LAZARE                                                               ;1;1;1;1;0
+1001000300001;30;TROCADERO                                                                       ;GARE DE L'EST                                                                   ;1;1;1;1;1
+1001000310001;31;CHARLES DE GAULLE-ETOILE.                                                       ;GARE DE L'EST                                                                   ;1;1;1;1;1
+1001000320001;32;PORTE D'AUTEUIL                                                                 ;GARE DE L'EST                                                                   ;1;1;1;1;0
+1001000380001;38;PORTE D'ORLEANS                                                                 ;GARE DU NORD                                                                    ;1;1;1;1;1
+1001000390001;39;ISSY-VAL DE SEINE                                                               ;GARE DU NORD                                                                    ;1;1;1;1;1
+1001000420001;42;HOPITAL EUROPEEN GEORGES POMPIDOU                                               ;GARE DU NORD                                                                    ;1;1;1;1;1
+1001000430001;43;NEUILLY-BAGATELLE                                                               ;GARE DU NORD                                                                    ;1;1;1;1;0
+1001000460001;46;CHATEAU DE VINCENNES-METRO                                                      ;GARE DU NORD                                                                    ;1;1;1;1;0
+1001000470001;47;FORT DU KREMLIN-BICETRE                                                         ;GARE DE L'EST                                                                   ;1;1;1;1;1
+1001000480001;48;PALAIS ROYAL-MUSEE DU LOUVRE                                                    ;PORTE DES LILAS                                                                 ;1;1;1;1;0
+1001000520001;52;PARC DE SAINT CLOUD                                                             ;OPERA                                                                           ;1;1;1;1;0
+1001000530001;53;PONT DE LEVALLOIS-METRO                                                         ;OPERA                                                                           ;1;1;1;1;1
+1001000540001;54;GABRIEL PERI-METRO                                                              ;PORTE D'AUBERVILLIERS                                                           ;1;1;1;1;1
+1001000560001;56;CHATEAU DE VINCENNES-METRO                                                      ;PORTE DE CLIGNANCOURT                                                           ;1;1;1;1;0
+1001000570001;57;LAPLACE-RER                                                                     ;PORTE DE BAGNOLET-L.GANNE                                                       ;1;1;1;1;1
+1001000580001;58;LYCEE MICHELET                                                                  ;CHATELET                                                                        ;1;1;1;1;0
+1001000600001;60;PORTE DE MONTMARTRE                                                             ;GAMBETTA                                                                        ;1;1;1;1;1
+1001000610001;61;EGLISE DE PANTIN                                                                ;GARE D'AUSTERLITZ                                                               ;1;1;1;1;1
+1001000620001;62;PORTE DE SAINT CLOUD                                                            ;BIBLIOTHEQUE FRANCOIS MITTERRAND                                                ;1;1;1;1;1
+1001000630001;63;PORTE DE LA MUETTE                                                              ;GARE DE LYON                                                                    ;1;1;1;1;1
+1001000640001;64;PLACE D'ITALIE                                                                  ;GAMBETTA                                                                        ;1;1;1;1;1
+1001000650001;65;MAIRIE D'AUBERVILLIERS                                                          ;GARE DE LYON                                                                    ;1;1;1;1;1
+1001000660001;66;BOULEVARD VICTOR HUGO                                                           ;OPERA                                                                           ;1;1;1;1;1
+1001000670001;67;STADE CHARLETY-PORTE DE GENTILLY                                                ;PIGALLE                                                                         ;1;1;1;1;1
+1001000680001;68;MONTROUGE METRO                                                                 ;PLACE DE CLICHY                                                                 ;1;1;1;1;1
+1001000690001;69;CHAMP DE MARS                                                                   ;GAMBETTA                                                                        ;1;1;1;1;0
+1001000700001;70;RADIO FRANCE                                                                    ;HOTEL DE VILLE-RUE SAINT MARTIN                                                 ;1;1;1;1;1
+1001000720001;72;PARC DE SAINT CLOUD                                                             ;HOTEL DE VILLE                                                                  ;1;1;1;1;1
+1001000730001;73;PLACE DE BELGIQUE                                                               ;MUSEE D'ORSAY                                                                   ;1;1;1;1;0
+1001000740001;74;BERGES DE SEINE                                                                 ;HOTEL DE VILLE DE PARIS-04                                                      ;1;1;1;1;0
+1001000750001;75;PORTE DE LA VILLETTE                                                            ;PONT NEUF                                                                       ;1;1;1;1;1
+1001000760001;76;LOUISE MICHEL                                                                   ;LOUVRE-RIVOLI                                                                   ;1;1;1;1;1
+1001000800001;80;MAIRIE DU XVIII-JULES JOFFRIN                                                   ;PORTE DE VERSAILLES (PARC DES EXPOSITIONS)                                      ;1;1;1;1;1
+1001000810001;81;PORTE DE SAINT OUEN                                                             ;CHATELET                                                                        ;1;1;1;1;1
+1001000820001;82;HOPITAL AMERICAIN                                                               ;LUXEMBOURG                                                                      ;1;1;1;1;1
+1001000830001;83;PORTE D'IVRY-CLAUDE REGAUD                                                      ;FRIEDLAND-HAUSSMANN                                                             ;1;1;1;1;1
+1001000840001;84;PORTE DE CHAMPERRET                                                             ;PLACE DU PANTHEON                                                               ;1;1;1;1;1
+1001000850001;85;MAIRIE DE SAINT OUEN                                                            ;LUXEMBOURG                                                                      ;1;1;1;1;0
+1001000860001;86;DEMI LUNE-PARC ZOOLOGIQUE                                                       ;SAINT GERMAIN DES PRES                                                          ;1;1;1;1;1
+1001000870001;87;PORTE DE REUILLY                                                                ;CHAMP DE MARS                                                                   ;1;1;1;1;1
+1001000880001;88;HOPITAL EUROPEEN GEORGES POMPIDOU                                               ;MONTSOURIS-TOMBE ISSOIRE                                                        ;1;1;1;1;1
+1001000890001;89;GARE DE VANVES-MALAKOFF                                                         ;BIBLIOTHEQUE FRANCOIS MITTERRAND                                                ;1;1;1;1;0
+1001000910001;91;BASTILLE                                                                        ;MONTPARNASSE II-GARE TGV                                                        ;1;1;1;1;1
+1001000920001;92;PORTE DE CHAMPERRET                                                             ;GARE MONTPARNASSE                                                               ;1;1;1;1;1
+1001000930001;93;DE GAULLE                                                                       ;ESPLANADE DES INVALIDES                                                         ;1;1;1;1;1
+1001000940001;94;LOUISON BOBET                                                                   ;GARE MONTPARNASSE                                                               ;1;1;1;1;0
+1001000950001;95;PORTE DE MONTMARTRE                                                             ;PORTE DE VANVES                                                                 ;1;1;1;1;1
+1001000960001;96;PORTE DES LILAS                                                                 ;GARE MONTPARNASSE                                                               ;1;1;1;1;1
+1001000970001;PC1;PORTE DE CHAMPERRET                                                             ;PONT DU GARIGLIANO-HOPITAL EUROPEEN GEORGES POMPIDOU                            ;1;1;1;1;1
+1001000980001;PC2;PORTE D'IVRY                                                                    ;PORTE DE LA VILLETTE                                                            ;1;1;1;1;1
+1001000990001;PC3;PORTE DES LILAS                                                                 ;PORTE MAILLOT-PERSHING                                                          ;1;1;1;1;1
+1001001010001;101;CHAMPIGNY-SUR-MARNE CAMPING INTERNATIONAL                                       ;JOINVILLE-LE-PONT RER                                                           ;0;0;0;1;0
+1001001020001;102;BOIS PERRIER-RER                                                                ;GAMBETTA                                                                        ;1;1;1;1;0
+1001001030001;103;RUNGIS-MARCHE INTERNATIONAL                                                     ;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;0;1;1;1;1
+1001001040001;104;PLACE DES LIBERTES                                                              ;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;1;1;1;1;1
+1001001050001;105;MAIRIE DES PAVILLONS-SOUS-BOIS                                                  ;PORTE DES LILAS-METRO                                                           ;0;1;1;1;1
+1001001060001;106;VILLIERS SUR MARNE-LE PLESSIS TREVISE-RER                                       ;JOINVILLE-LE-PONT RER                                                           ;1;1;1;1;0
+1001001070001;107;LA PIE                                                                          ;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;0;1;0;1;0
+1001001080001;108;JEANNE VACHER                                                                   ;JOINVILLE LE PONT-RER                                                           ;0;1;1;1;1
+1001001090001;109;TERROIRS DE FRANCE                                                              ;PONT NELSON MANDELA-RIVES DE BERCY                                              ;1;1;1;1;0
+1001001100001;110;VILLIERS SUR MARNE-LE PLESSIS TREVISE-RER                                       ;JOINVILLE-LE-PONT RER                                                           ;1;1;1;1;1
+1001001110001;111;CHAMPIGNY-SAINT MAUR-RER                                                        ;TERROIRS DE FRANCE                                                              ;1;1;1;1;0
+1001001120001;112;LA VARENNE-CHENNEVIERES-RER                                                     ;CHATEAU DE VINCENNES-METRO                                                      ;0;1;0;1;0
+1001001130001;113;CENTRE COMMERCIAL CHELLES 2                                                     ;NOGENT-SUR-MARNE RER                                                            ;0;1;1;1;1
+1001001140001;114;LES COQUETIERS                                                                  ;CHATEAU DE VINCENNES-METRO                                                      ;0;0;0;1;0
+1001001150001;115;CHATEAU DE VINCENNES-METRO                                                      ;PORTE DES LILAS-METRO                                                           ;1;1;1;1;1
+1001001160001;116;CHAMPIGNY-SAINT MAUR-RER                                                        ;BOIS PERRIER RER-ROSNY 2                                                        ;1;1;1;1;0
+1001001170001;117;PREFECTURE DU VAL DE MARNE.                                                     ;CHAMPIGNY-SAINT MAUR-RER                                                        ;1;1;1;1;0
+1001001180001;118;VAN DERHEYDEN                                                                   ;CHATEAU DE VINCENNES-METRO                                                      ;0;1;0;1;1
+1001001190001;119;MASSY RER                                                                       ;LES BACONNETS-RER                                                               ;0;0;0;1;0
+1001001200001;120;MAIRIE DE NOISY LE GRAND                                                        ;NOGENT-SUR-MARNE RER                                                            ;0;0;0;1;0
+1001001210001;121;LYCEE GEORGES CLEMENCEAU                                                        ;MAIRIE DE MONTREUIL-METRO                                                       ;1;1;1;1;1
+1001001220001;122;PABLO PICASSO                                                                   ;GALLIENI-METRO                                                                  ;1;1;1;1;1
+1001001230001;123;PORTE D'AUTEUIL-METRO                                                           ;MAIRIE D'ISSY-METRO                                                             ;0;1;0;1;1
+1001001240001;124;PLACE DU GENERAL DE GAULLE                                                      ;CHATEAU DE VINCENNES-METRO                                                      ;1;1;1;1;0
+1001001250001;125;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;PORTE D'ORLEANS-METRO                                                           ;1;1;1;1;1
+1001001260001;126;PARC DE SAINT CLOUD                                                             ;PORTE D'ORLEANS-REYER                                                           ;0;1;1;1;1
+1001001270001;127;PLACE DE LA RESISTANCE                                                          ;CROIX DE CHAVAUX-METRO                                                          ;1;1;1;1;0
+1001001280001;128;ROBINSON-RER                                                                    ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001001290001;129;MAIRIE DE MONTREUIL-METRO                                                       ;PORTE DES LILAS-METRO                                                           ;1;1;1;1;1
+1001001310001;131;LA FRATERNELLE-RER                                                              ;PORTE D'ITALIE-METRO                                                            ;0;0;0;1;0
+1001001320001;132;CITE DU MOULIN VERT                                                             ;BIBLIOTHEQUE FRANCOIS MITTERRAND                                                ;1;1;1;1;0
+1001001330001;133;LE_BOURGET RER                                                                  ;BOIS D'ECOUEN                                                                   ;0;0;0;1;1
+1001001340001;134;JOUHAUX-BLUM.                                                                   ;FORT D'AUBERVILLIERS-METRO                                                      ;1;1;1;1;0
+1001001370001;137;Z.I NORD                                                                        ;PORTE DE CLIGNANCOURT-METRO                                                     ;0;0;0;1;0
+1001001380001;138;GARE D'ERMONT EAUBONNE-RER                                                      ;PORTE DE CLICHY-METRO                                                           ;0;0;0;1;0
+1001001390001;139;SAINT-OUEN RER                                                                  ;PORTE DE LA VILLETTE-METRO                                                      ;1;1;1;1;1
+1001001400001;140;GARE D'ARGENTEUIL                                                               ;GABRIEL PERI-METRO                                                              ;1;1;1;1;1
+1001001410001;141;LYCEE DE RUEIL                                                                  ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;0
+1001001430001;143;ROSNY-SOUS-BOIS RER                                                             ;LA_COURNEUVE RER                                                                ;0;1;1;1;1
+1001001440001;144;RUEIL-MALMAISON RER                                                             ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;0
+1001001450001;145;CIMETIERE DE VILLEMOMBLE                                                        ;EGLISE DE PANTIN-METRO                                                          ;0;0;0;1;1
+1001001460001;146;LES BOSQUETS                                                                    ;LE_BOURGET RER                                                                  ;0;0;0;1;0
+1001001470001;147;AVENUE RONSARD                                                                  ;EGLISE DE PANTIN-METRO                                                          ;0;1;1;1;1
+1001001480001;148;MUSEE DE L'AIR ET DE L'ESPACE                                                   ;PABLO PICASSO-METRO-TRAMWAY                                                     ;1;1;1;1;1
+1001001500001;150;PIERREFITTE STAINS-RER                                                          ;PORTE DE LA VILLETTE-METRO                                                      ;0;1;1;1;1
+1001001510001;151;JOUHAUX-BLUM                                                                    ;PORTE DE PANTIN                                                                 ;0;0;0;1;0
+1001001520001;152;ZAC DES TULIPES                                                                 ;PORTE DE LA VILLETTE-METRO                                                      ;0;1;1;1;1
+1001001530001;153;MOULIN NEUF                                                                     ;PORTE DE LA CHAPELLE-METRO                                                      ;1;1;1;1;1
+1001001540001;154;GARE D'ENGHIEN LES BAINS                                                        ;PORTE DE PARIS-METRO                                                            ;0;1;1;1;1
+1001001560001;156;GARE D'EPINAY-VILLETANEUSE                                                      ;GARE DE SAINT DENIS-RER-TRAMWAY                                                 ;0;0;0;1;0
+1001001570001;157;BOULEVARD DE SEINE                                                              ;PONT DE NEUILLY-METRO                                                           ;1;1;1;1;1
+1001001580001;158;RUEIL MALMAISON-RER                                                             ;PONT DE NEUILLY-METRO                                                           ;1;1;1;1;1
+1001001590001;159;CITE DU VIEUX PONT                                                              ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;1;0;1;0
+1001001600001;160;PREFECTURE-RER                                                                  ;PONT DE SEVRES-METRO                                                            ;1;1;1;1;0
+1001001610001;161;GARE D'ARGENTEUIL                                                               ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;1;1;1;1
+1001001620001;162;VAL FLEURY-RER                                                                  ;LOUIS ARAGON-METRO                                                              ;0;1;1;1;0
+1001001630001;163;GRAND CERF                                                                      ;PORTE DE CHAMPERRET                                                             ;0;0;0;1;1
+1001001640001;164;COLLEGE CLAUDE MONET                                                            ;PORTE DE CHAMPERRET                                                             ;0;1;1;1;1
+1001001650001;165;ROBERT LAVERGNE                                                                 ;PORTE DE CHAMPERRET                                                             ;0;0;0;1;0
+1001001660001;166;AUDRA                                                                           ;PORTE DE CLIGNANCOURT-METRO                                                     ;0;0;0;1;1
+1001001670001;167;PONT DE LEVALLOIS-METRO                                                         ;ZAC DES BRUYERES                                                                ;1;1;1;1;0
+1001001680001;168;GARGES-LES-GONESSE RER                                                          ;PORTE DE PARIS-METRO                                                            ;0;1;0;1;1
+1001001690001;169;PONT DE SEVRES-METRO                                                            ;HOPITAL EUROPEEN GEORGES POMPIDOU                                               ;0;1;0;1;1
+1001001700001;170;GARE DE SAINT DENIS-RER-TRAMWAY                                                 ;PORTE DES LILAS-METRO                                                           ;1;1;1;1;1
+1001001710001;171;CHATEAU DE VERSAILLES                                                           ;PONT DE SEVRES-METRO                                                            ;1;1;1;1;1
+1001001720001;172;L'ECHAT-PARKING                                                                 ;BOURG LA REINE-RER                                                              ;0;1;1;1;1
+1001001730001;173;8 MAI 1945-METRO-TRAMWAY                                                        ;PORTE DE CLICHY-METRO                                                           ;0;1;1;1;1
+1001001740001;174;SAINT-OUEN RER                                                                  ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;1
+1001001750001;175;GABRIEL PERI-METRO                                                              ;PORTE DE SAINT CLOUD-METRO                                                      ;0;0;0;1;0
+1001001760001;176;PETIT GENNEVILLIERS                                                             ;PONT DE NEUILLY-METRO                                                           ;1;1;1;1;0
+1001001770001;177;Z.I NORD                                                                        ;GABRIEL PERI-METRO                                                              ;1;1;1;1;1
+1001001780001;178;PLACE PAUL HERBE                                                                ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;1;1;1;1
+1001001790001;179;ROBINSON-RER                                                                    ;PONT DE SEVRES-METRO                                                            ;0;1;1;1;1
+1001001800001;180;LOUIS ARAGON-METRO                                                              ;CHARENTON-ECOLES-METRO                                                          ;0;1;1;1;1
+1001001810001;181;LA GAITE                                                                        ;ECOLE VETERINAIRE DE MAISONS-ALFORT                                             ;1;1;1;1;1
+1001001820001;182;VILLENEUVE TRIAGE-RER                                                           ;MAIRIE D'IVRY-METRO                                                             ;1;1;1;1;0
+1001001830001;183;AEROGARE D'ORLY SUD                                                             ;PORTE DE CHOISY                                                                 ;0;1;1;1;1
+1001001840001;184;PASTEUR                                                                         ;PORTE D'ITALIE-METRO                                                            ;1;1;1;1;0
+1001001850001;185;RUNGIS-MARCHE INTERNATIONAL.                                                    ;PORTE D'ITALIE-METRO                                                            ;0;1;0;1;0
+1001001860001;186;ROND-POINT ROOSEVELT                                                            ;PORTE D'ITALIE-METRO                                                            ;0;0;0;1;0
+1001001870001;187;CHARCOT-ZOLA                                                                    ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001001880001;188;ROSENBERG                                                                       ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001001890001;189;GEORGES POMPIDOU                                                                ;PORTE DE SAINT CLOUD-METRO                                                      ;0;1;1;1;1
+1001001900001;190;VELIZY 2                                                                        ;MAIRIE D'ISSY-METRO                                                             ;0;1;1;1;0
+1001001910001;191;PLACE DU GARDE                                                                  ;PORTE DE VANVES                                                                 ;1;1;1;1;0
+1001001920001;192;RUNGIS-MARCHE INTERNATIONAL                                                     ;ROBINSON-RER                                                                    ;0;1;0;1;0
+1001001940001;194;CHATENAY-MALABRY-LYCEE POLYVALENT                                            ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001001950001;195;ROBINSON-RER                                                                    ;CHATILLON MONTROUGE METRO                                                       ;0;1;1;1;1
+1001001960001;196;ANTONY RER                                                                      ;MASSY RER                                                                       ;1;1;1;1;0
+1001001970001;197;OPERA-THEATRE                                                                   ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001001990001;199;LA ROCADE-LYCEE                                                                 ;MASSY PALAISEAU-RER                                                             ;0;0;0;1;0
+1001002010001;201;DIDEROT-LA PLAGE                                                                ;JOINVILLE LE PONT-RER                                                           ;1;1;1;1;0
+1001002030001;203;ILE DE FRANCE                                                                   ;NEUILLY-PLAISANCE RER                                                           ;1;1;1;1;0
+1001002060001;206;GARE D'EMERAINVILLE-PONTAULT COMBAULT                                           ;NOISY-LE-GRAND MONT D'EST-RER                                                   ;0;1;0;1;1
+1001002070001;207;HOPITAL DE LA QUEUE EN BRIE                                                     ;MONT D'EST-RER                                                                  ;0;1;0;1;0
+1001002080001;208A;PLACE DE LA RESISTANCE                                                          ;CHAMPIGNY-SAINT MAUR-RER                                                        ;0;1;1;1;1
+1001002080001;208B;PLACE DE VERDUN                                                                 ;CHAMPIGNY-SAINT MAUR-RER                                                        ;0;1;1;1;1
+1001002080001;208S;CHAMPIGNY-SAINT MAUR-RER.                                                       ;NAVETTE;0;1;1;1;1
+1001002100001;210;VILLIERS SUR MARNE-LE PLESSIS TREVISE-RER                                       ;CHATEAU DE VINCENNES-METRO                                                      ;1;1;1;1;0
+1001002110001;211;CENTRE COMMERCIAL CHELLES 2                                                     ;TORCY-RER                                                                       ;0;1;0;1;0
+1001002120001;212;POINTE DE CHAMPS                                                                ;GARE D'EMERAINVILLE-PONTAULT-COMBAULT                                           ;0;0;0;1;0
+1001002130001;213;LE VILLAGE                                                                      ;GARE DE CHELLES-GOURNAY-RER                                                     ;0;1;1;1;0
+1001002140001;214;ROGER SALENGRO                                                                  ;NEUILLY-PLAISANCE RER                                                           ;1;1;1;1;0
+1001002150001;215;VINCENNES RER-REPUBLIQUE                                                        ;PORTE DE MONTREUIL - METRO                                                      ;1;1;1;1;0
+1001002160001;216;RUNGIS-MARCHE INTERNATIONAL                                                     ;DENFERT ROCHEREAU-METRO-RER                                                     ;0;1;1;1;0
+1001002170001;217;TORCY RER                                                                       ;MAIRIE D'ALFORTVILLE                                                            ;0;1;0;1;1
+1001002200001;220;POINTE DE GOURNAY                                                               ;BRY SUR MARNE-RER                                                               ;0;1;1;1;0
+1001002210001;221;MAIRIE DE LIVRY-GARGAN                                                          ;GALLIENI-METRO                                                                  ;0;1;0;1;0
+1001002340001;234;EUROPE                                                                          ;FORT D'AUBERVILLIERS-METRO                                                      ;1;1;1;1;0
+1001002350001;235;PARC DEPARTEMENTAL-COLLEGE SISLEY                                               ;GABRIEL PERI-METRO                                                              ;0;0;0;1;0
+1001002370001;237;SAINT-GRATIEN RER                                                               ;MAIRIE DE SAINT OUEN-METRO                                                      ;0;0;0;1;0
+1001002380001;238;SAINT-GRATIEN RER                                                               ;PONT DE LEVALLOIS-METRO                                                         ;0;0;0;1;0
+1001002390001;239;GARE D'ARGENTEUIL                                                               ;PORTE DE LA CHAPELLE-METRO                                                      ;1;1;1;1;0
+1001002400001;240;RUEIL-MALMAISON RER                                                             ;GENNEVILLIERS RER                                                               ;0;0;0;1;0
+1001002410001;241;RUEIL MALMAISON-RER                                                             ;PORTE D'AUTEUIL-METRO                                                           ;0;1;0;1;1
+1001002440001;244;CENTRE VILLE                                                                    ;PORTE MAILLOT-ANDRE MAUROIS                                                     ;1;1;1;1;1
+1001002490001;249;CENTRE VILLE                                                                    ;PORTE DES LILAS-METRO                                                           ;1;1;1;1;1
+1001002500001;250;LA FONTAINE CYPIERE-ZI                                                           ;FORT D'AUBERVILLIERS-METRO                                                      ;0;0;0;1;0
+1001002510001;251;GARGES LES GONESSE-RER                                                          ;ZONE INDUSTRIELLE BENOIT FRACHON                                                ;0;0;0;1;0
+1001002520001;252;MAIRIE DE STAINS                                                                ;PORTE DE LA CHAPELLE-METRO                                                      ;0;1;0;1;0
+1001002530001;253;PORTE DE PARIS-METRO                                                            ;STADE DE FRANCE-SAINT DENIS RER                                                 ;1;1;1;1;1
+1001002540001;254;LES PREVOYANTS                                                                  ;MAIRIE DE MONTMAGNY                                                             ;0;1;0;1;1
+1001002550001;255;ROND POINT DE LA LUTECE                                                         ;PORTE DE CLIGNANCOURT-METRO                                                     ;0;1;0;1;1
+1001002560001;256;LYCEE D'ENGHIEN                                                                 ;LA_COURNEUVE RER                                                                ;0;1;0;1;1
+1001002580001;258;MAIRIE DE VILLENEUVE LA GARENNE                                                 ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;0;0;1;1
+1001002610001;261;MAISONS LAFFITTE-RER                                                            ;EGLISE DE FRANCONVILLE                                                          ;0;1;1;1;1
+1001002620001;262;GARE D'ARGENTEUIL                                                               ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;0;0;1;1
+1001002670001;267;GONESSE ARNOUVILLE-RER                                                          ;GARE DE NANTERRE-UNIVERSITE-RER                                                 ;1;1;1;1;1
+1001002680001;268;GONESSE ARNOUVILLE-RER                                                          ;PORTE DE PARIS-METRO                                                            ;0;1;0;1;1
+1001002690001;269;GONESSE ARNOUVILLE-RER                                                          ;GARGES LES GONESSE-RER                                                          ;0;1;0;1;1
+1001002700001;270;DE GAULLE                                                                       ;GARGES-LES-GONESSE RER                                                          ;0;1;0;1;0
+1001002720001;272;GARE DE SARTROUVILLE-RER                                                        ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;1;0;1;1
+1001002740001;274;PONT DE LEVALLOIS-METRO                                                         ;PLACE JEAN POULMARCH                                                            ;0;1;1;0;0
+1001002750001;275;GABRIEL PERI-METRO                                                              ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;0
+1001002760001;276;EUROPE                                                                          ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;0
+1001002780001;278;ZONE INDUSTRIELLE (PASTEUR)                                                     ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;0
+1001002790001;279;MEUDON LA FORET;PONT DE SEVRES-METRO                                                            ;0;1;0;1;0
+1001002810001;281;AEROGARE D'ORLY SUD                                                             ;JOINVILLE LE PONT-RER                                                           ;0;1;0;1;0
+1001002830001;283;JUVISY-SUR-ORGE RER                                                             ;DENFERT ROCHEREAU                                                               ;1;1;1;1;1
+1001002850001;285;ANTONY-RER                                                                      ;LOUIS ARAGON-METRO                                                              ;0;1;1;1;1
+1001002860001;286;CITE DE LA PLAINE                                                               ;LOUIS ARAGON-METRO                                                              ;1;1;1;1;1
+1001002890001;289;ZONE INDUSTRIELLE (PASTEUR)                                                     ;PORTE DE SAINT CLOUD-METRO                                                      ;0;1;1;1;1
+1001002900001;290;MEUDON LA FORET;MAIRIE D'ISSY-METRO                                                             ;0;1;0;1;0
+1001002910001;291;PONT DE SEVRES-METRO                                                            ;EUROPE SUD                                                                      ;0;1;1;1;0
+1001002920001;292;IGNY RER                                                                        ;ZAC GATINES-CAPITAINE JEAN D'HERS                                               ;0;1;0;1;0
+1001002940001;294;VELIZY 2                                                                        ;CHATILLON METRO                                                                 ;0;1;1;1;0
+1001002950001;295;VELIZY 2                                                                        ;PORTE D'ORLEANS-METRO                                                           ;0;1;0;1;1
+1001002970001;297;PLACE CHARLES STEBER                                                            ;PORTE D'ORLEANS-METRO                                                           ;0;1;1;1;0
+1001002990001;299;MAIRIE DE MORANGIS                                                              ;PORTE D'ORLEANS-METRO                                                           ;0;1;1;1;0
+1001003010001;301;PABLO PICASSO-METRO                                                             ;VAL DE FONTENAY RER;0;1;0;1;1
+1001003020001;302;6 ROUTES-TRAMWAY                                                                ;GARE DU NORD                                                              ;0;1;1;1;0
+1001003030001;303;PABLO PICASSO-METRO                                                             ;NOISY-LE-GRAND MONT D'EST-RER                                                          ;0;1;1;1;1
+1001003040001;304;PLACE DE LA BOULE                                                               ;LES COURTILLES-METRO                                                            ;0;1;1;1;1
+1001003060001;306;NOISY-LE-GRAND MONT D'EST-RER                                                   ;SAINT MAUR-CRETEIL RER                                                          ;0;1;0;1;0
+1001003080001;308;VILLIERS SUR MARNE-LE PLESSIS TREVISE-RER                                       ;PREFECTURE DU VAL DE MARNE                                                      ;0;1;0;1;1
+1001003120001;312;NOISY-CHAMPS-RER-DESCARTES                                                      ;GARE DE CHELLES-GOURNAY-RER                                                     ;0;0;0;1;0
+1001003170001;317;GARE DE NOGENT-LE PERREUX                                                       ;HOTEL DE VILLE DE CRETEIL                                                       ;0;1;0;1;1
+1001003180001;318;RAYMOND QUENEAU-METRO                                                           ;CHATEAU DE VINCENNES-METRO                                                      ;1;1;1;1;1
+1001003190001;319;RUNGIS-MARCHE INTERNATIONAL                                                     ;MASSY RER                                                                       ;0;1;0;1;0
+1001003200001;320;MONT D'EST-RER.                                                                 ;NAVETTE;1;1;1;1;0
+1001003210001;321;Z.I.PARIEST                                                                     ;LOGNES RER                                                                      ;0;1;0;1;0
+1001003220001;322;PABLO PICASSO-METRO-TRAMWAY                                                     ;MAIRIE DE MONTREUIL-METRO                                                       ;1;1;1;1;0
+1001003230001;323;IVRY-SUR-SEINE RER                                                              ;ISSY-VAL DE SEINE-RER-TRAMWAY                                                   ;1;1;1;1;1
+1001003250001;325;CHATEAU DE VINCENNES-METRO                                                      ;BIBLIOTHEQUE FRANCOIS MITTERRAND                                                ;0;1;1;1;1
+1001003300001;330;RAYMOND QUENEAU-METRO-ANATOLE FRANCE                                            ;FORT D'AUBERVILLIERS-METRO                                                      ;1;1;1;1;0
+1001003330001;333;L'ARGENTIERE                                                                    ;GARGES-RER                                                                      ;0;1;0;1;0
+1001003340001;334;ROBERT SCHUMAN.                                                                 ;NAVETTE;0;0;0;1;0
+1001003400001;340;BERGES DE SEINE                                                              ;GABRIEL PERI-METRO                                                              ;1;1;1;1;0
+1001003410001;341;MAIRIE DE CLICHY-METRO                                                          ;PORTE DE CLIGNANCOURT-METRO                                                     ;0;1;0;0;0
+1001003460001;346;PLACE DE LA LIBERATION                                                          ;ROSNY 2 - NORD                                                                  ;0;0;0;1;0
+1001003470001;347;HOPITAL DE MONTFERMEIL                                                          ;PONT DE BONDY-AVENUE DE ROSNY-TRAMWAY                                           ;0;1;1;1;0
+1001003480001;348;PLACE DE LA LIBERATION                                                          ;JOUHAUX-BLUM                                                                    ;0;0;0;1;0
+1001003490001;349;ROUTE DE L'ARPENTEUR-ADP                                                        ;PARC DES EXPOSITIONS-RER                                                        ;0;1;0;1;0
+1001003500001;350;ROISSYPOLE                                                                      ;GARE DE L'EST                                                                   ;0;1;1;1;0
+1001003510001;351;ROISSYPOLE                                                                      ;NATION                                                                          ;0;1;1;1;0
+1001003520001;352;AEROPORT CHARLES DE GAULLE (T3-ROISSYPOLE)                                      ;OPERA                                                                           ;0;1;0;1;1
+1001003540001;354;PIERREFITTE STAINS-RER                                                          ;EPINAY SUR SEINE-RER                                                            ;0;1;0;1;1
+1001003550001;355;LYCEE DE LA TOURELLE.                                                           ;NAVETTE;0;1;0;1;1
+1001003560001;356;MARCHE DES MORTEFONTAINES                                                       ;UNIVERSITE-METRO                                                                ;0;1;0;1;1
+1001003570001;357;CIMETIERE-PARC DU MONT VALERIEN                                                 ;PETIT NANTERRE-PLACE DES MUGUETS                                                ;0;0;0;1;0
+1001003580001;358;EUROPE                                                                          ;RUEIL VILLE                                                                     ;0;0;0;1;0
+1001003600001;360;HOPITAL DE GARCHES                                                              ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;1;1;1;1;1
+1001003610001;361;GARE D'ARGENTEUIL                                                               ;UNIVERSITE-METRO                                                                ;0;1;0;1;1
+1001003630001;363;CARRIERES-SUR-SEINE LYCEE                                                       ;PONT DE BEZONS-RIVE DROITE                                                      ;0;0;0;1;0
+1001003660001;366;EGLISE DE COLOMBES..                                                            ;NAVETTE;0;1;0;1;0
+1001003670001;367;GARE DE COLOMBES                                                                ;RUEIL-MALMAISON RER                                                             ;1;1;1;1;0
+1001003680001;368;GARGES LES GONESSE-RER.                                                         ;NAVETTE;0;1;1;1;1
+1001003700001;370;GONESSE ARNOUVILLE-RER                                                          ;MARCHE DE SAINT-BRICE                                                           ;0;1;0;1;0
+1001003720001;372;LOUIS FLICHE                                                                    ;MAISONS ALFORT-ALFORTVILLE-RER                                                  ;0;1;1;1;0
+1001003780001;378;MAIRIE DE VILLENEUVE LA GARENNE                                                 ;LA DEFENSE-METRO-RER-TRAMWAY                                                    ;0;0;0;1;1
+1001003790001;379;LA CROIX DE BERNY-RER                                                           ;VELIZY 2                                                                        ;0;0;0;1;1
+1001003850001;385;EPINAY SUR ORGE-RER                                                             ;JUVISY-SUR-ORGE RER                                                             ;0;1;0;1;0
+1001003880001;388;BOURG-LA-REINE RER                                                              ;CHATILLON METRO                                                                 ;0;1;0;1;0
+1001003890001;389;CENTRE ADMINISTRATIF                                                            ;PONT DE SEVRES-METRO                                                            ;0;1;0;1;0
+1001003900001;390;BOURG LA REINE-RER                                                              ;HOTEL DE VILLE                                                                  ;0;1;0;1;1
+1001003910001;391;PONT ROYAL-RER                                                                  ;CHATILLON METRO                                                                 ;0;1;0;1;0
+1001003920001;392;PARAY VIEILLE POSTE CENTRE COMMERCIAL                                           ;ZAC LES GATINES                                                                 ;0;0;0;1;0
+1001003930001;393;SUCY-BONNEUIL-RER.                                                              ;LOUIS ARAGON-METRO                                                              ;0;1;0;1;0
+1001003940001;394;BOURG-LA-REINE RER                                                              ;ISSY VAL DE SEINE-RER-TRAMWAY                                                   ;1;1;1;1;0
+1001003950001;395;ANTONY RER                                                                      ;REAUMUR-DESCARTES                                                               ;0;0;0;1;0
+1001003960001;396;BELLE EPINE SUD                                                                 ;LA CROIX DE BERNY-RER                                                           ;0;1;0;1;0
+1001003990001;399;JUVISY-SUR-ORGE RER                                                             ;MASSY RER                                                                       ;0;1;0;1;1
+1001004210001;421;GARE D'EMERAINVILLE-PONTAULT COMBAULT                                           ;GARE DE VAIRES-TORCY                                                            ;0;0;0;0;0
+1001004670001;467;PONT DE SEVRES-METRO                                                            ;RUEIL MALMAISON-RER                                                             ;0;0;0;0;0
+1001004860001;486;CENTRE COMMERCIAL-RIGOLET                                                       ;JUVISY-RER                                                                      ;0;0;0;0;0
+1001004870001;487;LES OISEAUX                                                                     ;JUVISY-RER                                                                      ;0;0;0;0;0
+1001004870001;487;PLACE HENRI DEUDON                                                              ;JUVISY-RER                                                                      ;0;0;0;0;0
+1001004920001;492;SAVIGNY RER                                                                     ;PLACE DE LA LIBERATION                                                          ;0;0;0;0;0
+1001004990001;499;JUVISY-SUR-ORGE RER                                                             ;ZAC LES GATINES                                                                 ;0;0;0;0;0
+1001005010001;501;GAMBETTA.                                                                       ;NAVETTE;1;1;1;1;0
+1001005130001;513;PLACE DE L'ABBE HENOCQUE.                                                       ;NAVETTE;1;1;1;1;0
+1001005150001;515;PLACE DU VEL'D'HIV.                                                             ;NAVETTE;0;1;1;1;0
+1001005190001;519;PORTE D'AUBERVILLIERS-OBERLE.                                                   ;NAVETTE;1;1;1;1;0
+1001005200001;520;LES HAUTS DE BRY                                                                ;BRY-SUR-MARNE RER                                                               ;0;1;1;1;0
+1001005240001;524;GENERAL DE GAULLE.                                                              ;LES PARAPLUIES                                                                  ;0;1;0;1;0
+1001005260001;526;METRO.                                                                          ;NAVETTE;0;1;1;1;0
+1001005350001;535;HOTEL DE VILLE.                                                                 ;NAVETTE;0;1;0;1;0
+1001005370001;537;DEBAIN                                                                          ;PAYRET                                                                          ;0;1;0;1;0
+1001005380001;538;IFTIM..                                                                         ;LE BUS DU PORT (DESSERTE DU PORT DE GENNEVILLIERS)                              ;0;0;0;1;0
+1001005410001;541;CIMETIERE NOUVEAU DE PUTEAUX                                                    ;ILE DE PUTEAUX                                                                  ;0;1;1;1;0
+1001005420001;542;LECLERC-THOMAS                                                                  ;MAIRIE DE L'HAY LES ROSES                                                       ;1;1;1;1;0
+1001005440001;544;DE GAULLE.                                                                      ;NAVETTE;0;1;1;1;0
+1001005450001;545;PLACE SAINT-MARTIN                                                              ;JEANNE D'ARC                                                                    ;0;1;0;1;0
+1001005460001;546;LA MARE A LA VEUVE.                                                             ;NAVETTE;0;0;0;1;0
+1001005510001;551;STADE CHARLES SAGE.                                                             ;NAVETTE;0;1;0;1;0
+1001005560001;556;AUBEPINES                                                                       ;ZONE ARTISANALE DU MOUTIER                                                      ;0;1;0;1;0
+1001005590001;559;CIMETIERE-PARC DU MONT VALERIEN                                                 ;NANTERRE-VILLE-RER                                                              ;1;1;1;1;0
+1001005620001;562;HOTEL DE VILLE-CENTRE.                                                          ;NAVETTE;1;1;1;1;0
+1001005630001;563;DE GAULLE.                                                                      ;NAVETTE;0;1;0;1;0
+1001005640001;564;COLLEGE LA MALMAISON.                                                           ;NAVETTE;0;1;0;1;0
+1001005660001;566;RUE DE L'INDUSTRIE.                                                             ;NAVETTE;0;1;0;1;0
+1001005690001;569;GARE DE BELLEVUE..                                                              ;NAVETTE;0;1;0;1;0
+1001005710001;571;HOTEL DE VILLE DE BOULOGNE-BILLANCOURT.                                         ;NAVETTE;1;1;1;1;0
+1001005740001;574;RUE MARTRE-MAIRIE DE CLICHY                                                     ;NAVETTE;1;1;1;1;0
+1001005760001;576;HOTEL DE VILLE.                                                                 ;NAVETTE;0;1;0;1;0
+1001005770001;577;GABRIEL PERI-METRO.                                                             ;LES GRESILLONS-RER.                                                             ;0;1;0;1;0
+1001005780001;578;23, RUE CHARLES MICHELS                                                         ;MAIRIE DE VILLENEUVE LA GARENNE                                                 ;0;1;0;1;0
+1001005790001;579;MAISON DE QUARTIER-ANDRE CHARRE                                                 ;GARE DE CLAMART                                                                 ;0;1;1;1;0
+1001005800001;580;LAPLACE-RER                                                                     ;ARAGON-METRO                                                                    ;0;1;1;1;0
+1001005810001;581;CENTRE VILLE..                                                                  ;NAVETTE;1;1;1;1;0
+1001005820001;582;CHOISY LE ROI-RER...                                                            ;NAVETTE;0;1;1;1;0
+1001005830001;583;PASTEUR                                                                         ;RUE PAUL HOCHART                                                                ;1;1;1;1;0
+1001005840001;584;GABRIEL PERI-SOLEIL LEVANT.                                                     ;NAVETTE;1;1;1;1;0
+1001005850001;585;LOUIS ARAGON-METRO..                                                            ;CIRCULAIRE                                                                      ;1;1;1;1;0
+1001005860001;586;CENTRE VILLE-NELSON MANDELA.                                                    ;NAVETTE;0;1;1;1;0
+1001005890001;589;MAIRIE D'ISSY-METRO..                                                           ;NAVETTE;0;1;1;1;0
+1001005920001;592;CHATILLON METRO                                                                 ;MAIRIE DE CHATILLON                                                             ;0;1;1;0;0
+1001005930001;593;LECLERC-THOMAS.                                                                 ;NAVETTE;1;1;1;1;0
+1001005940001;594;DIVISION LECLERC.                                                               ;NAVETTE;0;1;0;1;0
+1001005950001;595;LA BOURSIDIERE                                                                  ;ROBINSON-RER                                                                    ;0;1;0;1;0
+1001005970001;597;CIMETIERE INTERCOMMUNAL                                                         ;HOTEL DE VILLE DE MALAKOFF                                                      ;1;1;1;1;0
+1001007510001;N24;CHATELET.                                                                       ;GRAND CERF                                                                      ;0;0;0;1;0
+1001007520001;N52;GARE SAINT LAZARE.                                                              ;GARE D'ARGENTEUIL                                                               ;0;0;0;1;0
+1001007530001;N51;GARE SAINT LAZARE.                                                              ;GARE D'ENGHIEN LES BAINS                                                        ;0;0;0;1;0
+1001007540001;N44;GARE DE L'EST                                                                   ;PIERREFITTE-SUR-SEINE RER                                                       ;0;0;0;1;0
+1001007550001;N42;GARE DE L'EST                                                                   ;GARONOR                                                                         ;0;0;0;1;0
+1001007560001;N23;CHATELET                                                                        ;GARE DE CHELLES-GOURNAY-RER                                                     ;0;0;0;1;0
+1001007570001;N34;GARE DE LYON-DIDEROT.                                                           ;TORCY RER                                                                       ;0;0;0;1;0
+1001007580001;N33;GARE DE LYON-DIDEROT.                                                           ;VILLIERS SUR MARNE-LE PLESSIS TREVISE-RER                                       ;0;0;0;1;0
+1001007590001;N31;JUVISY-SUR-ORGE RER                                                             ;GARE DE LYON                                                                    ;0;0;0;1;0
+1001007600001;N21;CHATELET.                                                                       ;PLACE DE LA LIBERATION                                                          ;0;0;0;1;0
+1001007610001;N61;HOTEL DE VILLE DE VELIZY-VILLACOUBLAY                                           ;GARE MONTPARNASSE                                                               ;0;0;0;1;0
+1001007620001;N62;ROBINSON-RER                                                                    ;GARE MONTPARNASSE                                                               ;0;0;0;1;0
+1001007630001;N32;BOISSY-SAINT-LEGER RER                                                          ;GARE DE LYON-DIDEROT                                                            ;0;0;0;1;0
+1001007650001;N45;HOPITAL DE MONTFERMEIL                                                          ;GARE DE L'EST                                                                   ;0;0;0;1;0
+1001007660001;N43;GARE DE SARCELLES-ST BRICE                                                      ;GARE DE L'EST                                                                   ;0;0;0;1;0
+1001007680001;N22;RUNGIS-MARCHE INTERNATIONAL                                                     ;CHATELET                                                                        ;0;0;0;1;0
+1001007690001;N63;MASSY RER                                                                       ;GARE MONTPARNASSE                                                               ;0;0;0;1;0
+1001007700001;N53;GARE SAINT LAZARE                                                               ;GARE DE NANTERRE-UNIVERSITE-RER                                                 ;0;0;0;1;0
+1001007710001;N71;RUNGIS-MARCHE INTERNATIONAL                                                     ;SAINT-MAUR-DES-FOSSES RER                                                       ;1;1;1;1;0
+1001007720001;N41;LIVRY-RER                                                                       ;GARE DE L'EST                                                                   ;0;0;0;1;0
+1001007730001;N35;NOGENT-LE PERREUX-RER                                                           ;GARE DE LYON-DIDEROT                                                            ;0;0;0;1;0
+1001007750001;N01;GARE DE L'EST.                                                                  ;NAVETTE;1;1;1;1;0
+1001007760001;N02;GARE MONTPARNASSE.                                                              ;NAVETTE;1;1;1;1;0
+1001007800001;N11;CHATEAU DE VINCENNES-METRO                                                      ;PONT DE NEUILLY-METRO                                                           ;0;0;0;1;0
+1001007810001;N16;MAIRIE DE MONTREUIL-ROUGET DE LISLE                                             ;PONT DE LEVALLOIS-METRO                                                         ;0;0;0;1;0
+1001007820001;N15;LOUIS ARAGON-METRO                                                              ;GABRIEL PERI-METRO                                                              ;0;0;0;1;0
+1001007830001;N14;BOURG-LA-REINE RER                                                              ;MAIRIE DE SAINT OUEN-METRO                                                      ;0;0;0;1;0
+1001007840001;N13;MAIRIE D'ISSY-METRO                                                             ;PABLO PICASSO-METRO-TRAMWAY                                                     ;0;0;0;1;0
+1001007850001;N12;PONT DE SEVRES-METRO                                                            ;CARNOT                                                                          ;0;0;0;1;0
+1001007900001;N122;SAINT-REMY-LES-CHEVREUSE RER                                                    ;CHATELET                                                                        ;0;0;0;1;0
+1001007910001;N153;SAINT-GERMAIN-EN-LAYE RER                                                       ;GARE SAINT LAZARE                                                               ;0;0;0;1;0
+1001000140001;TVM;LA CROIX DE BERNY-RER                                                           ;SAINT-MAUR-DES-FOSSES RER                                                       ;1;1;1;1;1
+1001120110001;T1;SAINT-DENIS RER;NOISY-LE-SEC RER;1;1;0;1;0
+1001120120001;T2;LA DÉFENSE;ISSY - VAL DE SEINE;1;1;0;1;0
+1001120130001;T3;PONT DU GARIGLIANO;PORTE D'IVRY;1;1;0;1;0
+1001100010001;1;CHÂTEAU DE VINCENNES;LA DÉFENSE;0;1;0;1;1
+1001100020001;2;PORTE DAUPHINE;NATION;0;0;0;0;0
+1001100030001;3;PONT DE LEVALLOIS - BÉCON;GALLIENI;0;0;0;1;1
+1001101030001;3Bis;GAMBETTA;PORTE DES LILAS;0;0;0;0;0
+1001100040001;4;PORTE DE CLIGNANCOURT;PORTE D'ORLÉANS;0;0;0;0;0
+1001100050001;5;BOBIGNY - PABLO PICASSO;PLACE D'ITALIE;0;0;0;0;0
+1001100060001;6;CHARLES DE GAULLE - ÉTOILE;NATION;0;0;0;0;0
+1001100070001;7;LA COURNEUVE - 8 MAI 1945;VILLEJUIF - LOUIS ARAGON • MAIRIE D'IVRY;0;0;0;0;0
+1001101070001;7 Bis;LOUIS BLANC;PRÉ SAINT-GERVAIS;0;0;0;0;0
+1001100080001;8;BALARD;CRÉTEIL - PRÉFECTURE;0;0;0;0;0
+1001100090001;9;PONT DE SÈVRES;MAIRIE DE MONTREUIL;0;0;0;0;0
+1001100100001;10;BOULOGNE - PONT DE SAINT-CLOUD;GARE D'AUSTERLITZ;0;0;0;0;0
+1001100110001;11;CHÂTELET;MAIRIE DES LILAS;0;0;0;0;0
+1001100120001;12;PORTE DE LA CHAPELLE;MAIRIE D'ISSY;0;0;0;0;0
+1001100130001;13;SAINT-DENIS - UNIVERSITÉ • ASNIÈRES - GENNEVILLIERS - LES COURTILLES;CHÂTILLON - MONTROUGE;0;0;0;0;0
+1001100140001;14;SAINT-LAZARE;BIBLIOTHÈQUE FRANÇOIS MITTERRAND;1;1;0;1;0
+1001101000001;Funiculaire;GARE BASSE;GARE HAUTE;1;1;0;0;0
+1001102000001;OrlyVal;ANTONY;ORLY - SUD;1;1;0;1;0
+1001110010001;RER A;SAINT-GERMAIN-EN-LAYE • POISSY • CERGY;BOISSY-SAINT-LÉGER • MARNE-LA-VALLÉE;1;1;0;0;1
+1001110020001;RER B;AÉROPORT CHARLES DE GAULLE • MITRY - CLAYE;ROBINSON • ANTONY • SAINT-RÉMY-LÈS-CHEVREUSE;1;1;0;0;1
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
+;;;;;;;;
