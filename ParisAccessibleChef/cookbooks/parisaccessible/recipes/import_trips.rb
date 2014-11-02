@@ -8,7 +8,7 @@
 #
 
 
-Dir["#{node['parisaccessible']['home']}/inject/gtfs/trips.txt.*"].each do |file | 
+# Dir["#{node['parisaccessible']['home']}/inject/gtfs/trips.txt.*"].each do |file | 
 	# bash "import base" do
 	#   user "root"
 	#   cwd "#{node['parisaccessible']['home']}"
@@ -17,12 +17,16 @@ Dir["#{node['parisaccessible']['home']}/inject/gtfs/trips.txt.*"].each do |file 
 	 
 	#   EOH
 	# end
-	bash "import trips #{file}" do
+	directory "#{node['parisaccessible']['log']}/gtfs" do
+  action :create
+  mode '0777'
+end
+	bash "import trips" do
 	  user "root"
-	  cwd "#{node['parisaccessible']['home']}"
+	  cwd "#{node['parisaccessible']['home']}/inject"
 	  code <<-EOH
-	  	echo #{file}
-	   java -jar -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war -r gtfs/#{file} > #{node['parisaccessible']['log']}/inject.#{file}.log &
+	  find gtfs -name trips.txt.* -exec bash -c "sudo java -jar -Dparisaccessible_home=/srv/ParisAccessible/ ../ParisAccessibleApplication/target/*.war -t {} > /var/log/parisaccessible/{}.log &"  \\;
+
 	  EOH
 	end
-end
+# end

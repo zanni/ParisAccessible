@@ -33,7 +33,8 @@ public class RatpGtfsTripCsvImport extends GenericCsvImporter<RatpGtfsTrip> {
 
 			if (!list[0].equals("")) {
 				List<RatpGtfsTrip> res = new ArrayList<RatpGtfsTrip>();
-				RatpGtfsTrip prepare = repository.prepare(list[2]);
+				RatpGtfsTrip prepare = new RatpGtfsTrip();
+				prepare.setId(list[2]);
 				prepare.setRoute_id(list[0]);
 				prepare.setService_id(list[1]);
 

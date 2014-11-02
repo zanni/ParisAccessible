@@ -31,7 +31,8 @@ bash "unzip and split ratp_gtfs.zip" do
   unzip ratp_gtfs.zip
   rm -rf ratp_gtfs.zip
   split --lines=1000000 stop_times.txt stop_times.txt.
-  split --lines=100000 trips.txt trips.txt.
+  split --lines=50000 trips.txt trips.txt.
+  chmod -R 777 ./
   rm stop_times.txt
   touch .done
   EOH
