@@ -24,7 +24,7 @@ import org.elasticsearch.index.query.GeoShapeQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
 
-import com.bzanni.parisaccessible.elasticsearch.business.Trottoir;
+import com.bzanni.parisaccessible.elasticsearch.accessibility.Trottoir;
 
 @Service
 public class TrottoirRepository {

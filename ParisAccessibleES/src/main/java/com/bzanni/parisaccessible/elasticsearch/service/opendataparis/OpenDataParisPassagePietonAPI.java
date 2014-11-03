@@ -15,8 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Service;
 
+import com.bzanni.parisaccessible.elasticsearch.accessibility.PassagePieton;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
-import com.bzanni.parisaccessible.elasticsearch.business.PassagePieton;
 import com.bzanni.parisaccessible.elasticsearch.repository.PassagePietonRepository;
 import com.bzanni.parisaccessible.elasticsearch.repository.TrottoirRepository;
 import com.google.gson.Gson;
@@ -32,8 +32,6 @@ public class OpenDataParisPassagePietonAPI {
 	private final static int BULK_PACK = 500;
 
 	private static final String distance = "1m";
-	
-	
 
 	@Resource
 	private TrottoirRepository trottoirRepository;
@@ -64,14 +62,12 @@ public class OpenDataParisPassagePietonAPI {
 	}
 
 	private void importRecords(JsonElement records, int total, int current) {
-		int fail = 0;
 		JsonArray asJsonArray = records.getAsJsonArray();
 		List<PassagePieton> list = new ArrayList<PassagePieton>();
 		for (int i = 0; i < asJsonArray.size(); i++) {
 			JsonElement jsonElement = asJsonArray.get(i);
 			JsonObject record = jsonElement.getAsJsonObject();
 
-			String id = record.get("recordid").getAsString();
 			JsonObject fields = record.get("fields").getAsJsonObject();
 
 			String asString = fields.get("geometry").getAsString();
@@ -98,9 +94,7 @@ public class OpenDataParisPassagePietonAPI {
 								&& passage.getEnd() != null) {
 							Double start = 0D;
 							Double end = 0D;
-							
-							
-							
+
 							try {
 								start = trottoirRepository.count(passage
 										.getStart().getLat(), passage
@@ -115,7 +109,8 @@ public class OpenDataParisPassagePietonAPI {
 
 							if (start > 0 || end > 0) {
 								list.add(passage);
-								System.out.println("matches: start:"+ start+" end:"+end);
+								System.out.println("matches: start:" + start
+										+ " end:" + end);
 							}
 						}
 					}
@@ -126,8 +121,9 @@ public class OpenDataParisPassagePietonAPI {
 
 		try {
 			passagePietonRepository.save(list);
-			System.out.println("studied: " + current + "/"+total+" : sutdied "+ asJsonArray.size()
-				 + " imported "+list.size());
+			System.out.println("studied: " + current + "/" + total
+					+ " : sutdied " + asJsonArray.size() + " imported "
+					+ list.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +133,7 @@ public class OpenDataParisPassagePietonAPI {
 	}
 
 	private int grabPart(UrlBuilder builder, int current) {
-		
+
 		HttpGet request = new HttpGet(builder.build());
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response;
@@ -181,7 +177,7 @@ public class OpenDataParisPassagePietonAPI {
 		UrlBuilder builder = new UrlBuilder();
 		builder.withRows(OpenDataParisPassagePietonAPI.BULK_PACK);
 
-		int total = grabPart(builder,0);
+		int total = grabPart(builder, 0);
 		int current = OpenDataParisPassagePietonAPI.BULK_PACK;
 
 		while (current < total) {

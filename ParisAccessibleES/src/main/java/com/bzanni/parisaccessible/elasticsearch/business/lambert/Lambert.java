@@ -19,7 +19,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.tan;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Lambert {
 
@@ -198,41 +197,33 @@ public class Lambert {
 	}
 
 	public static LambertPoint convertToLambert(double latitude,
-			double longitude, LambertZone zone) throws NotImplementedException {
+			double longitude, LambertZone zone){
 
-		if (zone == Lambert93) {
-			throw new NotImplementedException();
-		} else {
-			LambertPoint pt1 = geographicToCartesian(longitude
-					- LON_MERID_GREENWICH, latitude, 0, A_WGS84, E_WGS84);
+		LambertPoint pt1 = geographicToCartesian(longitude
+				- LON_MERID_GREENWICH, latitude, 0, A_WGS84, E_WGS84);
 
-			pt1.translate(168, 60, -320);
+		pt1.translate(168, 60, -320);
 
-			LambertPoint pt2 = cartesianToGeographic(pt1, LON_MERID_PARIS,
-					A_WGS84, E_WGS84, DEFAULT_EPS);
+		LambertPoint pt2 = cartesianToGeographic(pt1, LON_MERID_PARIS,
+				A_WGS84, E_WGS84, DEFAULT_EPS);
 
-			return geographicToLambert(pt2.getY(), pt2.getX(), zone,
-					LON_MERID_PARIS, E_WGS84);
-		}
+		return geographicToLambert(pt2.getY(), pt2.getX(), zone,
+				LON_MERID_PARIS, E_WGS84);
 	}
 
 	public static LambertPoint convertToLambertByAlg003(double latitude,
-			double longitude, LambertZone zone) throws NotImplementedException {
+			double longitude, LambertZone zone) {
 
-		if (zone == Lambert93) {
-			throw new NotImplementedException();
-		} else {
-			LambertPoint pt1 = geographicToCartesian(longitude
-					- LON_MERID_GREENWICH, latitude, 0, A_WGS84, E_WGS84);
+		LambertPoint pt1 = geographicToCartesian(longitude
+				- LON_MERID_GREENWICH, latitude, 0, A_WGS84, E_WGS84);
 
-			pt1.translate(168, 60, -320);
+		pt1.translate(168, 60, -320);
 
-			LambertPoint pt2 = cartesianToGeographic(pt1, LON_MERID_PARIS,
-					A_WGS84, E_WGS84, DEFAULT_EPS);
+		LambertPoint pt2 = cartesianToGeographic(pt1, LON_MERID_PARIS,
+				A_WGS84, E_WGS84, DEFAULT_EPS);
 
-			return geographicToLambertAlg003(pt2.getY(), pt2.getX(), zone,
-					LON_MERID_PARIS, E_WGS84);
-		}
+		return geographicToLambertAlg003(pt2.getY(), pt2.getX(), zone,
+				LON_MERID_PARIS, E_WGS84);
 	}
 
 	public static LambertPoint convertToWGS84(double x, double y,

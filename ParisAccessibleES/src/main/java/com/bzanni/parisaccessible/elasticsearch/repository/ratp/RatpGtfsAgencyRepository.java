@@ -1,24 +1,9 @@
 package com.bzanni.parisaccessible.elasticsearch.repository.ratp;
 
-import io.searchbox.client.JestResult;
-import io.searchbox.core.Bulk;
-import io.searchbox.core.Bulk.Builder;
-import io.searchbox.core.Get;
-import io.searchbox.core.Index;
-import io.searchbox.core.Search;
-import io.searchbox.indices.CreateIndex;
-import io.searchbox.indices.mapping.PutMapping;
-
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.index.mapper.DocumentMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.TermQueryBuilder;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -54,7 +39,6 @@ public class RatpGtfsAgencyRepository extends
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	protected String getIndex() {

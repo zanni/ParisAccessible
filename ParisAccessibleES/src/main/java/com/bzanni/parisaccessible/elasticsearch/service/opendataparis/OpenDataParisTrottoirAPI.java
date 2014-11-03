@@ -15,10 +15,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.stereotype.Service;
 
+import com.bzanni.parisaccessible.elasticsearch.accessibility.Trottoir;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeMultiLineString;
-import com.bzanni.parisaccessible.elasticsearch.business.Trottoir;
 import com.bzanni.parisaccessible.elasticsearch.repository.TrottoirRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

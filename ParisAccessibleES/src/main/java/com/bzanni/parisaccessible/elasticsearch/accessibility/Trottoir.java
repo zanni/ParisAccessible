@@ -1,13 +1,16 @@
-package com.bzanni.parisaccessible.elasticsearch.business;
+package com.bzanni.parisaccessible.elasticsearch.accessibility;
 
 import io.searchbox.annotations.JestId;
 
-public class Trottoir {
+import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
+import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
+
+public class Trottoir implements JestBusiness {
 
 	@JestId
 	private String id;
 	private GeoShape shape;
-	
+
 	private String info;
 	private String dist;
 	private String niveau;
@@ -15,7 +18,7 @@ public class Trottoir {
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}

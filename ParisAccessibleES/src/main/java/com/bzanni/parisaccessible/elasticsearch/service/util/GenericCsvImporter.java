@@ -26,7 +26,6 @@ public abstract class GenericCsvImporter<T> {
 		int rejected = 0;
 		int imported = 0;
 		boolean first = true;
-		int i = 0;
 		try {
 			List<T> res = new ArrayList<T>();
 			CSVReader reader = new CSVReader(new FileReader(csvFile), delimiter());
@@ -49,7 +48,6 @@ public abstract class GenericCsvImporter<T> {
 				if (obj != null) {
 					res.addAll(obj);
 
-					i++;
 					if (res.size() >= bulk) {
 
 						try {

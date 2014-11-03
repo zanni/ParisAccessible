@@ -19,7 +19,7 @@ import org.elasticsearch.index.mapper.geo.GeoPointFieldMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper;
 import org.springframework.stereotype.Service;
 
-import com.bzanni.parisaccessible.elasticsearch.business.PassagePieton;
+import com.bzanni.parisaccessible.elasticsearch.accessibility.PassagePieton;
 
 @Service
 public class PassagePietonRepository {

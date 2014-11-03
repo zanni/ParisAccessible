@@ -17,15 +17,12 @@
 	 
 	#   EOH
 	# end
-	directory "#{node['parisaccessible']['log']}/gtfs" do
-  action :create
-  mode '0777'
-end
+
 	bash "import trips" do
 	  user "root"
 	  cwd "#{node['parisaccessible']['home']}/inject"
 	  code <<-EOH
-	  find gtfs -name trips.txt.* -exec bash -c "sudo java -jar -Dparisaccessible_home=/srv/ParisAccessible/ ../ParisAccessibleApplication/target/*.war -t {} > /var/log/parisaccessible/{}.log &"  \\;
+	 java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --trip trips\\.txt\\.+ > #{node['parisaccessible']['log']}/inject.trips.log  
 
 	  EOH
 	end
