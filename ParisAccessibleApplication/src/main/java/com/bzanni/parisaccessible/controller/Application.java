@@ -61,10 +61,9 @@ public class Application {
 				Thread route = new Thread(new Runnable() {
 					public void run() {
 						ratpGtfs.importRoute(500);
-						 access.importRoute(500);
+						access.importRoute(500);
 					}
-				}
-				);
+				});
 
 				Thread stop = new Thread() {
 					@Override
@@ -94,9 +93,9 @@ public class Application {
 				};
 
 				route.run();
-				 stop.run();
-				 gtfsOther.run();
-				 accessibilityOther.run();
+				stop.run();
+				gtfsOther.run();
+				accessibilityOther.run();
 
 			} else if (line.hasOption("gtfs_trip")) {
 

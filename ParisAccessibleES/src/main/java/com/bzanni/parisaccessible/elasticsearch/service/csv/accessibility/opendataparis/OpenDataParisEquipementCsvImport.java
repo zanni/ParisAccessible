@@ -34,7 +34,7 @@ public class OpenDataParisEquipementCsvImport extends
 
 	@Override
 	protected List<Equipement> convert(String[] line) throws Exception {
-		if (line.length < 13) {
+		if (line.length < 14) {
 			Equipement eq = new Equipement();
 			eq.setId(line[1] + line[2]);
 			eq.setNom(line[1]);
@@ -54,6 +54,7 @@ public class OpenDataParisEquipementCsvImport extends
 			Double lon = Double.valueOf(line[12].split(",")[1]);
 			eq.setLocation(new GeoPoint(lat, lon));
 			List<Equipement> res = new ArrayList<Equipement>();
+			res.add(eq);
 			return res;
 		}
 		return null;

@@ -52,7 +52,7 @@ public class OpenDataParisTrottoirCsvImport extends
 		eq.setShape(shape);
 		eq.setNiveau(line[2]);
 		eq.setId(line[3]);
-		eq.setLibelle(line[5]);
+		eq.setLibelle(line[4]);
 		List<Trottoir> res = new ArrayList<Trottoir>();
 		res.add(eq);
 		return res;

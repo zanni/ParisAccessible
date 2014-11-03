@@ -12,7 +12,7 @@
 	  user "root"
 	  cwd "#{node['parisaccessible']['home']}"
 	  code <<-EOH
-	 java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --trip trips\\.txt\\.+ > #{node['parisaccessible']['log']}/inject.trips.log  
+	 java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --trip trips\\.txt\\.+
 
 	  EOH
 	end

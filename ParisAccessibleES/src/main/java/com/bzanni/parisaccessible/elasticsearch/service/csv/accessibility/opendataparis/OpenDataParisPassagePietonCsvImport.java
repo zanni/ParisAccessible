@@ -60,18 +60,13 @@ public class OpenDataParisPassagePietonCsvImport extends
 						passage.setEnd(new GeoPoint(v1, v2));
 					}
 					if (passage.getStart() != null && passage.getEnd() != null) {
-						Double start = 0D;
-						Double end = 0D;
 
-						PassagePieton p = new PassagePieton();
-						p.setInfo(line[2]);
-						p.setLibelle(line[3]);
-						p.setLibelle_ft_style(line[4]);
-						p.setImport_notes(line[5]);
+						passage.setInfo(line[2]);
+						passage.setLibelle(line[3]);
+						passage.setLibelle_ft_style(line[4]);
+						passage.setImport_notes(line[5]);
 
-						if (start > 0 || end > 0) {
-							res.add(passage);
-						}
+						res.add(passage);
 					}
 
 				}
