@@ -2,11 +2,13 @@ package com.bzanni.parisaccessible.elasticsearch.business.ratp;
 
 import io.searchbox.annotations.JestId;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
 
-public class RatpGtfsService implements JestBusiness{
+public class RatpGtfsService implements JestBusiness {
 
 	@JestId
 	private String id;
@@ -14,6 +16,8 @@ public class RatpGtfsService implements JestBusiness{
 	private Date startDate;
 
 	private Date endDate;
+
+	private List<Date> calendar;
 
 	public String getId() {
 		return id;
@@ -39,5 +43,19 @@ public class RatpGtfsService implements JestBusiness{
 		this.endDate = endDate;
 	}
 
+	public List<Date> getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(List<Date> calendar) {
+		this.calendar = calendar;
+	}
+
+	public void addCalendar(Date date) {
+		if (this.calendar == null) {
+			this.calendar = new ArrayList<Date>();
+		}
+		this.calendar.add(date);
+	}
 
 }

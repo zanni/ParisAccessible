@@ -2,13 +2,13 @@ package com.bzanni.parisaccessible.elasticsearch.business.ratp;
 
 import io.searchbox.annotations.JestId;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
 
-public class RatpGtfsStop implements JestBusiness{
+public class RatpGtfsStop implements JestBusiness {
 
 	@JestId
 	private String id;
@@ -31,7 +31,7 @@ public class RatpGtfsStop implements JestBusiness{
 
 	private GeoPoint location;
 
-	private Map<String, Integer> connections = new HashMap<String, Integer>();
+	private List<RatpGtfsTransfert> transferts;
 
 	public String getId() {
 		return id;
@@ -116,11 +116,21 @@ public class RatpGtfsStop implements JestBusiness{
 		this.location = location;
 	}
 
-	public Map<String, Integer> getConnections() {
-		return connections;
+	public List<RatpGtfsTransfert> getTransferts() {
+		return transferts;
 	}
 
-	public void setConnections(Map<String, Integer> connections) {
-		this.connections = connections;
+	public void setTransferts(List<RatpGtfsTransfert> transferts) {
+		this.transferts = transferts;
+	}
+
+	public void addTransfert(String toStopId, String type, Double time) {
+		if (this.transferts == null) {
+			this.transferts = new ArrayList<RatpGtfsTransfert>();
+		}
+		if(!this.transferts.contains(toStopId)){
+			this.transferts.add(new RatpGtfsTransfert(toStopId, type, time));
+		}
+		
 	}
 }

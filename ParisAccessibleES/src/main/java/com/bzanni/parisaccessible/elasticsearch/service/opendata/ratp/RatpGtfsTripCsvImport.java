@@ -13,7 +13,6 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 @Service
 public class RatpGtfsTripCsvImport extends GenericCsvImporter<RatpGtfsTrip> {
-
 	@Resource
 	private RatpGtfsTripRepository repository;
 

@@ -6,8 +6,8 @@ run_list    "role[base]",
 			"recipe[maven]",
 			"recipe[parisaccessible::install]",
 			"recipe[parisaccessible::ratp_gtfs]",
-			# "recipe[parisaccessible::import_base]",
-			"recipe[parisaccessible::import_trips]"
+			"recipe[parisaccessible::import_trips]",
+			"recipe[parisaccessible::import_base]"
 
             
 

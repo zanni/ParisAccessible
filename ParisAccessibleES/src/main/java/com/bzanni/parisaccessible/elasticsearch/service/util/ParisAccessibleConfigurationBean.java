@@ -11,21 +11,76 @@ public class ParisAccessibleConfigurationBean {
 
 	@Value("${inject_path}")
 	private String injectPath;
+	
+	@Value("${gtfs_trip_filename}")
+	private String gtfsTripFilename;
+	
+	@Value("${gtfs_service_filename}")
+	private String gtfsServiceFilename;
+	
+	@Value("${gtfs_service_calendar_filename}")
+	private String gtfsServiceCalendarFilename;
+	
+	@Value("${gtfs_stop_filename}")
+	private String gtfsStopFilename;
+	
+	@Value("${gtfs_stoptime_filename}")
+	private String gtfsStopTimeFilename;
+	
+	@Value("${gtfs_route_filename}")
+	private String gtfsRouteFilename;
+	
+	@Value("${gtfs_agency_filename}")
+	private String gtfsAgencyFilename;
+	
+	@Value("${gtfs_transfert_filename}")
+	private String gtfsTransfertFilename;
+
+	public String getGtfsTripFilename() {
+		return gtfsTripFilename;
+	}
+
+	public String getGtfsServiceFilename() {
+		return gtfsServiceFilename;
+	}
+
+	public String getGtfsStopFilename() {
+		return gtfsStopFilename;
+	}
+
+	public String getGtfsStopTimeFilename() {
+		return gtfsStopTimeFilename;
+	}
+
+	public String getGtfsRouteFilename() {
+		return gtfsRouteFilename;
+	}
+
+	public String getGtfsAgencyFilename() {
+		return gtfsAgencyFilename;
+	}
+
+	public String getGtfsTransfertFilename() {
+		return gtfsTransfertFilename;
+	}
 
 	public String getRatpGtfsIndexName() {
 		return ratpGtfsIndexName;
 	}
 
-	public void setRatpGtfsIndexName(String ratpGtfsIndexName) {
-		this.ratpGtfsIndexName = ratpGtfsIndexName;
-	}
-	
-
 	public String getInjectPath() {
 		return injectPath;
 	}
 
-	public void setInjectPath(String injectPath) {
-		this.injectPath = injectPath;
+	public String getGtfsServiceCalendarFilename() {
+		return gtfsServiceCalendarFilename;
+	}
+	
+	public String getGtfsPath(){
+		return injectPath+"/gtfs";
+	}
+	
+	public String getAccessibilityPath(){
+		return injectPath+"/accessibility";
 	}
 }

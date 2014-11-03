@@ -10,6 +10,24 @@ run_list    "role[base]",
             "recipe[elasticsearch::plugins]",
             "recipe[elasticsearch::aws]"
             
+default_attributes(
+	:elasticsearch => {
+           # :allocated_memory => '10m',
+         :nginx => { 
+            :users => [ {:username => "bzanni", :password => "bzanni"} ],
+            :allow_cluster_api => true,
+            :port => 80
+          },
+          :plugins => {
+            "karmi/elasticsearch-paramedic" => {},
+            "elasticsearch/elasticsearch-cloud-aws" => {
+              :version => "2.3.0"
+           },
+          },
+          :cluster => { :name => "elasticsearch" },
+          :version => "1.3.2"
+        }
+)
 
 override_attributes(
 	 :java => {
