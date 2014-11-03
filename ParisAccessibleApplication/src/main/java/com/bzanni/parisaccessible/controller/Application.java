@@ -17,8 +17,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-import com.bzanni.parisaccessible.elasticsearch.service.opendata.ratp.RatpGtfsImport;
-import com.bzanni.parisaccessible.elasticsearch.service.opendata.ratp.RatpGtfsTripCsvImportThread;
+import com.bzanni.parisaccessible.elasticsearch.service.csv.accessibility.AccessibilityImport;
+import com.bzanni.parisaccessible.elasticsearch.service.csv.gtfs.GtfsImport;
+import com.bzanni.parisaccessible.elasticsearch.service.csv.gtfs.GtfsTripCsvImportThread;
 import com.bzanni.parisaccessible.elasticsearch.service.util.ParisAccessibleConfigurationBean;
 
 @Configuration
@@ -36,14 +37,17 @@ public class Application {
 
 		// create the Options
 		Options options = new Options();
-		options.addOption("b", "base", false,
+		options.addOption("base", "gtfs_base", false,
 				"do not hide entries starting with .");
-		options.addOption("t", "trip", true,
+		options.addOption("gtfs_trip", "gtfs_trip", true,
 				"do not hide entries starting with .");
-		options.addOption("s", "stoptime", true,
+		options.addOption("index", "index", true,
 				"do not hide entries starting with .");
 
-		RatpGtfsImport ratpGtfs = run.getBean(RatpGtfsImport.class);
+		final GtfsImport ratpGtfs = run.getBean(GtfsImport.class);
+
+		final AccessibilityImport access = run
+				.getBean(AccessibilityImport.class);
 
 		ParisAccessibleConfigurationBean conf = run
 				.getBean(ParisAccessibleConfigurationBean.class);
@@ -54,25 +58,58 @@ public class Application {
 
 			if (line.hasOption("base")) {
 
-				ratpGtfs.importRoute(500);
-				ratpGtfs.importAgency(500);
-				ratpGtfs.importService(500);
-				ratpGtfs.importServiceCalendar(500);
-				ratpGtfs.importStop(2000);
-				ratpGtfs.importStopTransfert(2000);
+				Thread route = new Thread(new Runnable() {
+					public void run() {
+						ratpGtfs.importRoute(500);
+						 access.importRoute(500);
+					}
+				}
+				);
 
-			} else if (line.hasOption("trip")) {
+				Thread stop = new Thread() {
+					@Override
+					public void run() {
+						ratpGtfs.importStop(2000);
+						ratpGtfs.importStopTransfert(2000);
+						access.importStop(2000);
+					}
+				};
 
+				Thread gtfsOther = new Thread() {
+					@Override
+					public void run() {
+						ratpGtfs.importAgency(500);
+						ratpGtfs.importService(500);
+						ratpGtfs.importServiceCalendar(500);
+					}
+				};
 
-				Pattern compile = Pattern.compile(line.getOptionValue("trip"));
+				Thread accessibilityOther = new Thread() {
+					@Override
+					public void run() {
+						access.importEquipement(1000);
+						access.importTrottoir(1000);
+						access.importPassagePieton(1000);
+					}
+				};
+
+				route.run();
+				 stop.run();
+				 gtfsOther.run();
+				 accessibilityOther.run();
+
+			} else if (line.hasOption("gtfs_trip")) {
+
+				Pattern compile = Pattern.compile(line
+						.getOptionValue("gtfs_trip"));
 				File folder = new File(conf.getGtfsPath());
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							RatpGtfsTripCsvImportThread thread = run
-									.getBean(RatpGtfsTripCsvImportThread.class);
+							GtfsTripCsvImportThread thread = run
+									.getBean(GtfsTripCsvImportThread.class);
 							thread.setBulk(2000);
 							thread.setCsvFile(name);
 							thread.run();
@@ -90,5 +127,4 @@ public class Application {
 		run.close();
 		System.exit(0);
 	}
-
 }

@@ -23,8 +23,14 @@ node.default["parisaccessible"]["gtfs_service_calendar_filename"]  = "calendar_d
 node.default["parisaccessible"]["gtfs_route_filename"]  = "routes.txt"
 node.default["parisaccessible"]["gtfs_stop_filename"]  = "stops.txt"
 node.default["parisaccessible"]["gtfs_stoptime_filename"]  = "stop_times.txt"
-node.default["parisaccessible"]["gtfs_transfert_filename"]  = "transferts.txt"
+node.default["parisaccessible"]["gtfs_transfert_filename"] = "transfers.txt"
 node.default["parisaccessible"]["gtfs_agency_filename"]  = "agency.txt"
+
+node.default["parisaccessible"]["accessibility_opendataparis_trottoir_filename"]  = "trottoir.csv"
+node.default["parisaccessible"]["accessibility_opendataparis_equipement_filename"]  = "equipement.csv"
+node.default["parisaccessible"]["accessibility_opendataparis_passagepieton_filename"]  = "passagepieton.csv"
+node.default["parisaccessible"]["accessibility_opendataratp_route_filename"]  = "route_access.csv"
+node.default["parisaccessible"]["accessibility_opendataratp_stop_filename"]  = "stop_access.csv"
 
 
 

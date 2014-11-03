@@ -5,19 +5,17 @@ import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-@Configurable
 public class ParisAccessibleJestClient {
-	private JestClient client;
 
 	@Value("${elasticsearch_url}")
 	private String host;
+
+	private JestClient client;
 
 	@PostConstruct
 	public void init() {
@@ -29,11 +27,8 @@ public class ParisAccessibleJestClient {
 
 	}
 
-	@PreDestroy
-	public void destro() {
-		if (client != null) {
-			client.shutdownClient();
-		}
+	public void shutdownClient() {
+		client.shutdownClient();
 	}
 
 	public JestClient getClient() {

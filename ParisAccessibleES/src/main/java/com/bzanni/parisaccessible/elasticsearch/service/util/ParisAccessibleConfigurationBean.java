@@ -35,6 +35,21 @@ public class ParisAccessibleConfigurationBean {
 	
 	@Value("${gtfs_transfert_filename}")
 	private String gtfsTransfertFilename;
+	
+	@Value("${accessibility_opendataparis_trottoir_filename}")
+	private String trottoirFilename;
+	
+	@Value("${accessibility_opendataparis_equipement_filename}")
+	private String equipementFilename;
+	
+	@Value("${accessibility_opendataparis_passagepieton_filename}")
+	private String passagePietonFilename;
+	
+	@Value("${accessibility_opendataratp_route_filename}")
+	private String accessibilityRouteFilename;
+	
+	@Value("${accessibility_opendataratp_stop_filename}")
+	private String accessibilityStopFilename;
 
 	public String getGtfsTripFilename() {
 		return gtfsTripFilename;
@@ -82,5 +97,25 @@ public class ParisAccessibleConfigurationBean {
 	
 	public String getAccessibilityPath(){
 		return injectPath+"/accessibility";
+	}
+
+	public String getTrottoirFilename() {
+		return trottoirFilename;
+	}
+
+	public String getEquipementFilename() {
+		return equipementFilename;
+	}
+
+	public String getPassagePietonFilename() {
+		return passagePietonFilename;
+	}
+
+	public String getAccessibilityRouteFilename() {
+		return accessibilityRouteFilename;
+	}
+
+	public String getAccessibilityStopFilename() {
+		return accessibilityStopFilename;
 	}
 }
