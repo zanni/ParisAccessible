@@ -58,12 +58,12 @@ remote_file "#{node['parisaccessible']['home']}/inject/accessibility/equipement.
 end
 
 cookbook_file "route_accessibility.csv" do
-  path "#{node['parisaccessible']['home']}/inject/accessibility/route_accessibility.csv"
+  path "#{node['parisaccessible']['home']}/inject/accessibility/route_access.csv"
   action :create_if_missing
 end
 
 cookbook_file "stop_accessibility.csv" do
-  path "#{node['parisaccessible']['home']}/inject/accessibility/stop_accessibility.csv"
+  path "#{node['parisaccessible']['home']}/inject/accessibility/stop_access.csv"
   action :create_if_missing
 end
 

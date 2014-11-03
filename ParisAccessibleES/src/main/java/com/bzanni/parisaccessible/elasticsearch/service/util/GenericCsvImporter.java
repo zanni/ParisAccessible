@@ -43,7 +43,6 @@ public abstract class GenericCsvImporter<T> {
 					obj = this.convert(list);
 				} catch (Exception e) {
 					rejected ++;
-					GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 				}
 
 				if (obj != null) {
@@ -58,7 +57,6 @@ public abstract class GenericCsvImporter<T> {
 							res = new ArrayList<T>();
 						} catch (Exception e) {
 							pack_rejected++;
-							GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 						}
 
 					}
@@ -84,9 +82,9 @@ public abstract class GenericCsvImporter<T> {
 			reader.close();
 
 		} catch (FileNotFoundException e) {
-			GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
+			GenericCsvImporter.LOGGER.error("", e);
 		} catch (IOException e) {
-			GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
+			GenericCsvImporter.LOGGER.error("", e);
 		}
 	}
 
