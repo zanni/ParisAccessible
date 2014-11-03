@@ -24,6 +24,7 @@ public abstract class GenericCsvImporter<T> {
 		GenericCsvImporter.LOGGER.info("bulk: "+bulk);
 		Date start = new Date();
 		int rejected = 0;
+		int pack_rejected = 0;
 		int imported = 0;
 		boolean first = true;
 		try {
@@ -42,7 +43,7 @@ public abstract class GenericCsvImporter<T> {
 					obj = this.convert(list);
 				} catch (Exception e) {
 					rejected ++;
-					GenericCsvImporter.LOGGER.error("", e);
+					GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 				}
 
 				if (obj != null) {
@@ -56,7 +57,8 @@ public abstract class GenericCsvImporter<T> {
 							GenericCsvImporter.LOGGER.info("imported: "+imported);
 							res = new ArrayList<T>();
 						} catch (Exception e) {
-							GenericCsvImporter.LOGGER.error("", e);
+							pack_rejected++;
+							GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 						}
 
 					}
@@ -68,20 +70,23 @@ public abstract class GenericCsvImporter<T> {
 				imported += res.size();
 				
 			} catch (Exception e) {
-				GenericCsvImporter.LOGGER.error("", e);
+				pack_rejected++;
+				GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 			}
 			Date end = new Date();
 			GenericCsvImporter.LOGGER.info("end importing: "+csvFile);
 			GenericCsvImporter.LOGGER.info("bulk: "+bulk);
-			GenericCsvImporter.LOGGER.info("total imported: "+imported+ " with rejected: "+rejected);
+			GenericCsvImporter.LOGGER.info("total imported: "+imported);
+			GenericCsvImporter.LOGGER.info("rejected: "+rejected);
+			GenericCsvImporter.LOGGER.info("pack rejected: "+pack_rejected);
 			long time = Math.round((end.getTime() - start.getTime() )/ 1000);
 			GenericCsvImporter.LOGGER.info("time: "+time+"s");
 			reader.close();
 
 		} catch (FileNotFoundException e) {
-			GenericCsvImporter.LOGGER.error("", e);
+			GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 		} catch (IOException e) {
-			GenericCsvImporter.LOGGER.error("", e);
+			GenericCsvImporter.LOGGER.error(e.getCause().getMessage());
 		}
 	}
 

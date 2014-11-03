@@ -51,7 +51,7 @@ public class OpenDataParisTrottoirCsvImport extends
 		shape = gson.fromJson(line[1], GeoShapeLineString.class);
 		eq.setShape(shape);
 		eq.setNiveau(line[2]);
-		eq.setId(line[3]);
+		eq.setInfo(line[3]);
 		eq.setLibelle(line[4]);
 		List<Trottoir> res = new ArrayList<Trottoir>();
 		res.add(eq);
