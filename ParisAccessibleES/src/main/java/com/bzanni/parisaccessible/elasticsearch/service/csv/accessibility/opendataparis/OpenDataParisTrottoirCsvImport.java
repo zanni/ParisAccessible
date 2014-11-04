@@ -5,9 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
@@ -26,6 +27,13 @@ import com.google.gson.Gson;
 public class OpenDataParisTrottoirCsvImport extends
 		GenericCsvImporter<Trottoir> {
 
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(OpenDataParisTrottoirCsvImport.class);
+
+	public Logger getLogger() {
+		return OpenDataParisTrottoirCsvImport.LOGGER;
+	}
+	
 	@Resource
 	private TrottoirRepository trottoirRepository;
 

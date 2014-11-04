@@ -1,10 +1,15 @@
 package com.bzanni.parisaccessible.elasticsearch.service.csv.gtfs;
 
+import io.searchbox.client.JestResult;
+import io.searchbox.client.JestResultHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsRoute;
@@ -14,6 +19,12 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 @Service
 public class GtfsRouteCsvImport extends GenericCsvImporter<GtfsRoute> {
 
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(GtfsRouteCsvImport.class);
+
+	public Logger getLogger() {
+		return GtfsRouteCsvImport.LOGGER;
+	}
 	@Resource
 	private GtfsRouteRepository repository;
 

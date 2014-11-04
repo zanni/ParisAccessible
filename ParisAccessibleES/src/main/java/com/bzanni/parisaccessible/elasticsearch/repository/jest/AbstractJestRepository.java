@@ -2,6 +2,7 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest;
 
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestResult;
+import io.searchbox.client.JestResultHandler;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Bulk.Builder;
 import io.searchbox.core.Get;
@@ -9,8 +10,10 @@ import io.searchbox.core.Index;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.mapping.PutMapping;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -91,10 +94,21 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		} catch (SocketTimeoutException e) {
 			retry++;
 			if(retry < AbstractJestRepository.MAX_RETRY){
-//				this.save(object, retry);
 				client.getClient().execute(builder.build());
 			}
 		}
+	}
+	
+	public void saveAsync(List<T> object, JestResultHandler<JestResult> callback)
+			throws ExecutionException, InterruptedException, IOException{
+		Builder builder = new Bulk.Builder();
+		for (T t : object) {
+			builder.addAction(new Index.Builder(t).refresh(false)
+					.index(this.getIndex()).type(this.getType()).build());
+		}
+
+			client.getClient().executeAsync(builder.build(), callback);
+		
 	}
 
 	public T findById(String id) throws Exception {

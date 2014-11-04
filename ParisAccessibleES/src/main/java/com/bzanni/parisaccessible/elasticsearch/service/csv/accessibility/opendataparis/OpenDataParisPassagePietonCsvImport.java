@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
@@ -23,6 +25,13 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 @Service
 public class OpenDataParisPassagePietonCsvImport extends
 		GenericCsvImporter<PassagePieton> {
+
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(OpenDataParisPassagePietonCsvImport.class);
+
+	public Logger getLogger() {
+		return OpenDataParisPassagePietonCsvImport.LOGGER;
+	}
 	
 	private final static String PASSAGEPIETON_TAG = "PVPPAPI";
 

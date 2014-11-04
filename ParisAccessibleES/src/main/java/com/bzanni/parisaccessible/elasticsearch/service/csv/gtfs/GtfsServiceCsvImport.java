@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsService;
@@ -16,6 +18,12 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 public class GtfsServiceCsvImport extends
 		GenericCsvImporter<GtfsService> {
 
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(GtfsServiceCsvImport.class);
+
+	public Logger getLogger() {
+		return GtfsServiceCsvImport.LOGGER;
+	}
 	public final static SimpleDateFormat format = new SimpleDateFormat(
 			"yyyyMMdd");
 	@Resource

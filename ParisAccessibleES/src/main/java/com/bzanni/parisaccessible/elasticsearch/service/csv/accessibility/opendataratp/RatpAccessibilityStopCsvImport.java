@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStop;
@@ -16,6 +18,13 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 @Service
 public class RatpAccessibilityStopCsvImport extends
 		GenericCsvImporter<GtfsStop> {
+
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(RatpAccessibilityStopCsvImport.class);
+
+	public Logger getLogger() {
+		return RatpAccessibilityStopCsvImport.LOGGER;
+	}
 
 	@Resource
 	private GtfsStopRepository repository;

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
@@ -24,6 +26,13 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 public class OpenDataParisEquipementCsvImport extends
 		GenericCsvImporter<Equipement> {
 
+	private final static Logger LOGGER = LoggerFactory
+			.getLogger(OpenDataParisEquipementCsvImport.class);
+
+	public Logger getLogger() {
+		return OpenDataParisEquipementCsvImport.LOGGER;
+	}
+	
 	@Resource
 	private EquipementRepository equipementRepository;
 
@@ -36,7 +45,7 @@ public class OpenDataParisEquipementCsvImport extends
 	protected List<Equipement> convert(String[] line) throws Exception {
 		if (line.length < 14) {
 			Equipement eq = new Equipement();
-			eq.setId(line[1] + line[2]);
+//			eq.setId(line[1] + line[2]);
 			eq.setNom(line[1]);
 			eq.setNumero(line[2]);
 			eq.setVoie(line[3]);
