@@ -38,34 +38,4 @@ bash "unzip and split ratp_gtfs.zip" do
   EOH
 end
 
-directory "#{node['parisaccessible']['home']}/inject/accessibility" do
-  action :create
-end
-
-remote_file "#{node['parisaccessible']['home']}/inject/accessibility/trottoir.csv" do
-  source "#{node['parisaccessible']['accessibility_trottoir_url']}"
-  not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/trottoir.csv") }
-end
-
-remote_file "#{node['parisaccessible']['home']}/inject/accessibility/passagepieton.csv" do
-  source "#{node['parisaccessible']['accessibility_passagepieton_url']}"
-  not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/passagepieton.csv") }
-end
-
-remote_file "#{node['parisaccessible']['home']}/inject/accessibility/equipement.csv" do
-  source "#{node['parisaccessible']['accessibility_equipement_url']}"
-  not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/equipement.csv") }
-end
-
-cookbook_file "route_accessibility.csv" do
-  path "#{node['parisaccessible']['home']}/inject/accessibility/route_access.csv"
-  action :create_if_missing
-end
-
-cookbook_file "stop_accessibility.csv" do
-  path "#{node['parisaccessible']['home']}/inject/accessibility/stop_access.csv"
-  action :create_if_missing
-end
-
-
 
