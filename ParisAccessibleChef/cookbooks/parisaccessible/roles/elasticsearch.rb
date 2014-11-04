@@ -12,7 +12,6 @@ run_list    "role[base]",
             
 default_attributes(
 	:elasticsearch => {
-           # :allocated_memory => '10m',
          :nginx => { 
             :users => [ {:username => "bzanni", :password => "bzanni"} ],
             :allow_cluster_api => true,

@@ -33,5 +33,8 @@ node.default["parisaccessible"]["accessibility_opendataparis_passagepieton_filen
 node.default["parisaccessible"]["accessibility_opendataratp_route_filename"]  = "route_access.csv"
 node.default["parisaccessible"]["accessibility_opendataratp_stop_filename"]  = "stop_access.csv"
 
+allocated_memory = "#{(node.memory.total.to_i * 0.9 ).floor / 1024}m"
+default.elasticsearch[:allocated_memory] = allocated_memory
+
 
 

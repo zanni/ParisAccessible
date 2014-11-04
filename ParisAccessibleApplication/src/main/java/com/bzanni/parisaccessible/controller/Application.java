@@ -110,7 +110,7 @@ public class Application {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							access.importTrottoir(name, 2000);
+							access.importTrottoir(name, 100);
 						}
 					}
 				}
@@ -126,7 +126,7 @@ public class Application {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							access.importPassagePieton(name, 2000);
+							access.importPassagePieton(name, 100);
 
 						}
 					}
