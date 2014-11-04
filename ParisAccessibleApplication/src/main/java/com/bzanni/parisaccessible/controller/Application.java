@@ -38,10 +38,21 @@ public class Application {
 
 		// create the Options
 		Options options = new Options();
-		options.addOption("base", "gtfs_base", false,
+		options.addOption("gtfs_route", "gtfs_route", false,
 				"do not hide entries starting with .");
+
+		options.addOption("gtfs_stop", "gtfs_stop", false,
+				"do not hide entries starting with .");
+
+		options.addOption("gtfs_other", "gtfs_other", false,
+				"do not hide entries starting with .");
+
+		options.addOption("accessibility", "accessibility", false,
+				"do not hide entries starting with .");
+
 		options.addOption("gtfs_trip", "gtfs_trip", true,
 				"do not hide entries starting with .");
+
 		options.addOption("index", "index", true,
 				"do not hide entries starting with .");
 
@@ -55,54 +66,33 @@ public class Application {
 
 		ParisAccessibleJestClient client = run
 				.getBean(ParisAccessibleJestClient.class);
-		
-		
 
 		try {
 			client.indexing(false);
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 
-			if (line.hasOption("base")) {
+			if (line.hasOption("gtfs_route")) {
+				ratpGtfs.importRoute(500);
+				access.importRoute(500);
 
-				Thread route = new Thread(new Runnable() {
-					public void run() {
-						ratpGtfs.importRoute(500);
-						access.importRoute(500);
-					}
-				});
+			}
+			if (line.hasOption("gtfs_stop")) {
+				ratpGtfs.importStop(2000);
+				ratpGtfs.importStopTransfert(2000);
+				access.importStop(2000);
 
-				Thread stop = new Thread() {
-					@Override
-					public void run() {
-						ratpGtfs.importStop(2000);
-						ratpGtfs.importStopTransfert(2000);
-						access.importStop(2000);
-					}
-				};
+			}
+			if (line.hasOption("gtfs_other")) {
+				ratpGtfs.importAgency(500);
+				ratpGtfs.importService(500);
+				ratpGtfs.importServiceCalendar(500);
 
-				Thread gtfsOther = new Thread() {
-					@Override
-					public void run() {
-						ratpGtfs.importAgency(500);
-						ratpGtfs.importService(500);
-						ratpGtfs.importServiceCalendar(500);
-					}
-				};
-
-				Thread accessibilityOther = new Thread() {
-					@Override
-					public void run() {
-						access.importEquipement(1000);
-						access.importTrottoir(1000);
-						access.importPassagePieton(1000);
-					}
-				};
-
-				route.run();
-				stop.run();
-				gtfsOther.run();
-				accessibilityOther.run();
+			}
+			if (line.hasOption("accessibility")) {
+				access.importEquipement(2000);
+				access.importTrottoir(2000);
+				access.importPassagePieton(2000);
 
 			} else if (line.hasOption("gtfs_trip")) {
 
@@ -125,7 +115,7 @@ public class Application {
 				}
 
 			}
-			
+
 			client.indexing(true);
 
 		} catch (ParseException exp) {

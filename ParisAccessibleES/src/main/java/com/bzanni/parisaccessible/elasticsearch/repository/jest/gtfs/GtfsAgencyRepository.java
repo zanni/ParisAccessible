@@ -32,7 +32,7 @@ public class GtfsAgencyRepository extends AbstractJestRepository<GtfsAgency> {
 				.add(new StringFieldMapper.Builder("phone").store(false).index(
 						false));
 
-		return super.mappings(GtfsAgency.class, 1, 0, root);
+		return super.mappings(GtfsAgency.class, 5, 0, root);
 	}
 
 	@PostConstruct

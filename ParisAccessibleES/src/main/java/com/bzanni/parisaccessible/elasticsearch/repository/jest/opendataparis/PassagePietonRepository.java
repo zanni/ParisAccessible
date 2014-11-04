@@ -51,7 +51,7 @@ public class PassagePietonRepository extends
 						false).index(false))
 				.add(new StringFieldMapper.Builder("import_notes").store(false)
 						.index(false));
-		return super.mappings(PassagePieton.class, 3, 0, root);
+		return super.mappings(PassagePieton.class, 5, 0, root);
 	}
 
 	@PostConstruct

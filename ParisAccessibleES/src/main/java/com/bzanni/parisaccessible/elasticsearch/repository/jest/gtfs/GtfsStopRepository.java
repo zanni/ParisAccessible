@@ -49,7 +49,7 @@ public class GtfsStopRepository extends AbstractJestRepository<GtfsStop> {
 				.add(new BooleanFieldMapper.Builder("annonceVisuelleSituationPerturbe").store(
 						false).index(false));
 
-		return super.mappings(GtfsStop.class, 3, 0, root);
+		return super.mappings(GtfsStop.class, 5, 0, root);
 	}
 
 	@PostConstruct

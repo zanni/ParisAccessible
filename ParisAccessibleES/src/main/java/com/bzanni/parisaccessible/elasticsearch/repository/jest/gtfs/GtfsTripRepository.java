@@ -36,7 +36,7 @@ public class GtfsTripRepository extends AbstractJestRepository<GtfsTrip> {
 						.index(false)).add(
 				new StringFieldMapper.Builder("service_id").store(false)
 						.index(false));
-		return super.mappings(GtfsTrip.class, 3, 0, root);
+		return super.mappings(GtfsTrip.class, 5, 0, root);
 	}
 
 	@PostConstruct

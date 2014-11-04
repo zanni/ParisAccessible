@@ -19,7 +19,7 @@ public class GtfsStopTimeRepository extends
 	private String index;
 
 	public boolean mappings() throws Exception {
-		return super.mappings(GtfsStopTime.class, 3, 0,
+		return super.mappings(GtfsStopTime.class, 5, 0,
 				new RootObjectMapper.Builder(this.getType()));
 	}
 

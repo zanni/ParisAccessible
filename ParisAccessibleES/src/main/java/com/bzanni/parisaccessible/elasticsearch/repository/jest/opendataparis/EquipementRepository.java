@@ -54,7 +54,7 @@ public class EquipementRepository extends AbstractJestRepository<Equipement> {
 						false).index(false))
 				.add(new BooleanFieldMapper.Builder("handicapAuditif").store(
 						false).index(false));
-		return super.mappings(Equipement.class, 3, 0, root);
+		return super.mappings(Equipement.class, 5, 0, root);
 	}
 
 	@PostConstruct

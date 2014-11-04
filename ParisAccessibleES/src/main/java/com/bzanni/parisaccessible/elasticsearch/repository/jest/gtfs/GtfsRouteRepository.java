@@ -54,7 +54,7 @@ public class GtfsRouteRepository extends AbstractJestRepository<GtfsRoute> {
 				.add(new BooleanFieldMapper.Builder(
 						"annonceVisuelleProchainArret").store(false).index(
 						false));
-		return super.mappings(GtfsRoute.class, 3, 0, root);
+		return super.mappings(GtfsRoute.class, 5, 0, root);
 	}
 
 	@PostConstruct

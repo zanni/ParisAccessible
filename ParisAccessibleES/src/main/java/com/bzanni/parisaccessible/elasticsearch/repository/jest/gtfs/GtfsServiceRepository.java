@@ -39,7 +39,7 @@ public class GtfsServiceRepository extends AbstractJestRepository<GtfsService> {
 						false))
 				.add(new DateFieldMapper.Builder("calendar").store(false)
 						.index(false));
-		return super.mappings(GtfsService.class, 3, 0, root);
+		return super.mappings(GtfsService.class, 5, 0, root);
 	}
 
 	@PostConstruct

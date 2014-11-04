@@ -38,7 +38,7 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 
 		return super.mappings(
 				Trottoir.class,
-				3,
+				5,
 				0,
 				new RootObjectMapper.Builder(this.getType())
 //						.add(new GeoPointFieldMapper.Builder("location"))

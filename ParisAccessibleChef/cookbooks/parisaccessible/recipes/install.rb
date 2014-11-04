@@ -35,7 +35,8 @@ bash "Build Jest" do
   user "root"
   cwd "/srv/Jest"
   code <<-EOH
-  mvn clean package install
+  chmod -R 777 ./
+  mvn clean package install -DskipTests=true
   EOH
 end
 
