@@ -42,7 +42,7 @@ bash "import access_trottoir" do
   user "root"
   cwd "#{node['parisaccessible']['home']}"
   code <<-EOH
-  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --access_trottoir > trottoir\\.csv\\.+ #{node['parisaccessible']['log']}/inject.access_trottoir.log  
+  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --access_trottoir trottoir\\.csv\\.+ > #{node['parisaccessible']['log']}/inject.access_trottoir.log  
   EOH
 end
 

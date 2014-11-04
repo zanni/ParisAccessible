@@ -42,8 +42,8 @@ bash "split trottoir.csv and passagepieton.csv" do
   cwd "#{node['parisaccessible']['home']}/inject/accessibility/"
   not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/.done") }
   code <<-EOH
-  split --lines=100000 passagepieton.csv passagepieton.csv.
-  split --lines=100000 trottoir.csv trottoir.csv.
+  split --lines=20000 passagepieton.csv passagepieton.csv.
+  split --lines=20000 trottoir.csv trottoir.csv.
   chmod -R 777 ./
   touch .done
   EOH

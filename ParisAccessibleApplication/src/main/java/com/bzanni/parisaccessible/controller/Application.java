@@ -103,8 +103,8 @@ public class Application {
 				
 				
 				Pattern compile = Pattern.compile(line
-						.getOptionValue("access_passagepieton"));
-				File folder = new File(conf.getGtfsPath());
+						.getOptionValue("access_trottoir"));
+				File folder = new File(conf.getAccessibilityPath());
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
@@ -120,7 +120,7 @@ public class Application {
 				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_passagepieton"));
-				File folder = new File(conf.getGtfsPath());
+				File folder = new File(conf.getAccessibilityPath());
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
