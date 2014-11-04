@@ -92,10 +92,10 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		try {
 			client.getClient().execute(builder.build());
 		} catch (SocketTimeoutException e) {
-			retry++;
-			if(retry < AbstractJestRepository.MAX_RETRY){
-				client.getClient().execute(builder.build());
-			}
+//			retry++;
+//			if(retry < AbstractJestRepository.MAX_RETRY){
+//				client.getClient().execute(builder.build());
+//			}
 		}
 	}
 	

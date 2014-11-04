@@ -47,7 +47,13 @@ public class Application {
 		options.addOption("gtfs_other", "gtfs_other", false,
 				"do not hide entries starting with .");
 
-		options.addOption("accessibility", "accessibility", false,
+		options.addOption("access_equipement", "access_equipement", false,
+				"do not hide entries starting with .");
+		
+		options.addOption("access_trottoir", "access_trottoir", true,
+				"do not hide entries starting with .");
+		
+		options.addOption("access_passagepieton", "access_passagepieton", true,
 				"do not hide entries starting with .");
 
 		options.addOption("gtfs_trip", "gtfs_trip", true,
@@ -77,24 +83,57 @@ public class Application {
 				access.importRoute(500);
 
 			}
-			if (line.hasOption("gtfs_stop")) {
+			else if (line.hasOption("gtfs_stop")) {
 				ratpGtfs.importStop(2000);
 				ratpGtfs.importStopTransfert(2000);
 				access.importStop(2000);
 
 			}
-			if (line.hasOption("gtfs_other")) {
+			else if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
 				ratpGtfs.importService(500);
 				ratpGtfs.importServiceCalendar(500);
 
 			}
-			if (line.hasOption("accessibility")) {
+			else if (line.hasOption("access_equipement")) {
 				access.importEquipement(2000);
-				access.importTrottoir(2000);
-				access.importPassagePieton(2000);
 
-			} else if (line.hasOption("gtfs_trip")) {
+			} 
+			else if (line.hasOption("access_trottoir")) {
+				
+				
+				Pattern compile = Pattern.compile(line
+						.getOptionValue("access_passagepieton"));
+				File folder = new File(conf.getGtfsPath());
+				for (File fileEntry : folder.listFiles()) {
+					if (!fileEntry.isDirectory()) {
+						String name = fileEntry.getName();
+						Matcher matcher = compile.matcher(name);
+						if (matcher.find()) {
+							access.importTrottoir(name, 2000);
+						}
+					}
+				}
+			}
+			else if (line.hasOption("access_passagepieton")) {
+				
+				
+				Pattern compile = Pattern.compile(line
+						.getOptionValue("access_passagepieton"));
+				File folder = new File(conf.getGtfsPath());
+				for (File fileEntry : folder.listFiles()) {
+					if (!fileEntry.isDirectory()) {
+						String name = fileEntry.getName();
+						Matcher matcher = compile.matcher(name);
+						if (matcher.find()) {
+							access.importPassagePieton(name, 2000);
+
+						}
+					}
+				}
+
+			}
+			else if (line.hasOption("gtfs_trip")) {
 
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("gtfs_trip"));

@@ -30,11 +30,27 @@ bash "import gtfs_other" do
   EOH
 end
 
-bash "import accessibility" do
+bash "import access_equipement" do
   user "root"
   cwd "#{node['parisaccessible']['home']}"
   code <<-EOH
-  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --accessibility > #{node['parisaccessible']['log']}/inject.accessibility.log  
+  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --access_equipement > #{node['parisaccessible']['log']}/inject.access_equipement.log  
+  EOH
+end
+
+bash "import access_trottoir" do
+  user "root"
+  cwd "#{node['parisaccessible']['home']}"
+  code <<-EOH
+  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --access_trottoir > trottoir\\.csv\\.+ #{node['parisaccessible']['log']}/inject.access_trottoir.log  
+  EOH
+end
+
+bash "import access_passagepieton" do
+  user "root"
+  cwd "#{node['parisaccessible']['home']}"
+  code <<-EOH
+  java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --access_passagepieton passagepieton\\.csv\\.+ > #{node['parisaccessible']['log']}/inject.access_passagepieton.log  
   EOH
 end
 
