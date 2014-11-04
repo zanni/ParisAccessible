@@ -14,6 +14,12 @@ package "git"
    action :sync
  end
 
+ git "/srv/Jest" do
+   repository "#{node['parisaccessible']['jest_repository']}"
+   reference "master"
+   action :sync
+ end
+
 directory "#{node['parisaccessible']['log']}" do
   action :create
 end
@@ -25,6 +31,13 @@ template "#{node['parisaccessible']['home']}/parisaccessible.properties" do
   action :create
 end
 
+bash "Build Jest" do
+  user "root"
+  cwd "/srv/Jest"
+  code <<-EOH
+  mvn clean package install
+  EOH
+end
 
 bash "Build Application" do
   user "root"

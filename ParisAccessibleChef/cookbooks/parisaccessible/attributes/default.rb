@@ -2,6 +2,7 @@
 
 node.default["parisaccessible"]["home"] = "/srv/ParisAccessible" 
 node.default["parisaccessible"]["repository"] = "git://github.com/zanni/ParisAccessible.git"
+node.default["parisaccessible"]["jest_repository"] = "git://github.com/searchbox-io/Jest.git"
 node.default["parisaccessible"]["log"] = "/var/log/parisaccessible"
 node.default["parisaccessible"]["ratp_gtfs_url"] = "http://dataratp.download.opendatasoft.com/RATP_GTFS_FULL.zip"
 node.default["parisaccessible"]["accessibility_trottoir_url"] = "http://opendata.paris.fr/explore/dataset/trottoirs_des_rues_de_paris/download/?format=csv"

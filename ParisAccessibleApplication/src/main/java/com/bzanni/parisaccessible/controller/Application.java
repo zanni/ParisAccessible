@@ -17,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.ParisAccessibleJestClient;
 import com.bzanni.parisaccessible.elasticsearch.service.csv.accessibility.AccessibilityImport;
 import com.bzanni.parisaccessible.elasticsearch.service.csv.gtfs.GtfsImport;
 import com.bzanni.parisaccessible.elasticsearch.service.csv.gtfs.GtfsTripCsvImportThread;
@@ -52,7 +53,13 @@ public class Application {
 		ParisAccessibleConfigurationBean conf = run
 				.getBean(ParisAccessibleConfigurationBean.class);
 
+		ParisAccessibleJestClient client = run
+				.getBean(ParisAccessibleJestClient.class);
+		
+		
+
 		try {
+			client.indexing(false);
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 
@@ -118,9 +125,14 @@ public class Application {
 				}
 
 			}
+			
+			client.indexing(true);
 
 		} catch (ParseException exp) {
 			System.out.println("Unexpected exception:" + exp.getMessage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		run.close();
