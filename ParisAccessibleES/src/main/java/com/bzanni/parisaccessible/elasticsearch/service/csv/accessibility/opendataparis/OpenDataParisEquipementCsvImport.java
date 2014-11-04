@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Equipement;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.EquipementRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.EquipementRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 /**

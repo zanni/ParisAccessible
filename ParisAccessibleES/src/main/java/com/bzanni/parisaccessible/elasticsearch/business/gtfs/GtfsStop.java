@@ -21,7 +21,7 @@ public class GtfsStop implements JestBusiness {
 
 	private Boolean accessibleUFR;
 
-	private Boolean annonceSonorProchainArret;
+	private Boolean annonceSonoreProchainArret;
 
 	private Boolean annonceVisuelleProchainArret;
 
@@ -63,14 +63,6 @@ public class GtfsStop implements JestBusiness {
 
 	public void setAccessibleUFR(Boolean accessibleUFR) {
 		this.accessibleUFR = accessibleUFR;
-	}
-
-	public Boolean getAnnonceSonorProchainArret() {
-		return annonceSonorProchainArret;
-	}
-
-	public void setAnnonceSonorProchainArret(Boolean annonceSonorProchainArret) {
-		this.annonceSonorProchainArret = annonceSonorProchainArret;
 	}
 
 	public Boolean getAnnonceVisuelleProchainArret() {
@@ -132,5 +124,13 @@ public class GtfsStop implements JestBusiness {
 			this.transferts.add(new GtfsTransfert(toStopId, type, time));
 		}
 		
+	}
+
+	public Boolean getAnnonceSonoreProchainArret() {
+		return annonceSonoreProchainArret;
+	}
+
+	public void setAnnonceSonoreProchainArret(Boolean annonceSonoreProchainArret) {
+		this.annonceSonoreProchainArret = annonceSonoreProchainArret;
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.PassagePieton;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.PassagePietonRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.PassagePietonRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 /**
@@ -23,6 +23,8 @@ import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 @Service
 public class OpenDataParisPassagePietonCsvImport extends
 		GenericCsvImporter<PassagePieton> {
+	
+	private final static String PASSAGEPIETON_TAG = "PVPPAPI";
 
 	@Resource
 	private PassagePietonRepository passagePietonRepository;
@@ -37,6 +39,11 @@ public class OpenDataParisPassagePietonCsvImport extends
 		if (line.length < 6) {
 			return null;
 		}
+		
+		if(line[2] != OpenDataParisPassagePietonCsvImport.PASSAGEPIETON_TAG){
+			return null;
+		}
+		
 		List<PassagePieton> res = null;
 		String asString = line[0];
 		if (asString.indexOf("LineString") >= 0) {

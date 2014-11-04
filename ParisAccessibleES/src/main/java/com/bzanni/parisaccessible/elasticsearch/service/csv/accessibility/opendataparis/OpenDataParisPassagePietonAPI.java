@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.PassagePieton;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.PassagePietonRepository;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.TrottoirRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.PassagePietonRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

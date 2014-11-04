@@ -1,4 +1,4 @@
-package com.bzanni.parisaccessible.elasticsearch.repository.gtfs;
+package com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs;
 
 import javax.annotation.PostConstruct;
 
@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsAgency;
-import com.bzanni.parisaccessible.elasticsearch.repository.AbstractJestRepository;
+import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStopTime;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.AbstractJestRepository;
 
 @Service
 @Configurable
-public class GtfsAgencyRepository extends AbstractJestRepository<GtfsAgency> {
+public class GtfsStopTimeRepository extends
+		AbstractJestRepository<GtfsStopTime> {
 
 	@Value("${ratp_gtfs_index_name}")
 	private String index;
 
-	private boolean mappings() throws Exception {
-
-		return super.mappings(GtfsAgency.class, 1, 0,
+	public boolean mappings() throws Exception {
+		return super.mappings(GtfsStopTime.class, 3, 0,
 				new RootObjectMapper.Builder(this.getType()));
 	}
 
 	@PostConstruct
-	public void init() {
+	private void init() {
 		try {
 			mappings();
 
@@ -36,11 +36,12 @@ public class GtfsAgencyRepository extends AbstractJestRepository<GtfsAgency> {
 
 	@Override
 	protected String getIndex() {
-		return this.index;
+		return index;
 	}
 
 	@Override
 	protected String getType() {
-		return GtfsAgency.class.getSimpleName().toLowerCase();
+		return GtfsStopTime.class.getSimpleName().toLowerCase();
 	}
+
 }

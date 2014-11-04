@@ -1,13 +1,15 @@
-package com.bzanni.parisaccessible.elasticsearch.repository.gtfs;
+package com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs;
 
 import javax.annotation.PostConstruct;
 
+import org.elasticsearch.index.mapper.core.StringFieldMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper;
+import org.elasticsearch.index.mapper.object.RootObjectMapper.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsTrip;
-import com.bzanni.parisaccessible.elasticsearch.repository.AbstractJestRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.AbstractJestRepository;
 
 @Service
 public class GtfsTripRepository extends AbstractJestRepository<GtfsTrip> {
@@ -29,8 +31,12 @@ public class GtfsTripRepository extends AbstractJestRepository<GtfsTrip> {
 	}
 
 	private boolean mappings() throws Exception {
-		return super.mappings(GtfsTrip.class, 3, 0,
-				new RootObjectMapper.Builder(this.getType()));
+		Builder root = new RootObjectMapper.Builder(this.getType()).add(
+				new StringFieldMapper.Builder("route_id").store(false)
+						.index(false)).add(
+				new StringFieldMapper.Builder("service_id").store(false)
+						.index(false));
+		return super.mappings(GtfsTrip.class, 3, 0, root);
 	}
 
 	@PostConstruct

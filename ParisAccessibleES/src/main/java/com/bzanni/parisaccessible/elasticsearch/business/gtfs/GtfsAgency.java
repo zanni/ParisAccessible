@@ -1,10 +1,10 @@
 package com.bzanni.parisaccessible.elasticsearch.business.gtfs;
 
-import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
-
 import io.searchbox.annotations.JestId;
 
-public class GtfsAgency implements JestBusiness{
+import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
+
+public class GtfsAgency implements JestBusiness {
 
 	@JestId
 	private String id;

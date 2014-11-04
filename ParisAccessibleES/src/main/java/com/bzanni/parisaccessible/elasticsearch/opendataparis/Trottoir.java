@@ -17,12 +17,12 @@ public class Trottoir implements JestBusiness {
 
 	@JestId
 	private String id;
-	private GeoPoint location;
+//	private GeoPoint location;
 	private GeoShape shape;
 
 	private String info;
-	private String libelle;
-	private String niveau;
+//	private String libelle;
+//	private String niveau;
 
 	public String getId() {
 		return id;
@@ -48,28 +48,28 @@ public class Trottoir implements JestBusiness {
 		this.info = info;
 	}
 
-	public String getNiveau() {
-		return niveau;
-	}
-
-	public void setNiveau(String niveau) {
-		this.niveau = niveau;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	public GeoPoint getLocation() {
-		return location;
-	}
-
-	public void setLocation(GeoPoint location) {
-		this.location = location;
-	}
+//	public String getNiveau() {
+//		return niveau;
+//	}
+//
+//	public void setNiveau(String niveau) {
+//		this.niveau = niveau;
+//	}
+//
+//	public String getLibelle() {
+//		return libelle;
+//	}
+//
+//	public void setLibelle(String libelle) {
+//		this.libelle = libelle;
+//	}
+//
+//	public GeoPoint getLocation() {
+//		return location;
+//	}
+//
+//	public void setLocation(GeoPoint location) {
+//		this.location = location;
+//	}
 
 }

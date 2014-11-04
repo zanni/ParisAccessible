@@ -19,7 +19,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeMultiLineString;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.TrottoirRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -86,9 +86,9 @@ public class OpenDataParisTrottoirAPI {
 //				if (fields.get("dist") != null) {
 //					trottoir.setDist(fields.get("dist").getAsString());
 //				}
-				if (fields.get("niveau") != null) {
-					trottoir.setNiveau(fields.get("niveau").getAsString());
-				}
+//				if (fields.get("niveau") != null) {
+//					trottoir.setNiveau(fields.get("niveau").getAsString());
+//				}
 				Gson gson = new Gson();
 				GeoShape shape = null;
 				try {

@@ -1,4 +1,4 @@
-package com.bzanni.parisaccessible.elasticsearch.repository.opendataparis;
+package com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis;
 
 import io.searchbox.core.Count;
 import io.searchbox.core.CountResult;
@@ -6,6 +6,7 @@ import io.searchbox.core.CountResult;
 import javax.annotation.PostConstruct;
 
 import org.elasticsearch.common.geo.builders.CircleBuilder;
+import org.elasticsearch.index.mapper.core.StringFieldMapper;
 import org.elasticsearch.index.mapper.geo.GeoPointFieldMapper;
 import org.elasticsearch.index.mapper.geo.GeoShapeFieldMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
-import com.bzanni.parisaccessible.elasticsearch.repository.AbstractJestRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.AbstractJestRepository;
 
 @Service
 public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
@@ -32,15 +33,22 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 		return Trottoir.class.getSimpleName().toLowerCase();
 	}
 
+
 	private boolean mappings() throws Exception {
 
 		return super.mappings(
 				Trottoir.class,
 				3,
 				0,
-				new RootObjectMapper.Builder(this.getType()).add(
-						new GeoPointFieldMapper.Builder("location")).add(
-						new GeoShapeFieldMapper.Builder("shape")));
+				new RootObjectMapper.Builder(this.getType())
+//						.add(new GeoPointFieldMapper.Builder("location"))
+						.add(new GeoShapeFieldMapper.Builder("shape"))
+						.add(new StringFieldMapper.Builder("info")
+								.store(false).index(false)));
+//						.add(new StringFieldMapper.Builder("libelle")
+//								.store(false).index(false))
+//						.add(new StringFieldMapper.Builder("niveau")
+//								.store(false).index(false)));
 
 	}
 

@@ -10,7 +10,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStop;
 import com.bzanni.parisaccessible.elasticsearch.business.lambert.Lambert;
 import com.bzanni.parisaccessible.elasticsearch.business.lambert.LambertPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.lambert.LambertZone;
-import com.bzanni.parisaccessible.elasticsearch.repository.gtfs.GtfsStopRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 @Service
@@ -43,7 +43,7 @@ public class RatpAccessibilityStopCsvImport extends
 				boolean bool = (list[6].equals("1")) ? true : false;
 				stop.setAccessibleUFR(bool);
 				bool = (list[7].equals("1")) ? true : false;
-				stop.setAnnonceSonorProchainArret(bool);
+				stop.setAnnonceSonoreProchainArret(bool);
 				bool = (list[8].equals("1")) ? true : false;
 				stop.setAnnonceVisuelleProchainArret(bool);
 				bool = (list[9].equals("1")) ? true : false;

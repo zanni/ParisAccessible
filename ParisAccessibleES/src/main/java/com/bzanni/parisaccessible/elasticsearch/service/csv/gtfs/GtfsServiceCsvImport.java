@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsService;
-import com.bzanni.parisaccessible.elasticsearch.repository.gtfs.GtfsServiceRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsServiceRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 @Service

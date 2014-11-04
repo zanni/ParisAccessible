@@ -1,4 +1,4 @@
-package com.bzanni.parisaccessible.elasticsearch.repository;
+package com.bzanni.parisaccessible.elasticsearch.repository.jest;
 
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestResult;

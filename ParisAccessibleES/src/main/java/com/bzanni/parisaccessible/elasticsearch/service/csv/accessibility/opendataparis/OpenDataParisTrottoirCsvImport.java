@@ -11,7 +11,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
-import com.bzanni.parisaccessible.elasticsearch.repository.opendataparis.TrottoirRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 import com.google.gson.Gson;
 
@@ -45,14 +45,14 @@ public class OpenDataParisTrottoirCsvImport extends
 		GeoShape shape = null;
 		Trottoir eq = new Trottoir();
 
-		Double lat = Double.valueOf(line[0].split(",")[0]);
-		Double lon = Double.valueOf(line[0].split(",")[1]);
-		eq.setLocation(new GeoPoint(lat, lon));
+//		Double lat = Double.valueOf(line[0].split(",")[0]);
+//		Double lon = Double.valueOf(line[0].split(",")[1]);
+//		eq.setLocation(new GeoPoint(lat, lon));
 		shape = gson.fromJson(line[1], GeoShapeLineString.class);
 		eq.setShape(shape);
-		eq.setNiveau(line[2]);
+//		eq.setNiveau(line[2]);
 		eq.setInfo(line[3]);
-		eq.setLibelle(line[4]);
+//		eq.setLibelle(line[4]);
 		List<Trottoir> res = new ArrayList<Trottoir>();
 		res.add(eq);
 		return res;

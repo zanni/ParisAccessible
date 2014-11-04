@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStop;
-import com.bzanni.parisaccessible.elasticsearch.repository.gtfs.GtfsStopRepository;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
 import com.bzanni.parisaccessible.elasticsearch.service.util.GenericCsvImporter;
 
 @Service
