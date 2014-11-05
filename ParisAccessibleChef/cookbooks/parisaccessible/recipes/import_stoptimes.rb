@@ -8,10 +8,10 @@
 #
 
 
-bash "import trips" do
+bash "import stoptimes" do
   user "root"
   cwd "#{node['parisaccessible']['home']}"
   code <<-EOH
- java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleApplication/target/*.war --gtfs_stoptime stop_times\\.txt\\.+ > #{node['parisaccessible']['log']}/inject.stop_times.log  
+ java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleInjector/target/*.war --gtfs_stoptime stop_times\\.txt\\.+ > #{node['parisaccessible']['log']}/inject.stop_times.log  
   EOH
 end

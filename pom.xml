@@ -15,7 +15,8 @@
 
     <modules>
         <module>ParisAccessibleES</module>
-        <module>ParisAccessibleApplication</module>
+        <module>ParisAccessibleInjector</module>
+         <module>ParisAccessibleIndexer</module>
         <module>ParisAccessibleNeo</module>
     </modules>
 
