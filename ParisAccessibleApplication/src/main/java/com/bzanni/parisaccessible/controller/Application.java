@@ -58,8 +58,8 @@ public class Application {
 
 		options.addOption("gtfs_trip", "gtfs_trip", true,
 				"do not hide entries starting with .");
-
-		options.addOption("index", "index", true,
+		
+		options.addOption("gtfs_stoptime", "gtfs_stoptime", true,
 				"do not hide entries starting with .");
 
 		final GtfsImport ratpGtfs = run.getBean(GtfsImport.class);
@@ -81,13 +81,11 @@ public class Application {
 			if (line.hasOption("gtfs_route")) {
 				ratpGtfs.importRoute(500);
 				access.importRoute(500);
-
 			}
 			else if (line.hasOption("gtfs_stop")) {
 				ratpGtfs.importStop(2000);
 				ratpGtfs.importStopTransfert(2000);
 				access.importStop(2000);
-
 			}
 			else if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
@@ -97,11 +95,8 @@ public class Application {
 			}
 			else if (line.hasOption("access_equipement")) {
 				access.importEquipement(2000);
-
 			} 
 			else if (line.hasOption("access_trottoir")) {
-				
-				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_trottoir"));
 				File folder = new File(conf.getAccessibilityPath());
@@ -149,6 +144,21 @@ public class Application {
 							thread.setCsvFile(name);
 							thread.run();
 
+						}
+					}
+				}
+			}
+			else if (line.hasOption("gtfs_stoptime")) {
+
+				Pattern compile = Pattern.compile(line
+						.getOptionValue("gtfs_stoptime"));
+				File folder = new File(conf.getGtfsPath());
+				for (File fileEntry : folder.listFiles()) {
+					if (!fileEntry.isDirectory()) {
+						String name = fileEntry.getName();
+						Matcher matcher = compile.matcher(name);
+						if (matcher.find()) {
+							ratpGtfs.importStopTime(name, 2000);
 						}
 					}
 				}
