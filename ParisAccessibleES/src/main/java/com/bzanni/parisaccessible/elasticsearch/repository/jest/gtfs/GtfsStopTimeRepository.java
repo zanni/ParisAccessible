@@ -30,7 +30,7 @@ public class GtfsStopTimeRepository extends
 						.add(new StringFieldMapper.Builder("trip_id").store(
 								false).index(false))
 						.add(new StringFieldMapper.Builder("stop_id").store(
-								false).index(false))
+								true).index(true))
 						.add(new StringFieldMapper.Builder("seq").store(false)
 								.index(false)));
 	}

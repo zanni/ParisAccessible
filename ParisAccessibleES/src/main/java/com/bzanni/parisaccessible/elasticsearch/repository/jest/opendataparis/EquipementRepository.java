@@ -34,10 +34,10 @@ public class EquipementRepository extends AbstractJestRepository<Equipement> {
 		Builder root = new RootObjectMapper.Builder(this.getType())
 				.add(new GeoPointFieldMapper.Builder("location").store(true)
 						.index(true))
-				.add(new StringFieldMapper.Builder("type").store(false).index(
-						false))
-				.add(new StringFieldMapper.Builder("nom").store(false).index(
-						false))
+				.add(new StringFieldMapper.Builder("type").store(true).index(
+						true))
+				.add(new StringFieldMapper.Builder("nom").store(true).index(
+						true))
 				.add(new StringFieldMapper.Builder("numero").store(false)
 						.index(false))
 				.add(new StringFieldMapper.Builder("voie").store(false).index(
@@ -49,11 +49,11 @@ public class EquipementRepository extends AbstractJestRepository<Equipement> {
 				.add(new StringFieldMapper.Builder("lien").store(false).index(
 						false))
 				.add(new BooleanFieldMapper.Builder("handicapMoteur").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("handicapVisuel").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("handicapAuditif").store(
-						false).index(false));
+						true).index(true));
 		return super.mappings(Equipement.class, 5, 0, root);
 	}
 

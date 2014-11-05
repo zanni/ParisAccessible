@@ -7,8 +7,9 @@ run_list    "role[base]",
 			"recipe[parisaccessible::install]",
 			"recipe[parisaccessible::data_gtfs]",
 			"recipe[parisaccessible::data_accessibility]",
+			"recipe[parisaccessible::import_base]",
 			"recipe[parisaccessible::import_trips]",
-			"recipe[parisaccessible::import_base]"
+			"recipe[parisaccessible::import_stoptimes]"
 
             
 

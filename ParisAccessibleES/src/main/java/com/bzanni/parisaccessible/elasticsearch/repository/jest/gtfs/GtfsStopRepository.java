@@ -34,20 +34,20 @@ public class GtfsStopRepository extends AbstractJestRepository<GtfsStop> {
 		Builder root = new RootObjectMapper.Builder(GtfsStopRepository.type)
 				.add(new GeoPointFieldMapper.Builder("location").store(true)
 						.index(true))
-				.add(new StringFieldMapper.Builder("name").store(false).index(
-						false))
+				.add(new StringFieldMapper.Builder("name").store(true).index(
+						true))
 				.add(new StringFieldMapper.Builder("description").store(false)
 						.index(false))
 				.add(new BooleanFieldMapper.Builder("accessibleUFR").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("annonceSonoreProchainArret").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("annonceVisuelleProchainArret").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("annonceSonoreSituationPerturbe").store(
-						false).index(false))
+						true).index(true))
 				.add(new BooleanFieldMapper.Builder("annonceVisuelleSituationPerturbe").store(
-						false).index(false));
+						true).index(true));
 
 		return super.mappings(GtfsStop.class, 5, 0, root);
 	}

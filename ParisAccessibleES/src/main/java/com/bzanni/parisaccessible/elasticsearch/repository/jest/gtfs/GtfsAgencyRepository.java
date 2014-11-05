@@ -21,8 +21,8 @@ public class GtfsAgencyRepository extends AbstractJestRepository<GtfsAgency> {
 
 	private boolean mappings() throws Exception {
 		Builder root = new RootObjectMapper.Builder(this.getType())
-				.add(new StringFieldMapper.Builder("name").store(false).index(
-						false))
+				.add(new StringFieldMapper.Builder("name").store(true).index(
+						true))
 				.add(new StringFieldMapper.Builder("url").store(false).index(
 						false))
 				.add(new StringFieldMapper.Builder("timezone").store(false)

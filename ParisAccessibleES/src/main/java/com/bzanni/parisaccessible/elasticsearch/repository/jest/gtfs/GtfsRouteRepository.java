@@ -29,10 +29,10 @@ public class GtfsRouteRepository extends AbstractJestRepository<GtfsRoute> {
 
 	private boolean mappings() throws Exception {
 		Builder root = new RootObjectMapper.Builder(this.getType())
-				.add(new StringFieldMapper.Builder("name").store(false).index(
-						false))
-				.add(new StringFieldMapper.Builder("longName").store(false)
-						.index(false))
+				.add(new StringFieldMapper.Builder("name").store(true).index(
+						true))
+				.add(new StringFieldMapper.Builder("longName").store(true)
+						.index(true))
 				.add(new StringFieldMapper.Builder("description").store(false)
 						.index(false))
 				.add(new StringFieldMapper.Builder("route_color").store(false)
@@ -44,16 +44,16 @@ public class GtfsRouteRepository extends AbstractJestRepository<GtfsRoute> {
 				.add(new StringFieldMapper.Builder("destination").store(false)
 						.index(false))
 				.add(new BooleanFieldMapper.Builder("accessibleUFR").store(
-						false).index(false))
-				.add(new BooleanFieldMapper.Builder("plancherBas").store(false)
+						true).index(true))
+				.add(new BooleanFieldMapper.Builder("plancherBas").store(true)
 						.index(false))
-				.add(new BooleanFieldMapper.Builder("palette").store(false)
-						.index(false))
+				.add(new BooleanFieldMapper.Builder("palette").store(true)
+						.index(true))
 				.add(new BooleanFieldMapper.Builder(
-						"annonceSonoreProchainArret").store(false).index(false))
+						"annonceSonoreProchainArret").store(true).index(true))
 				.add(new BooleanFieldMapper.Builder(
-						"annonceVisuelleProchainArret").store(false).index(
-						false));
+						"annonceVisuelleProchainArret").store(true).index(
+								true));
 		return super.mappings(GtfsRoute.class, 5, 0, root);
 	}
 

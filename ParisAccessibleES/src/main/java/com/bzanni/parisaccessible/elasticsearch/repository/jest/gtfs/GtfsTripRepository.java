@@ -32,10 +32,10 @@ public class GtfsTripRepository extends AbstractJestRepository<GtfsTrip> {
 
 	private boolean mappings() throws Exception {
 		Builder root = new RootObjectMapper.Builder(this.getType()).add(
-				new StringFieldMapper.Builder("route_id").store(false)
-						.index(false)).add(
-				new StringFieldMapper.Builder("service_id").store(false)
-						.index(false));
+				new StringFieldMapper.Builder("route_id").store(true)
+						.index(true)).add(
+				new StringFieldMapper.Builder("service_id").store(true)
+						.index(true));
 		return super.mappings(GtfsTrip.class, 5, 0, root);
 	}
 

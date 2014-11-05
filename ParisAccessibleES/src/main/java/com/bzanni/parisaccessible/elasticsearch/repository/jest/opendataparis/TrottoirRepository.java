@@ -44,7 +44,7 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 //						.add(new GeoPointFieldMapper.Builder("location"))
 						.add(new GeoShapeFieldMapper.Builder("shape"))
 						.add(new StringFieldMapper.Builder("info")
-								.store(false).index(false)));
+								.store(true).index(true)));
 //						.add(new StringFieldMapper.Builder("libelle")
 //								.store(false).index(false))
 //						.add(new StringFieldMapper.Builder("niveau")
