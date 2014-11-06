@@ -265,8 +265,9 @@ public class TrottoirIndexerService {
 	public void indexTrottoir() {
 
 		Iterator<List<Trottoir>> findAll = trottoirRepository.findAll();
-
-		while (findAll.hasNext()) {
+		int i = 0;
+		while (findAll.hasNext() && i < 500) {
+			i++;
 			List<Trottoir> trottoirs = findAll.next();
 			for (Trottoir trottoir : trottoirs) {
 				GeoShape shape = trottoir.getShape();
