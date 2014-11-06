@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
+import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeMultiLineString;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.bzanni.parisaccessible.injector.service.util.GenericCsvImporter;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * 
@@ -53,10 +55,13 @@ public class OpenDataParisTrottoirCsvImport extends
 		GeoShape shape = null;
 		Trottoir eq = new Trottoir();
 
-//		Double lat = Double.valueOf(line[0].split(",")[0]);
-//		Double lon = Double.valueOf(line[0].split(",")[1]);
-//		eq.setLocation(new GeoPoint(lat, lon));
-		shape = gson.fromJson(line[1], GeoShapeLineString.class);
+		try {
+			shape = gson.fromJson(line[1],
+					GeoShapeLineString.class);
+		} catch (JsonSyntaxException e) {
+			shape = gson.fromJson(line[1],
+					GeoShapeMultiLineString.class);
+		}
 		eq.setShape(shape);
 //		eq.setNiveau(line[2]);
 		eq.setInfo(line[3]);

@@ -1,4 +1,4 @@
-package com.bzanni.parisaccessible.controller;
+package com.bzanni.parisaccessible.indexer.controller;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;

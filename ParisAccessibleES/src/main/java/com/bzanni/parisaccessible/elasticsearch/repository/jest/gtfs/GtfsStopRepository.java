@@ -38,16 +38,18 @@ public class GtfsStopRepository extends AbstractJestRepository<GtfsStop> {
 						true))
 				.add(new StringFieldMapper.Builder("description").store(false)
 						.index(false))
-				.add(new BooleanFieldMapper.Builder("accessibleUFR").store(
-						true).index(true))
-				.add(new BooleanFieldMapper.Builder("annonceSonoreProchainArret").store(
-						true).index(true))
-				.add(new BooleanFieldMapper.Builder("annonceVisuelleProchainArret").store(
-						true).index(true))
-				.add(new BooleanFieldMapper.Builder("annonceSonoreSituationPerturbe").store(
-						true).index(true))
-				.add(new BooleanFieldMapper.Builder("annonceVisuelleSituationPerturbe").store(
-						true).index(true));
+				.add(new BooleanFieldMapper.Builder("accessibleUFR")
+						.store(true).index(true))
+				.add(new BooleanFieldMapper.Builder(
+						"annonceSonoreProchainArret").store(true).index(true))
+				.add(new BooleanFieldMapper.Builder(
+						"annonceVisuelleProchainArret").store(true).index(true))
+				.add(new BooleanFieldMapper.Builder(
+						"annonceSonoreSituationPerturbe").store(true).index(
+						true))
+				.add(new BooleanFieldMapper.Builder(
+						"annonceVisuelleSituationPerturbe").store(true).index(
+						true));
 
 		return super.mappings(GtfsStop.class, 5, 0, root);
 	}
@@ -63,7 +65,7 @@ public class GtfsStopRepository extends AbstractJestRepository<GtfsStop> {
 		}
 	}
 
-	public List<GtfsStop> search(Double lat, Double lon, String distance)
+	public List<GtfsStop> findLocation(Double lat, Double lon, String distance)
 			throws Exception {
 
 		FilteredQueryBuilder filteredQuery = QueryBuilders.filteredQuery(

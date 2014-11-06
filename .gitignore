@@ -6,4 +6,5 @@ inject
 */.project
 */.settings
 */target
+*/.springBeans
 parisaccessible.properties

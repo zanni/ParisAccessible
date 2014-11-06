@@ -1,18 +1,24 @@
 package com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis;
 
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
+
+import java.util.List;
+
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 import org.elasticsearch.index.mapper.core.StringFieldMapper;
 import org.elasticsearch.index.mapper.geo.GeoPointFieldMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper;
 import org.elasticsearch.index.mapper.object.RootObjectMapper.Builder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.FilteredQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.PassagePieton;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.AbstractJestRepository;
-import com.bzanni.parisaccessible.elasticsearch.repository.jest.ParisAccessibleJestClient;
 
 @Service
 public class PassagePietonRepository extends
@@ -63,6 +69,45 @@ public class PassagePietonRepository extends
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public List<PassagePieton> findStart(Double lat, Double lon, String distance)
+			throws Exception {
+
+		FilteredQueryBuilder filteredQuery = QueryBuilders.filteredQuery(
+				QueryBuilders.matchAllQuery(),
+				FilterBuilders.geoDistanceFilter("start").lat(lat).lon(lon)
+						.distance(distance));
+
+		String query = "{ \"query\":" + filteredQuery.buildAsBytes().toUtf8()
+				+ "}";
+
+		Search count = new Search.Builder(query).addIndex(this.getIndex())
+				.addType(this.getType()).build();
+
+		SearchResult result = this.getClient().execute(count);
+
+		return result.getSourceAsObjectList(PassagePieton.class);
+		
+	}
+
+	public List<PassagePieton> findEnd(Double lat, Double lon, String distance)
+			throws Exception {
+
+		FilteredQueryBuilder filteredQuery = QueryBuilders.filteredQuery(
+				QueryBuilders.matchAllQuery(),
+				FilterBuilders.geoDistanceFilter("end").lat(lat).lon(lon)
+						.distance(distance));
+
+		String query = "{ \"query\":" + filteredQuery.buildAsBytes().toUtf8()
+				+ "}";
+
+		Search count = new Search.Builder(query).addIndex(this.getIndex())
+				.addType(this.getType()).build();
+
+		SearchResult result = this.getClient().execute(count);
+
+		return result.getSourceAsObjectList(PassagePieton.class);
 	}
 
 }

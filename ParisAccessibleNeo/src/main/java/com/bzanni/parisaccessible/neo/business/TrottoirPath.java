@@ -1,5 +1,8 @@
 package com.bzanni.parisaccessible.neo.business;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
@@ -17,6 +20,12 @@ public class TrottoirPath {
 		this.start = start;
 		this.end = end;
 		this.cost = cost;
+	}
+	
+	public Map<String, Object> getMap(){
+		Map<String, Object> res = new HashMap<String, Object>();
+		res.put("cost", this.cost);
+		return res;
 	}
 
 }

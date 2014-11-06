@@ -46,7 +46,7 @@ public class RatpAccessibilityStopCsvImport extends
 			LambertPoint pt = Lambert.convertToWGS84Deg(v1, v2,
 					LambertZone.LambertIIExtended);
 
-			List<GtfsStop> search = repository.search(pt.getY(), pt.getX(),
+			List<GtfsStop> search = repository.findLocation(pt.getY(), pt.getX(),
 					"10m");
 			for (GtfsStop stop : search) {
 				boolean bool = (list[6].equals("1")) ? true : false;

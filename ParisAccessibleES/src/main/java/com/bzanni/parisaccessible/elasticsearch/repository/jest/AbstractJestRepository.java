@@ -12,6 +12,7 @@ import io.searchbox.indices.mapping.PutMapping;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -72,12 +73,16 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		return execute.isSucceeded();
 	}
 
+	public Iterator<List<T>> findAll() {
+		return new JestRequestIterator<T>(this, klass);
+	}
+
 	public void save(T object) throws Exception {
 		Index index = new Index.Builder(object).index(this.getIndex())
 				.type(this.getType()).build();
 		client.getClient().execute(index);
 	}
-	
+
 	public void save(List<T> object) throws Exception {
 		this.save(object, 0);
 	}
@@ -92,23 +97,23 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		try {
 			client.getClient().execute(builder.build());
 		} catch (SocketTimeoutException e) {
-//			retry++;
-//			if(retry < AbstractJestRepository.MAX_RETRY){
-//				client.getClient().execute(builder.build());
-//			}
+			// retry++;
+			// if(retry < AbstractJestRepository.MAX_RETRY){
+			// client.getClient().execute(builder.build());
+			// }
 		}
 	}
-	
+
 	public void saveAsync(List<T> object, JestResultHandler<JestResult> callback)
-			throws ExecutionException, InterruptedException, IOException{
+			throws ExecutionException, InterruptedException, IOException {
 		Builder builder = new Bulk.Builder();
 		for (T t : object) {
 			builder.addAction(new Index.Builder(t).refresh(false)
 					.index(this.getIndex()).type(this.getType()).build());
 		}
 
-			client.getClient().executeAsync(builder.build(), callback);
-		
+		client.getClient().executeAsync(builder.build(), callback);
+
 	}
 
 	public T findById(String id) throws Exception {

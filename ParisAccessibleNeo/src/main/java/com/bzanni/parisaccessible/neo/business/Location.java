@@ -1,5 +1,7 @@
 package com.bzanni.parisaccessible.neo.business;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
@@ -11,7 +13,8 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 public class Location {
 
 	@GraphId
-	private Long id;
+	private String id;
+	
 	@RelatedTo(type = "PIETON", direction = Direction.BOTH)
 	private Set<Location> pietons;
 
@@ -21,6 +24,10 @@ public class Location {
 	@RelatedTo(type = "TRANSPORT", direction = Direction.OUTGOING)
 	private Set<Location> transports;
 
+	public Location(String id){
+		this.id = id;
+	}
+	
 	public PassagePietonPath mapPassagePieton(Location to, Double cost) {
 		return new PassagePietonPath(this, to, cost);
 	}
@@ -32,5 +39,13 @@ public class Location {
 	public TrottoirPath mapTrottoir(Location to, Double cost) {
 		return new TrottoirPath(this, to, cost);
 	}
+	
+	public Map<String, Object> getMap(){
+		Map<String, Object> res = new HashMap<String, Object>();
+		res.put("id", this.id);
+		return res;
+	}
+	
+	
 
 }
