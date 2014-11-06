@@ -18,12 +18,12 @@ public class GtfsServiceRepository extends AbstractJestRepository<GtfsService> {
 			.toLowerCase();
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return this.index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsService.class.getSimpleName().toLowerCase();
 	}
 

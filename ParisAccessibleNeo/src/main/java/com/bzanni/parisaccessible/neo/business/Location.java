@@ -7,7 +7,12 @@ import java.util.Set;
 //@NodeEntity
 public class Location {
 
+	
+	
+	
 	// @GraphId
+	private Long graphId;
+	
 	private String id;
 
 	// @RelatedTo(type = "PIETON", direction = Direction.BOTH)
@@ -39,6 +44,14 @@ public class Location {
 		Map<String, Object> res = new HashMap<String, Object>();
 		res.put("id", this.id);
 		return res;
+	}
+
+	public Long getGraphId() {
+		return graphId;
+	}
+
+	public void setGraphId(Long graphId) {
+		this.graphId = graphId;
 	}
 
 }

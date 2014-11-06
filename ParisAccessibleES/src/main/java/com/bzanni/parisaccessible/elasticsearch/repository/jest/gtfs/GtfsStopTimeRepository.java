@@ -45,12 +45,12 @@ public class GtfsStopTimeRepository extends
 	}
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsStopTime.class.getSimpleName().toLowerCase();
 	}
 

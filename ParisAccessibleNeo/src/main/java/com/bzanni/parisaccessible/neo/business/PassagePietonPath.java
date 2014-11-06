@@ -11,15 +11,15 @@ import org.springframework.data.neo4j.annotation.StartNode;
 public class PassagePietonPath {
 
 	@StartNode
-	Location start;
+	private Location start;
 	@EndNode
-	Location end;
+	private Location end;
 
-	Double cost;
+	private Double cost;
 
 	public PassagePietonPath(Location start, Location end, Double cost) {
-		this.start = start;
-		this.end = end;
+		this.setStart(start);
+		this.setEnd(end);
 		this.cost = cost;
 	}
 	
@@ -27,6 +27,22 @@ public class PassagePietonPath {
 		Map<String, Object> res = new HashMap<String, Object>();
 		res.put("cost", this.cost);
 		return res;
+	}
+
+	public Location getStart() {
+		return start;
+	}
+
+	public void setStart(Location start) {
+		this.start = start;
+	}
+
+	public Location getEnd() {
+		return end;
+	}
+
+	public void setEnd(Location end) {
+		this.end = end;
 	}
 
 }

@@ -3,6 +3,9 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis;
 import io.searchbox.core.Count;
 import io.searchbox.core.CountResult;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.AbstractJestRepository;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.JestQueryEngine;
+import com.bzanni.parisaccessible.elasticsearch.repository.jest.TottoirIterator;
 
 @Service
 public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
@@ -22,13 +26,17 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 	private JestQueryEngine queryEngine;
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return Trottoir.class.getSimpleName().toLowerCase();
+	}
+
+	public Iterator<List<Trottoir>> findAll() {
+		return new TottoirIterator(this);
 	}
 
 	private boolean mappings() throws Exception {

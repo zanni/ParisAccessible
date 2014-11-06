@@ -46,12 +46,12 @@ public class GtfsAgencyRepository extends AbstractJestRepository<GtfsAgency> {
 	}
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return this.index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsAgency.class.getSimpleName().toLowerCase();
 	}
 }

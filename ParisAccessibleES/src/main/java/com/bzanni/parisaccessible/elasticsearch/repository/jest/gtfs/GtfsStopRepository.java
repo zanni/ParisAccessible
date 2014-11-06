@@ -84,12 +84,12 @@ public class GtfsStopRepository extends AbstractJestRepository<GtfsStop> {
 	}
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return this.index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsStop.class.getSimpleName().toLowerCase();
 	}
 }

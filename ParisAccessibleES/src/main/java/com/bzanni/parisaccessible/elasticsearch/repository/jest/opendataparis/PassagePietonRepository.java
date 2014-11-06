@@ -26,12 +26,12 @@ public class PassagePietonRepository extends
 	private JestQueryEngine queryEngine;
 	
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return PassagePieton.class.getSimpleName().toLowerCase();
 	}
 

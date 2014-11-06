@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.neo4j.graphdb.DynamicRelationshipType;
 import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
@@ -43,6 +44,15 @@ public class TrottoirIndexerService {
 	private final static String DISTANCE_MATCH_TROTTOIR_PASSAGEPIETON = "5m";
 
 	private final static String DISTANCE_MATCH_TROTTOIR_STOP = "5m";
+
+	private final static DynamicRelationshipType PIETON_RELATIONSHIP_TAG = DynamicRelationshipType
+			.withName("PIETON");
+
+	private final static DynamicRelationshipType TROTTOIR_RELATIONSHIP_TAG = DynamicRelationshipType
+			.withName("TROTTOIR");
+
+	private final static DynamicRelationshipType TRANSPORT_RELATIONSHIP_TAG = DynamicRelationshipType
+			.withName("TRANSPORT");
 	@Resource
 	private TrottoirRepository trottoirRepository;
 
@@ -58,48 +68,54 @@ public class TrottoirIndexerService {
 	Map<String, Location> cache = new HashMap<String, Location>();
 	BatchInserter inserter;
 	BatchInserterIndexProvider indexProvider;
-
-	BatchInserterIndex locations;
-	BatchInserterIndex pietonRelation;
-	BatchInserterIndex trottoirRelation;
-	long currentLocationIndexMarker = 0;
-	long currentPietonIndexMarker = 0;
-	long currentTrottoirIndexMarker = 0;
-	long currentBulkMarker = 0;
+	//
+	// BatchInserterIndex locations;
+	// BatchInserterIndex pietonRelation;
+	// BatchInserterIndex trottoirRelation;
+	long currentLocationIndexMarker = 1;
+	long currentPietonIndexMarker = 1;
+	long currentTrottoirIndexMarker = 1;
+	long currentBulkMarker = 1;
 
 	@PostConstruct
 	public void init() {
+		Map<String, String> config = new HashMap<>();
+		config.put("neostore.nodestore.db.mapped_memory", "90M");
 		inserter = BatchInserters.inserter(neoDataPath);
 
 		indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 
-		locations = indexProvider.nodeIndex("locations",
-				MapUtil.stringMap("type", "exact"));
-
-		pietonRelation = indexProvider.relationshipIndex("PIETON",
-				MapUtil.stringMap("type", "exact"));
-
-		trottoirRelation = indexProvider.relationshipIndex("TROTTOIR",
-				MapUtil.stringMap("type", "exact"));
+		// locations = indexProvider.nodeIndex("locations",
+		// MapUtil.stringMap("type", "exact"));
+		//
+		// pietonRelation = indexProvider.relationshipIndex("PIETON",
+		// MapUtil.stringMap("type", "exact"));
+		//
+		// trottoirRelation = indexProvider.relationshipIndex("TROTTOIR",
+		// MapUtil.stringMap("type", "exact"));
 	}
 
 	private void flushAndShutdown() {
-		locations.flush();
-		pietonRelation.flush();
-		trottoirRelation.flush();
+		// locations.flush();
+		// pietonRelation.flush();
+		// trottoirRelation.flush();
 		indexProvider.shutdown();
 		inserter.shutdown();
 	}
 
 	private void addLocationToInserter(Location location) {
 		currentBulkMarker++;
-		locations.add(currentLocationIndexMarker++, location.getMap());
+		long createNode = inserter.createNode(location.getMap());
+		location.setGraphId(createNode);
 	}
 
 	private void addPassagePietonToInserter(List<PassagePietonPath> list) {
 		for (PassagePietonPath p : list) {
 			currentBulkMarker++;
-			pietonRelation.add(currentPietonIndexMarker++, p.getMap());
+			inserter.createRelationship(p.getStart().getGraphId(), p.getEnd()
+					.getGraphId(),
+					TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, p
+							.getMap());
 		}
 	}
 
@@ -110,8 +126,10 @@ public class TrottoirIndexerService {
 	}
 
 	private void addTrottoirToInserter(TrottoirPath trottoir) {
-		currentBulkMarker++;
-		pietonRelation.add(currentPietonIndexMarker++, trottoir.getMap());
+		inserter.createRelationship(trottoir.getStart().getGraphId(), trottoir
+				.getEnd().getGraphId(),
+				TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, trottoir
+						.getMap());
 	}
 
 	private Location prepareLocation(String key) {
@@ -141,6 +159,7 @@ public class TrottoirIndexerService {
 			boolean isStart) {
 
 		Location startPieton = prepareLocation(passage, isStart);
+
 		Double lat = (isStart) ? passage.getStart().getLat() : passage.getEnd()
 				.getLat();
 		Double lon = (isStart) ? passage.getStart().getLat() : passage.getEnd()
@@ -151,6 +170,21 @@ public class TrottoirIndexerService {
 				startPieton, computeCost(positionTrottoir, startPietonPoint));
 
 		return mapPassagePietonStart;
+	}
+
+	private void connectInterPassagePieton(PassagePieton passage) {
+		Location start = prepareLocation(passage, true);
+		Location end = prepareLocation(passage, false);
+
+		PassagePietonPath passagePietonPath = new PassagePietonPath(start, end, computeCost(Arrays.asList(passage
+				.getStart().getLat(), passage.getStart().getLat()),
+				Arrays.asList(passage.getEnd().getLat(), passage.getEnd()
+						.getLon())));
+
+		inserter.createRelationship(start.getGraphId(), end.getGraphId(),
+				TrottoirIndexerService.PIETON_RELATIONSHIP_TAG,
+				passagePietonPath.getMap());
+
 	}
 
 	private List<PassagePietonPath> connectTrottoirLocationToPassagePieton(
@@ -171,11 +205,13 @@ public class TrottoirIndexerService {
 			for (PassagePieton passage : start) {
 				PassagePietonPath map = map(trottoir, positionTrottoir,
 						passage, true);
+				connectInterPassagePieton(passage);
 				res.add(map);
 			}
 			for (PassagePieton passage : end) {
 				PassagePietonPath map = map(trottoir, positionTrottoir,
 						passage, false);
+				connectInterPassagePieton(passage);
 				res.add(map);
 			}
 			return res;
@@ -262,7 +298,6 @@ public class TrottoirIndexerService {
 							// edge
 							Location loc = new Location(key);
 							addLocationToInserter(loc);
-
 							// link this location with previously created one if
 							// exists
 							if (prev != null && prevLocation != null) {

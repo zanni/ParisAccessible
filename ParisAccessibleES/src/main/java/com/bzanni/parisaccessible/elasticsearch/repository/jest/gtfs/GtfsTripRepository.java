@@ -18,12 +18,12 @@ public class GtfsTripRepository extends AbstractJestRepository<GtfsTrip> {
 			.toLowerCase();
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return this.index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsTrip.class.getSimpleName().toLowerCase();
 	}
 

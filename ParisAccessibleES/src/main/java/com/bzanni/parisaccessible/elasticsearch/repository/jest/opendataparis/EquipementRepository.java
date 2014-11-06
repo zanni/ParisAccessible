@@ -15,12 +15,12 @@ public class EquipementRepository extends AbstractJestRepository<Equipement> {
 	private String index;
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return Equipement.class.getSimpleName().toLowerCase();
 	}
 

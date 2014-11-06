@@ -85,12 +85,12 @@ public class GtfsRouteRepository extends AbstractJestRepository<GtfsRoute> {
 	}
 
 	@Override
-	protected String getIndex() {
+	public String getIndex() {
 		return this.index;
 	}
 
 	@Override
-	protected String getType() {
+	public String getType() {
 		return GtfsRoute.class.getSimpleName().toLowerCase();
 	}
 }

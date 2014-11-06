@@ -11,4 +11,6 @@ public abstract class GeoShape {
 		this.type = type;
 	}
 
+
+
 }

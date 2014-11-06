@@ -30,9 +30,9 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 	@Resource
 	private JestQueryEngine queryEngine;
 
-	protected abstract String getIndex();
+	public abstract String getIndex();
 
-	protected abstract String getType();
+	public abstract String getType();
 
 	private Class<T> klass;
 
