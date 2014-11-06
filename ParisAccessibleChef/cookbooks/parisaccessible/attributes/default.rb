@@ -13,6 +13,10 @@ node.default["parisaccessible"]["accessibility_equipement_url"] = "http://openda
 
 
 node.default["parisaccessible"]["elasticsearch_url"] = "http://192.168.33.10:9200"
+node.default["parisaccessible"]["neo4j_url"] = "http://localhost:7474/db/data"
+node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/graph.db"
+
+
 node.default["parisaccessible"]["inject_path"] = "/srv/ParisAccessible/inject/"
 
 node.default["parisaccessible"]["ratp_gtfs_index_name"] = "ratp_gtfs"

@@ -1,7 +1,9 @@
 
-elasticsearch_url <%= node[:parisaccessible][:elasticsearch_url] %>
+elasticsearch_url = <%= node[:parisaccessible][:elasticsearch_url] %>
+neo4j_url=<%= node[:parisaccessible][:neo4j_url] %>
+neo4j_data_path=<%= node[:parisaccessible][:neo4j_data_path] %>
 
-inject_path <%=  node[:parisaccessible][:inject_path] %>
+inject_path = <%=  node[:parisaccessible][:inject_path] %>
 
 ratp_gtfs_index_name <%= node[:parisaccessible][:ratp_gtfs_index_name] %>
 
