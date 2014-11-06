@@ -46,7 +46,7 @@ public class JestQueryEngine {
 	}
 
 	public String matchAllQuery() {
-		Template template = retreiveTemplate("query/matchAllQuery.vm");
+		Template template = retreiveTemplate("/META-INF/template/query/matchAllQuery.vm");
 		StringWriter writer = new StringWriter();
 		VelocityContext context = new VelocityContext();
 		template.merge(context, writer);
@@ -54,7 +54,7 @@ public class JestQueryEngine {
 	}
 
 	public String termQuery(String field, String value) {
-		Template template = retreiveTemplate("query/termQuery.vm");
+		Template template = retreiveTemplate("/META-INF/template/query/termQuery.vm");
 		StringWriter writer = new StringWriter();
 		VelocityContext context = new VelocityContext();
 		context.put("field", field);
@@ -65,7 +65,7 @@ public class JestQueryEngine {
 
 	public String geoDistanceQuery(String field, Double lat, Double lon,
 			String distance) {
-		Template template = retreiveTemplate("query/geoDistanceQuery.vm");
+		Template template = retreiveTemplate("/META-INF/template/query/geoDistanceQuery.vm");
 		StringWriter writer = new StringWriter();
 		VelocityContext context = new VelocityContext();
 		context.put("field", field);
@@ -78,7 +78,7 @@ public class JestQueryEngine {
 
 	public String geoShapeDistanceQuery(String field, Double lat, Double lon,
 			String distance) {
-		Template template = retreiveTemplate("query/geoShapeDistanceQuery.vm");
+		Template template = retreiveTemplate("/META-INF/template/query/geoShapeDistanceQuery.vm");
 		StringWriter writer = new StringWriter();
 		VelocityContext context = new VelocityContext();
 		context.put("field", field);

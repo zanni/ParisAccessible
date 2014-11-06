@@ -83,8 +83,8 @@ public class Application {
 				access.importRoute(500);
 			}
 			if (line.hasOption("gtfs_stop")) {
-				ratpGtfs.importStop(2000);
-				ratpGtfs.importStopTransfert(2000);
+//				ratpGtfs.importStop(2000);
+//				ratpGtfs.importStopTransfert(2000);
 				access.importStop(2000);
 			}
 			if (line.hasOption("gtfs_other")) {

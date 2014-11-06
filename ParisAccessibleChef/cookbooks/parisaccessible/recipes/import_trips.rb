@@ -6,7 +6,9 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-
+package "curl" do
+  action :install
+end
 
 bash "import trips" do
   user "root"
