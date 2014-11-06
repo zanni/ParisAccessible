@@ -11,11 +11,11 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.helpers.collection.MapUtil;
+import org.neo4j.graphdb.Label;
 import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -84,7 +84,8 @@ public class TrottoirIndexerService {
 		// neostore.propertystore.db.strings.mapped_memory=130M
 		// neostore.propertystore.db.arrays.mapped_memory=130M
 		inserter = BatchInserters.inserter(neoDataPath);
-
+		Label personLabel = DynamicLabel.label( "Location" );
+		inserter.createDeferredSchemaIndex( personLabel ).on( "id" ).create();
 		indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 
 	}
@@ -96,6 +97,7 @@ public class TrottoirIndexerService {
 
 	private void addLocationToInserter(Location location) {
 		currentBulkMarker++;
+//		inserter.c
 		long createNode = inserter.createNode(location.getMap());
 		System.out.println("Create node: "+createNode);
 		location.setGraphId(createNode);
