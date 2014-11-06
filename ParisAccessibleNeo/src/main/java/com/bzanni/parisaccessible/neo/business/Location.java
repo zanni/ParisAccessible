@@ -4,34 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.neo4j.graphdb.Direction;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
-
-@NodeEntity
+//@NodeEntity
 public class Location {
 
-	@GraphId
+	// @GraphId
 	private String id;
-	
-	@RelatedTo(type = "PIETON", direction = Direction.BOTH)
+
+	// @RelatedTo(type = "PIETON", direction = Direction.BOTH)
 	private Set<Location> pietons;
 
-	@RelatedTo(type = "TROTTOIR", direction = Direction.BOTH)
+	// @RelatedTo(type = "TROTTOIR", direction = Direction.BOTH)
 	private Set<Location> trottoirs;
 
-	@RelatedTo(type = "TRANSPORT", direction = Direction.OUTGOING)
+	// @RelatedTo(type = "TRANSPORT", direction = Direction.OUTGOING)
 	private Set<Location> transports;
 
-	public Location(String id){
+	public Location(String id) {
 		this.id = id;
 	}
-	
+
 	public PassagePietonPath mapPassagePieton(Location to, Double cost) {
 		return new PassagePietonPath(this, to, cost);
 	}
-	
+
 	public TransportPath mapTransport(Location to, Double cost) {
 		return new TransportPath(this, to, cost);
 	}
@@ -39,13 +34,11 @@ public class Location {
 	public TrottoirPath mapTrottoir(Location to, Double cost) {
 		return new TrottoirPath(this, to, cost);
 	}
-	
-	public Map<String, Object> getMap(){
+
+	public Map<String, Object> getMap() {
 		Map<String, Object> res = new HashMap<String, Object>();
 		res.put("id", this.id);
 		return res;
 	}
-	
-	
 
 }

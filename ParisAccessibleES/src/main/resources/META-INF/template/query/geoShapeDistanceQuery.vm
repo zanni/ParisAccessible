@@ -1,0 +1,11 @@
+{
+    "query": {
+        "geo_shape": {
+		    "$field" : {
+		        "type" : "circle",
+		        "coordinates" : [$lat, $lon],
+		        "radius" : "$distance"
+		    }
+		}
+    }
+}

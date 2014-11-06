@@ -49,16 +49,16 @@ public class Application {
 
 		options.addOption("access_equipement", "access_equipement", false,
 				"do not hide entries starting with .");
-		
+
 		options.addOption("access_trottoir", "access_trottoir", true,
 				"do not hide entries starting with .");
-		
+
 		options.addOption("access_passagepieton", "access_passagepieton", true,
 				"do not hide entries starting with .");
 
 		options.addOption("gtfs_trip", "gtfs_trip", true,
 				"do not hide entries starting with .");
-		
+
 		options.addOption("gtfs_stoptime", "gtfs_stoptime", true,
 				"do not hide entries starting with .");
 
@@ -82,21 +82,21 @@ public class Application {
 				ratpGtfs.importRoute(500);
 				access.importRoute(500);
 			}
-			else if (line.hasOption("gtfs_stop")) {
+			if (line.hasOption("gtfs_stop")) {
 				ratpGtfs.importStop(2000);
 				ratpGtfs.importStopTransfert(2000);
 				access.importStop(2000);
 			}
-			else if (line.hasOption("gtfs_other")) {
+			if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
 				ratpGtfs.importService(500);
 				ratpGtfs.importServiceCalendar(500);
 
 			}
-			else if (line.hasOption("access_equipement")) {
+			if (line.hasOption("access_equipement")) {
 				access.importEquipement(2000);
-			} 
-			else if (line.hasOption("access_trottoir")) {
+			}
+			if (line.hasOption("access_trottoir")) {
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_trottoir"));
 				File folder = new File(conf.getAccessibilityPath());
@@ -110,9 +110,8 @@ public class Application {
 					}
 				}
 			}
-			else if (line.hasOption("access_passagepieton")) {
-				
-				
+			if (line.hasOption("access_passagepieton")) {
+
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_passagepieton"));
 				File folder = new File(conf.getAccessibilityPath());
@@ -128,7 +127,7 @@ public class Application {
 				}
 
 			}
-			else if (line.hasOption("gtfs_trip")) {
+			if (line.hasOption("gtfs_trip")) {
 
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("gtfs_trip"));
@@ -148,7 +147,7 @@ public class Application {
 					}
 				}
 			}
-			else if (line.hasOption("gtfs_stoptime")) {
+			if (line.hasOption("gtfs_stoptime")) {
 
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("gtfs_stoptime"));

@@ -11,10 +11,10 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<neo4j:config graphDatabaseService="graphDatabaseService" />
-	<beans:bean id="graphDatabaseService"
-		class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase">
-		<beans:constructor-arg index="0" value="${neo4j_url}" />
-	</beans:bean>
+<!-- 	<neo4j:config graphDatabaseService="graphDatabaseService" /> -->
+<!-- 	<beans:bean id="graphDatabaseService" -->
+<!-- 		class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase"> -->
+<!-- 		<beans:constructor-arg index="0" value="${neo4j_url}" /> -->
+<!-- 	</beans:bean> -->
 
 </beans:beans>

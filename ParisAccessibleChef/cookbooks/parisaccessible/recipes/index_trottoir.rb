@@ -14,6 +14,6 @@ bash "import trips" do
   user "root"
   cwd "#{node['parisaccessible']['home']}"
   code <<-EOH
- java -jar -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleIndexer/target/*.war --index_trottoir > #{node['parisaccessible']['log']}/inject.trips.log  
+ java -jar -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=30504 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleIndexer/target/*.war --index_trottoir > #{node['parisaccessible']['log']}/inject.trips.log  
   EOH
 end

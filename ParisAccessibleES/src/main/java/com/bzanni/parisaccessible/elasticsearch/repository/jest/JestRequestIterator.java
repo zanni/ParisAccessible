@@ -3,11 +3,8 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.elasticsearch.index.query.QueryBuilders;
 
 import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
 
@@ -26,11 +23,14 @@ public class JestRequestIterator<S extends JestBusiness> implements
 
 	private List<S> sourceAsObjectList;
 
+	private JestQueryEngine engine;
+
 	public JestRequestIterator(AbstractJestRepository<S> repository,
 			Class<S> klass) {
 		this.repository = repository;
 		this.bulk = JestRequestIterator.DEFAULT_BULK;
 		this.klass = klass;
+		engine = new JestQueryEngine();
 
 	}
 
@@ -44,24 +44,22 @@ public class JestRequestIterator<S extends JestBusiness> implements
 	@Override
 	public boolean hasNext() {
 
-		String query = "{ \"query\":"
-				+ QueryBuilders.matchAllQuery().buildAsBytes().toUtf8() + "}";
+		String query = engine.matchAllQuery();
 
 		Search build = new Search.Builder(query).setParameter("size", bulk)
 				.setParameter("from", cursor).addIndex(repository.getIndex())
 				.addType(repository.getType()).build();
 		try {
 			SearchResult execute = repository.getClient().execute(build);
-			
+
 			Integer total = execute.getTotal();
-			
+
 			if (execute.isSucceeded() && total != null) {
 				sourceAsObjectList = execute.getSourceAsObjectList(klass);
 				cursor += bulk;
-				if(cursor > total){
+				if (cursor > total) {
 					return false;
-				}
-				else {
+				} else {
 					return true;
 				}
 			}

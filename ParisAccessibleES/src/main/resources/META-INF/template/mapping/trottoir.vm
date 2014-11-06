@@ -1,0 +1,13 @@
+{
+"trottoir": {
+    "properties": {
+       "info": {
+          "type": "string",
+          "store": true
+       },
+       "shape": {
+          "type": "geo_shape"
+       }
+    }
+ }
+}

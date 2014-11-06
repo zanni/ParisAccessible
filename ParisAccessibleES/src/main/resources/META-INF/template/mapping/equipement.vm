@@ -1,0 +1,50 @@
+{
+"equipement": {
+    "properties": {
+       "code_postal": {
+          "type": "string",
+          "index": "no"
+       },
+       "handicapAuditif": {
+          "type": "boolean",
+          "store": true
+       },
+       "handicapMoteur": {
+          "type": "boolean",
+          "store": true
+       },
+       "handicapVisuel": {
+          "type": "boolean",
+          "store": true
+       },
+       "lien": {
+          "type": "string",
+          "index": "no"
+       },
+       "location": {
+          "type": "geo_point",
+          "store": true
+       },
+       "nom": {
+          "type": "string",
+          "store": true
+       },
+       "numero": {
+          "type": "string",
+          "index": "no"
+       },
+       "remarques": {
+          "type": "string",
+          "index": "no"
+       },
+       "type": {
+          "type": "string",
+          "store": true
+       },
+       "voie": {
+          "type": "string",
+          "index": "no"
+       }
+    }
+ }
+}

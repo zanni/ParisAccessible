@@ -2,8 +2,6 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs;
 
 import javax.annotation.PostConstruct;
 
-import org.elasticsearch.index.mapper.core.StringFieldMapper;
-import org.elasticsearch.index.mapper.object.RootObjectMapper;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,19 +18,19 @@ public class GtfsStopTimeRepository extends
 	private String index;
 
 	public boolean mappings() throws Exception {
+//		new RootObjectMapper.Builder(this.getType())
+//		.add(new StringFieldMapper.Builder("time").store(false)
+//				.index(false))
+//		.add(new StringFieldMapper.Builder("trip_id").store(
+//				false).index(false))
+//		.add(new StringFieldMapper.Builder("stop_id").store(
+//				true).index(true))
+//		.add(new StringFieldMapper.Builder("seq").store(false)
+//				.index(false))
 		return super.mappings(
 				GtfsStopTime.class,
 				5,
-				0,
-				new RootObjectMapper.Builder(this.getType())
-						.add(new StringFieldMapper.Builder("time").store(false)
-								.index(false))
-						.add(new StringFieldMapper.Builder("trip_id").store(
-								false).index(false))
-						.add(new StringFieldMapper.Builder("stop_id").store(
-								true).index(true))
-						.add(new StringFieldMapper.Builder("seq").store(false)
-								.index(false)));
+				0);
 	}
 
 	@PostConstruct

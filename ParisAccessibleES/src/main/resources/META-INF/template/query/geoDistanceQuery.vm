@@ -1,0 +1,18 @@
+{
+	"query":{
+	  "filtered": {
+	    "query": {
+	      "match_all" : { }
+	    },
+	    "filter": {
+	       "geo_distance" : {
+		        "distance" : "$distance",
+		        "$field" : {
+		            "lat" : $lat,
+		            "lon" : $lon
+		        }
+		    }
+	    }
+	  }
+	}
+}

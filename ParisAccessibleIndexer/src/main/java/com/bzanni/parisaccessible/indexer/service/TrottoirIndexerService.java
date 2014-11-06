@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.neo4j.helpers.collection.MapUtil;
@@ -16,7 +17,8 @@ import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
-import org.springframework.data.neo4j.support.Neo4jTemplate;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
@@ -31,9 +33,9 @@ import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.Tr
 import com.bzanni.parisaccessible.neo.business.Location;
 import com.bzanni.parisaccessible.neo.business.PassagePietonPath;
 import com.bzanni.parisaccessible.neo.business.TrottoirPath;
-import com.bzanni.parisaccessible.neo.repository.LocationRepository;
 
 @Service
+@Configurable
 public class TrottoirIndexerService {
 
 	private final static long BULK_IMPORT = 2000;
@@ -50,11 +52,8 @@ public class TrottoirIndexerService {
 	@Resource
 	private GtfsStopRepository stopRepository;
 
-	@Resource
-	private LocationRepository locationRepository;
-
-	@Resource
-	private Neo4jTemplate neoTempalte;
+	@Value("${neo4j_data_path}")
+	private String neoDataPath;
 
 	Map<String, Location> cache = new HashMap<String, Location>();
 	BatchInserter inserter;
@@ -68,8 +67,9 @@ public class TrottoirIndexerService {
 	long currentTrottoirIndexMarker = 0;
 	long currentBulkMarker = 0;
 
-	public TrottoirIndexerService() {
-		inserter = BatchInserters.inserter("/var/lib/neo4j-server/data/graph.db");
+	@PostConstruct
+	public void init() {
+		inserter = BatchInserters.inserter(neoDataPath);
 
 		indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 

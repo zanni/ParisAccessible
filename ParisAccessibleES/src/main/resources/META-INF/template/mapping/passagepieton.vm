@@ -1,0 +1,34 @@
+{
+"passagepieton": {
+    "properties": {
+       "end": {
+          "type": "geo_point",
+          "store": true
+       },
+       "import_notes": {
+          "type": "string",
+          "index": "no"
+       },
+       "info": {
+          "type": "string",
+          "index": "no"
+       },
+       "info_ft_style": {
+          "type": "string",
+          "index": "no"
+       },
+       "libelle": {
+          "type": "string",
+          "index": "no"
+       },
+       "libelle_ft_style": {
+          "type": "string",
+          "index": "no"
+       },
+       "start": {
+          "type": "geo_point",
+          "store": true
+       }
+    }
+ }
+}

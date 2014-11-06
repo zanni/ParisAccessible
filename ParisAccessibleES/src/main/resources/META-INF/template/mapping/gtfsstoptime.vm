@@ -1,0 +1,22 @@
+{
+"gtfsstoptime": {
+    "properties": {
+       "seq": {
+          "type": "string",
+          "index": "no"
+       },
+       "stop_id": {
+          "type": "string",
+          "store": true
+       },
+       "time": {
+          "type": "string",
+          "index": "no"
+       },
+       "trip_id": {
+          "type": "string",
+          "index": "no"
+       }
+    }
+ }
+}

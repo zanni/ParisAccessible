@@ -19,17 +19,16 @@ import java.util.concurrent.ExecutionException;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.index.mapper.DocumentMapper;
-import org.elasticsearch.index.mapper.object.RootObjectMapper;
-
 import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
+import com.google.gson.JsonObject;
 
 public abstract class AbstractJestRepository<T extends JestBusiness> {
 
 	private final static int MAX_RETRY = 3;
 	@Resource
 	private ParisAccessibleJestClient client;
+	@Resource
+	private JestQueryEngine queryEngine;
 
 	protected abstract String getIndex();
 
@@ -49,24 +48,22 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		}
 	}
 
-	protected boolean mappings(Class<T> k, int shards, int replicas,
-			RootObjectMapper.Builder rootObjectMapperBuilder) throws Exception {
-		ImmutableSettings.Builder settingsBuilder = ImmutableSettings
-				.settingsBuilder();
+	protected boolean mappings(Class<T> k, int shards, int replicas)
+			throws Exception {
+
 		klass = k;
-		settingsBuilder.put("number_of_shards", shards);
-		settingsBuilder.put("number_of_replicas", replicas);
+
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("number_of_shards", shards);
+		jsonObject.addProperty("number_of_replicas", replicas);
+
 		JestResult execute;
 		execute = client.getClient().execute(
-				new CreateIndex.Builder(this.getIndex()).settings(
-						settingsBuilder.build().getAsMap()).build());
-
-		DocumentMapper documentMapper = new DocumentMapper.Builder(
-				this.getIndex(), null, rootObjectMapperBuilder).build(null);
-		String expectedMappingSource = documentMapper.mappingSource()
-				.toString();
+				new CreateIndex.Builder(this.getIndex()).settings(jsonObject)
+						.build());
+			
 		PutMapping putMapping = new PutMapping.Builder(this.getIndex(),
-				this.getType(), expectedMappingSource).build();
+				this.getType(), queryEngine.putMappingQuery(k)).build();
 
 		execute = client.getClient().execute(putMapping);
 

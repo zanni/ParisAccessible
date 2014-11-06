@@ -1,0 +1,24 @@
+{
+"gtfsservice": {
+    "properties": {
+       "calendar": {
+          "type": "date",
+          "index": "no",
+          "format": "dateOptionalTime"
+       },
+       "endDate": {
+          "type": "date",
+          "index": "no",
+          "format": "dateOptionalTime"
+       },
+       "id": {
+          "type": "string"
+       },
+       "startDate": {
+          "type": "date",
+          "index": "no",
+          "format": "dateOptionalTime"
+       }
+    }
+ }
+}

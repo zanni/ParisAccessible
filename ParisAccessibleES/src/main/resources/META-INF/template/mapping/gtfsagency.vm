@@ -1,0 +1,29 @@
+{
+"gtfsagency": {
+    "properties": {
+       "id": {
+          "type": "string"
+       },
+       "lang": {
+          "type": "string",
+          "index": "no"
+       },
+       "name": {
+          "type": "string",
+          "store": true
+       },
+       "phone": {
+          "type": "string",
+          "index": "no"
+       },
+       "timezone": {
+          "type": "string",
+          "index": "no"
+       },
+       "url": {
+          "type": "string",
+          "index": "no"
+       }
+    }
+ }
+}

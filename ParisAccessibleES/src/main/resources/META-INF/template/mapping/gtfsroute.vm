@@ -1,0 +1,61 @@
+{
+"gtfsroute": {
+    "properties": {
+       "accessibleUFR": {
+          "type": "boolean",
+          "store": true
+       },
+       "annonceSonoreProchainArret": {
+          "type": "boolean",
+          "store": true
+       },
+       "annonceVisuelleProchainArret": {
+          "type": "boolean",
+          "store": true
+       },
+       "description": {
+          "type": "string",
+          "index": "no"
+       },
+       "destination": {
+          "type": "string",
+          "index": "no"
+       },
+       "id": {
+          "type": "string"
+       },
+       "longName": {
+          "type": "string",
+          "store": true
+       },
+       "name": {
+          "type": "string",
+          "store": true
+       },
+       "origin": {
+          "type": "string",
+          "index": "no"
+       },
+       "palette": {
+          "type": "boolean",
+          "store": true
+       },
+       "plancherBas": {
+          "type": "boolean",
+          "index": "no",
+          "store": true
+       },
+       "route_color": {
+          "type": "string",
+          "index": "no"
+       },
+       "route_color_text": {
+          "type": "string",
+          "index": "no"
+       },
+       "type": {
+          "type": "long"
+       }
+    }
+ }
+}

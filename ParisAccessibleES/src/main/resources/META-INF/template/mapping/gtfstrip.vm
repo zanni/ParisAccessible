@@ -1,0 +1,17 @@
+{
+"gtfstrip": {
+    "properties": {
+       "id": {
+          "type": "string"
+       },
+       "route_id": {
+          "type": "string",
+          "store": true
+       },
+       "service_id": {
+          "type": "string",
+          "store": true
+       }
+    }
+ }
+}
