@@ -18,6 +18,7 @@
         <module>ParisAccessibleInjector</module>
          <module>ParisAccessibleIndexer</module>
         <module>ParisAccessibleNeo</module>
+        <module>ParisAccessibleApp</module>
     </modules>
 
     <build>
