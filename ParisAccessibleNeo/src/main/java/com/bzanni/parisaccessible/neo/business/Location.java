@@ -3,6 +3,9 @@ package com.bzanni.parisaccessible.neo.business;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.neo4j.graphdb.DynamicLabel;
+import org.neo4j.graphdb.Label;
+
 public class Location {
 
 	private Long graphId;
@@ -25,13 +28,15 @@ public class Location {
 	}
 
 	public TransportPath mapTransport(Location to, Double speed) {
-		return new TransportPath(this, to, CostCompute.computeDistance(
-				this, to), CostCompute.computeCost(this, to, speed));
+		return new TransportPath(this, to,
+				CostCompute.computeDistance(this, to), CostCompute.computeCost(
+						this, to, speed));
 	}
 
 	public TrottoirPath mapTrottoir(Location to, Double speed) {
-		return new TrottoirPath(this, to, CostCompute.computeDistance(
-				this, to), CostCompute.computeCost(this, to, speed));
+		return new TrottoirPath(this, to,
+				CostCompute.computeDistance(this, to), CostCompute.computeCost(
+						this, to, speed));
 	}
 
 	public Map<String, Object> getMap() {
@@ -64,6 +69,10 @@ public class Location {
 
 	public void setLon(Double lon) {
 		this.lon = lon;
+	}
+
+	public Label getLabel() {
+		return DynamicLabel.label("Location");
 	}
 
 }

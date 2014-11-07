@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+service 'elasticsearch' do
+  action :start
+  supports :status => true, :start => true, :stop => true, :restart => true
+end
+
 if node['parisaccessible']['snapshot']['erase']
 	http_request "delete ratp_gtfs" do
 	  action :delete

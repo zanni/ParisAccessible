@@ -3,6 +3,8 @@ package com.bzanni.parisaccessible.neo.business;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.neo4j.graphdb.DynamicRelationshipType;
+
 public abstract class Path {
 
 	private Location start;
@@ -67,4 +69,5 @@ public abstract class Path {
 		this.distance = distance;
 	}
 
+	public abstract DynamicRelationshipType getRelationshipType();
 }
