@@ -85,7 +85,7 @@ public class TrottoirIndexerService {
 		// neostore.propertystore.db.arrays.mapped_memory=130M
 		inserter = BatchInserters.inserter(neoDataPath);
 		
-		inserter.createDeferredSchemaIndex( locationLabel ).on( "id" ).create();
+		inserter.createDeferredSchemaIndex( TrottoirIndexerService.locationLabel ).on( "id" ).create();
 		indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 
 	}
@@ -98,7 +98,7 @@ public class TrottoirIndexerService {
 	private void addLocationToInserter(Location location) {
 		currentBulkMarker++;
 //		inserter.c
-		long createNode = inserter.createNode(location.getMap());
+		long createNode = inserter.createNode(location.getMap(), TrottoirIndexerService.locationLabel);
 		System.out.println("Create node: "+createNode);
 		location.setGraphId(createNode);
 	}
