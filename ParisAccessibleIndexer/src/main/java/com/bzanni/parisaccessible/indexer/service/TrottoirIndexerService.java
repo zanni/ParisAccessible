@@ -39,8 +39,6 @@ import com.bzanni.parisaccessible.neo.business.TrottoirPath;
 @Configurable
 public class TrottoirIndexerService {
 
-	private final static long BULK_IMPORT = 2000;
-
 	private final static String DISTANCE_MATCH_TROTTOIR_PASSAGEPIETON = "5m";
 
 	private final static String DISTANCE_MATCH_TROTTOIR_STOP = "5m";
@@ -53,6 +51,8 @@ public class TrottoirIndexerService {
 
 	private final static DynamicRelationshipType TRANSPORT_RELATIONSHIP_TAG = DynamicRelationshipType
 			.withName("TRANSPORT");
+	
+	private final static Label locationLabel = DynamicLabel.label( "Location" );
 	@Resource
 	private TrottoirRepository trottoirRepository;
 
@@ -84,8 +84,8 @@ public class TrottoirIndexerService {
 		// neostore.propertystore.db.strings.mapped_memory=130M
 		// neostore.propertystore.db.arrays.mapped_memory=130M
 		inserter = BatchInserters.inserter(neoDataPath);
-		Label personLabel = DynamicLabel.label( "Location" );
-		inserter.createDeferredSchemaIndex( personLabel ).on( "id" ).create();
+		
+		inserter.createDeferredSchemaIndex( locationLabel ).on( "id" ).create();
 		indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 
 	}
@@ -112,6 +112,11 @@ public class TrottoirIndexerService {
 					TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, p
 							.getMap());
 			System.out.println("Create Relationship: "+createRelationship);
+			createRelationship = inserter.createRelationship( p.getEnd()
+					.getGraphId(), p.getStart().getGraphId(),
+					TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, p
+							.getMap());
+			System.out.println("Create Relationship: "+createRelationship);
 		}
 	}
 
@@ -125,6 +130,11 @@ public class TrottoirIndexerService {
 		currentBulkMarker++;
 		long createRelationship = inserter.createRelationship(trottoir.getStart().getGraphId(), trottoir
 				.getEnd().getGraphId(),
+				TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, trottoir
+						.getMap());
+		System.out.println("Create Relationship: "+createRelationship);
+		 createRelationship = inserter.createRelationship( trottoir
+				.getEnd().getGraphId(), trottoir.getStart().getGraphId(),
 				TrottoirIndexerService.TROTTOIR_RELATIONSHIP_TAG, trottoir
 						.getMap());
 		System.out.println("Create Relationship: "+createRelationship);
@@ -180,6 +190,10 @@ public class TrottoirIndexerService {
 						.getLon())));
 
 		inserter.createRelationship(start.getGraphId(), end.getGraphId(),
+				TrottoirIndexerService.PIETON_RELATIONSHIP_TAG,
+				passagePietonPath.getMap());
+		
+		inserter.createRelationship(end.getGraphId(),start.getGraphId(),
 				TrottoirIndexerService.PIETON_RELATIONSHIP_TAG,
 				passagePietonPath.getMap());
 
