@@ -44,8 +44,8 @@ node.default["parisaccessible"]["index_cost_trottoir_speed"] = 3
 node.default["parisaccessible"]["index_match_trottoir_passagepieton_distance"] = 5
 node.default["parisaccessible"]["index_match_trottoir_stop_distance"] = 5
 
-# allocated_memory = "#{(node.memory.total.to_i * 0.9 ).floor / 1024}m"
-# default.elasticsearch[:allocated_memory] = allocated_memory
+allocated_memory = "#{(node.memory.total.to_i * 0.9 ).floor / 1024}m"
+node.default[:elasticsearch][:allocated_memory] = allocated_memory
 
 
 

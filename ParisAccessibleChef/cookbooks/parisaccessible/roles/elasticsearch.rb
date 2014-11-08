@@ -9,10 +9,22 @@ run_list    "role[base]",
             "recipe[elasticsearch::proxy]",
             "recipe[elasticsearch::plugins]",
             "recipe[elasticsearch::aws]"
-            
+ 
+
+aws = Chef::DataBagItem.load('parisaccessible', 'aws') rescue {}
 default_attributes(
 	:elasticsearch => {
-         :nginx => { 
+          :discovery => {:type: "ec2"},
+          :cloud => {
+            :aws => {
+              :access_key => aws['access_key'],
+              :secret_key => aws['secret_key']
+            },
+            :ec2 => {
+              :security_group => "default"
+            }
+          }
+          :nginx => { 
             :users => [ {:username => "bzanni", :password => "bzanni"} ],
             :allow_cluster_api => true,
             :port => 80
