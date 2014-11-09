@@ -16,7 +16,9 @@ public class Location {
 
 	private Double lon;
 
-	public Location(String id, Double lat, Double lon) {
+	private String label;
+
+	public Location(String label, String id, Double lat, Double lon) {
 		this.id = id;
 		this.lat = lat;
 		this.lon = lon;
@@ -72,7 +74,7 @@ public class Location {
 	}
 
 	public Label getLabel() {
-		return DynamicLabel.label("Location");
+		return DynamicLabel.label(label);
 	}
 
 }

@@ -65,10 +65,11 @@ public class TrottoirIndexerService {
 
 	Map<String, Location> cache = new HashMap<String, Location>();
 
-	private Location prepareLocation(String key, List<Double> point) {
+	private Location prepareLocation(String label, String key,
+			List<Double> point) {
 		Location startPieton = cache.get(key);
 		if (startPieton == null) {
-			startPieton = new Location(key, point.get(0), point.get(1));
+			startPieton = new Location(label, key, point.get(0), point.get(1));
 			cache.put(key, startPieton);
 			batchInserter.addLocationToInserter(startPieton);
 		}
@@ -82,15 +83,15 @@ public class TrottoirIndexerService {
 				.getLat();
 		Double lon = (isStart) ? passage.getStart().getLon() : passage.getEnd()
 				.getLon();
-		return prepareLocation(key, Arrays.asList(lat, lon));
+		return prepareLocation("PIETON", key, Arrays.asList(lat, lon));
 
 	}
 
 	private Location prepareLocation(GtfsStop stop) {
 		String key = "stop_" + stop.getId();
 
-		return prepareLocation(key, Arrays.asList(stop.getLocation().getLat(),
-				stop.getLocation().getLon()));
+		return prepareLocation("STOP", key, Arrays.asList(stop.getLocation()
+				.getLat(), stop.getLocation().getLon()));
 	}
 
 	private TrottoirPath map(Location trottoir, PassagePieton passage,
@@ -177,6 +178,7 @@ public class TrottoirIndexerService {
 		Iterator<List<Trottoir>> findAll = trottoirRepository.findAll();
 		while (findAll.hasNext()) {
 			List<Trottoir> trottoirs = findAll.next();
+			System.out.println("downloaded: "+trottoirs.size());
 			for (Trottoir trottoir : trottoirs) {
 				GeoShape shape = trottoir.getShape();
 				List<List<List<Double>>> multilines = null;
@@ -205,8 +207,8 @@ public class TrottoirIndexerService {
 						for (List<Double> point : line) {
 							// create location node for corresponing trottoir
 							// edge
-							Location loc = new Location(key, point.get(0),
-									point.get(1));
+							Location loc = new Location("TROTTOIR", key,
+									point.get(0), point.get(1));
 							batchInserter.addLocationToInserter(loc);
 							// link this location with previously created one if
 							// exists
@@ -239,12 +241,12 @@ public class TrottoirIndexerService {
 							}
 							i++;
 						}
-						
-						// match last to first						
-						 TrottoirPath mapTrottoir = firstLocation.mapTrottoir(prevLocation, pietonSpeed);
-								
-						batchInserter
-								.addBidirectionalToInserter(mapTrottoir);
+
+						// match last to first
+						TrottoirPath mapTrottoir = firstLocation.mapTrottoir(
+								prevLocation, pietonSpeed);
+
+						batchInserter.addBidirectionalToInserter(mapTrottoir);
 					}
 				}
 
