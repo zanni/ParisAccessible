@@ -2,12 +2,14 @@ name        "snapshot"
 description "Configuration for snapshot nodes"
 
 run_list    "role[base]",
-			"recipe[awscli]",
-			"recipe[parisaccessible::snapshot_neo]",
-			"recipe[parisaccessible::snapshot_es]"
+            "recipe[java]",
+            "recipe[maven]",
+      			"recipe[awscli]",
+            "recipe[parisaccessible::install]",
+      			"recipe[parisaccessible::snapshot_neo]",
+      			"recipe[parisaccessible::snapshot_es]"
 
-aws = Chef::DataBagItem.load('parisaccessible', 'aws') rescue {}
-
+aws = Chef::DataBagItem.load('parisaccessible', 'aws')['_default'] rescue {}
 default_attributes(
   :awscli => {
     :config_profiles =>  {
@@ -17,4 +19,5 @@ default_attributes(
         :aws_secret_access_key => aws['secret_key']
       }
     }
+  }
 )

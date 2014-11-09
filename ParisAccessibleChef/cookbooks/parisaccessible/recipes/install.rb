@@ -20,6 +20,12 @@ package "git"
    action :sync
  end
 
+ git "/srv/spatial" do
+   repository "#{node['parisaccessible']['neo_spatial_repository']}"
+   reference "master"
+   action :sync
+ end
+
 directory "#{node['parisaccessible']['log']}" do
   action :create
 end
@@ -34,6 +40,15 @@ end
 bash "Build Jest" do
   user "root"
   cwd "/srv/Jest"
+  code <<-EOH
+  chmod -R 777 ./
+  mvn clean package install -DskipTests=true
+  EOH
+end
+
+bash "Build spatial" do
+  user "root"
+  cwd "/srv/spatial"
   code <<-EOH
   chmod -R 777 ./
   mvn clean package install -DskipTests=true

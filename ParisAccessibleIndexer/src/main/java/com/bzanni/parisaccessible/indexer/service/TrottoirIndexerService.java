@@ -53,13 +53,13 @@ public class TrottoirIndexerService {
 
 	@Value("${index_cost_trottoir_speed}")
 	private Double trottoirSpeed;
-	
-//	index_match_trottoir_passagepieton = 5
-//			index_match_trottoir_stop = 5
-	
+
+	// index_match_trottoir_passagepieton = 5
+	// index_match_trottoir_stop = 5
+
 	@Value("${index_match_trottoir_passagepieton_distance}")
 	private Double matchTrottoirPassagePietonDistance;
-	
+
 	@Value("${index_match_trottoir_stop_distance}")
 	private Double matchTrottoirStopDistance;
 
@@ -152,7 +152,7 @@ public class TrottoirIndexerService {
 			List<Double> positionTrottoir) {
 		try {
 			List<GtfsStop> findLocation = stopRepository.findLocation(
-					positionTrottoir.get(0), positionTrottoir.get(1),
+					positionTrottoir.get(1), positionTrottoir.get(0),
 					TrottoirIndexerService.DISTANCE_MATCH_TROTTOIR_STOP);
 
 			List<TrottoirPath> res = new ArrayList<TrottoirPath>();
@@ -197,6 +197,10 @@ public class TrottoirIndexerService {
 						String key = "trottoir_" + trottoir.getId() + "_" + i;
 						List<Double> prev = null;
 						Location prevLocation = null;
+
+						List<Double> first = null;
+						Location firstLocation = null;
+						boolean isFirst = true;
 						// for each point in trottoir
 						for (List<Double> point : line) {
 							// create location node for corresponing trottoir
@@ -228,8 +232,19 @@ public class TrottoirIndexerService {
 
 							prev = point;
 							prevLocation = loc;
+							if (isFirst) {
+								isFirst = false;
+								first = prev;
+								firstLocation = prevLocation;
+							}
 							i++;
 						}
+						
+						// match last to first						
+						 TrottoirPath mapTrottoir = firstLocation.mapTrottoir(prevLocation, pietonSpeed);
+								
+						batchInserter
+								.addBidirectionalToInserter(mapTrottoir);
 					}
 				}
 

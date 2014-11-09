@@ -67,8 +67,8 @@ public class OpenDataParisPassagePietonCsvImport extends
 				PassagePieton passage = new PassagePieton();
 				for (String j : split3) {
 					String[] split4 = j.split(",");
-					Double v1 = Double.valueOf(split4[0]);
-					Double v2 = Double.valueOf(split4[1]);
+					Double v2 = Double.valueOf(split4[0]);
+					Double v1 = Double.valueOf(split4[1]);
 
 					if (passage.getStart() == null) {
 						passage.setStart(new GeoPoint(v1, v2));

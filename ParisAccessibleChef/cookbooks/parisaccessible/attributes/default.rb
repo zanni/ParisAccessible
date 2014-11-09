@@ -3,6 +3,8 @@
 node.default["parisaccessible"]["home"] = "/srv/ParisAccessible" 
 node.default["parisaccessible"]["repository"] = "git://github.com/zanni/ParisAccessible.git"
 node.default["parisaccessible"]["jest_repository"] = "git://github.com/searchbox-io/Jest.git"
+node.default["parisaccessible"]["neo_spatial_repository"] = "git://github.com/neo4j-contrib/spatial.git"
+
 node.default["parisaccessible"]["log"] = "/var/log/parisaccessible"
 node.default["parisaccessible"]["ratp_gtfs_url"] = "http://dataratp.download.opendatasoft.com/RATP_GTFS_FULL.zip"
 node.default["parisaccessible"]["accessibility_trottoir_url"] = "http://opendata.paris.fr/explore/dataset/trottoirs_des_rues_de_paris/download/?format=csv"
@@ -44,7 +46,7 @@ node.default["parisaccessible"]["index_cost_trottoir_speed"] = 3
 node.default["parisaccessible"]["index_match_trottoir_passagepieton_distance"] = 5
 node.default["parisaccessible"]["index_match_trottoir_stop_distance"] = 5
 
-allocated_memory = "#{(node.memory.total.to_i * 0.9 ).floor / 1024}m"
+allocated_memory = "#{(node.memory.total.to_i * 0.8 ).floor / 1024}m"
 node.default[:elasticsearch][:allocated_memory] = allocated_memory
 
 
