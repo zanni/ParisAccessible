@@ -207,7 +207,7 @@ public class TrottoirIndexerService {
 						for (List<Double> point : line) {
 							// create location node for corresponing trottoir
 							// edge
-							Location loc = new Location("TROTTOIR", key,
+							Location loc = new Location("SIDWAY", key,
 									point.get(0), point.get(1));
 							batchInserter.addLocationToInserter(loc);
 							// link this location with previously created one if
