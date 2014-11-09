@@ -22,6 +22,7 @@ public class Location {
 		this.id = id;
 		this.lat = lat;
 		this.lon = lon;
+		this.label = label;
 	}
 
 	public PassagePietonPath mapPassagePieton(Location to, Double speed) {
