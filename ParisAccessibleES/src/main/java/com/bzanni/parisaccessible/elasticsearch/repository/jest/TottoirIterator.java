@@ -80,7 +80,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 					list.add(trottoir);
 				}
 			}
-			return list;
+			
 		}
 
 		try {
@@ -91,7 +91,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 			e.printStackTrace();
 
 		}
-		return null;
+		return list;
 	}
 
 	private List<Trottoir> parseResult(JsonObject result) {
