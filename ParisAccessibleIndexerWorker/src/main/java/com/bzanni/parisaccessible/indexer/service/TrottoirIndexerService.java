@@ -3,10 +3,8 @@ package com.bzanni.parisaccessible.indexer.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -26,6 +24,7 @@ import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.Tr
 import com.bzanni.parisaccessible.neo.business.Location;
 import com.bzanni.parisaccessible.neo.business.PassagePietonPath;
 import com.bzanni.parisaccessible.neo.business.TrottoirPath;
+import com.bzanni.parisaccessible.neo.service.MemcachedService;
 
 @Service
 @Configurable
@@ -45,7 +44,10 @@ public class TrottoirIndexerService {
 	private GtfsStopRepository stopRepository;
 
 	@Resource
-	private LocationPublisher batchInserter;
+	private LocationPublisher rabbitPublisher;
+
+	@Resource
+	private MemcachedService cache;
 
 	@Value("${index_cost_pieton_speed}")
 	private Double pietonSpeed;
@@ -53,26 +55,28 @@ public class TrottoirIndexerService {
 	@Value("${index_cost_trottoir_speed}")
 	private Double trottoirSpeed;
 
-	// index_match_trottoir_passagepieton = 5
-	// index_match_trottoir_stop = 5
-
 	@Value("${index_match_trottoir_passagepieton_distance}")
 	private Double matchTrottoirPassagePietonDistance;
 
 	@Value("${index_match_trottoir_stop_distance}")
 	private Double matchTrottoirStopDistance;
 
-	Map<String, Location> cache = new HashMap<String, Location>();
+	// Map<String, Location> cache = new HashMap<String, Location>();
 
 	private Location prepareLocation(String label, String key,
 			List<Double> point) {
-		Location startPieton = cache.get(key);
-		if (startPieton == null) {
-			startPieton = new Location(label, key, point.get(0), point.get(1));
-			cache.put(key, startPieton);
-			batchInserter.addLocationToInserter(startPieton);
-		}
-		return startPieton;
+//		Location startPieton;
+//		Object obj = null;//cache.get(key);
+//		if (obj == null) {
+//			startPieton = new Location(label, key, point.get(0), point.get(1));
+//			cache.set(key, startPieton);
+			
+//		}
+//		else {
+//			startPieton = (Location) obj;
+//		}
+//		rabbitPublisher.addLocationToInserter(startPieton);
+		return new Location(label, key, point.get(0), point.get(1));
 	}
 
 	private Location prepareLocation(PassagePieton passage, boolean isStart) {
@@ -111,7 +115,7 @@ public class TrottoirIndexerService {
 		PassagePietonPath passagePietonPath = start.mapPassagePieton(end,
 				pietonSpeed);
 
-		batchInserter.addBidirectionalToInserter(passagePietonPath);
+		rabbitPublisher.addBidirectionalToInserter(passagePietonPath);
 
 	}
 
@@ -172,13 +176,14 @@ public class TrottoirIndexerService {
 		return Collections.emptyList();
 	}
 
-	public void indexTrottoir(int index_worker , int total_worker) {
-		
-		String worker = "worker:"+index_worker;
-		
-		batchInserter.endWorker(worker);
+	public void indexTrottoir(int index_worker, int total_worker) {
 
-		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllWorker(index_worker, total_worker);
+		String worker = "worker:" + index_worker;
+
+		rabbitPublisher.endWorker(worker);
+
+		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllWorker(
+				index_worker, total_worker);
 		while (findAll.hasNext()) {
 			List<Trottoir> trottoirs = findAll.next();
 			System.out.println("downloaded: " + trottoirs.size());
@@ -199,64 +204,63 @@ public class TrottoirIndexerService {
 				if (multilines != null) {
 					int i = 0;
 					for (List<List<Double>> line : multilines) {
-						String key = "trottoir_" + trottoir.getId() + "_" + i;
-						List<Double> prev = null;
+						String id = "trottoir_" + trottoir.getId() + "_" + i;
 						Location prevLocation = null;
 
-						List<Double> first = null;
 						Location firstLocation = null;
 						boolean isFirst = true;
 						// for each point in trottoir
+						int j =0;
 						for (List<Double> point : line) {
 							// create location node for corresponing trottoir
 							// edge
+							String key = id+"_"+j;
 							Location loc = new Location("SIDWAY", key,
 									point.get(0), point.get(1));
-							batchInserter.addLocationToInserter(loc);
+//							rabbitPublisher.addLocationToInserter(loc);
 							// link this location with previously created one if
 							// exists
-							if (prev != null && prevLocation != null) {
+							if (prevLocation != null) {
 								TrottoirPath mapTrottoir = loc.mapTrottoir(
 										prevLocation, pietonSpeed);
 
-								batchInserter
+								rabbitPublisher
 										.addBidirectionalToInserter(mapTrottoir);
 							}
 
 							List<TrottoirPath> connectTrottoirLocationToPassagePieton = connectTrottoirLocationToPassagePieton(
 									loc, point);
 
-							batchInserter
+							rabbitPublisher
 									.addBidirectionalToInserter(connectTrottoirLocationToPassagePieton);
 
 							List<TrottoirPath> connectTrottoirLocationToStop = connectTrottoirLocationToStop(
 									loc, point);
 
-							batchInserter
+							rabbitPublisher
 									.addBidirectionalToInserter(connectTrottoirLocationToStop);
 
-							prev = point;
 							prevLocation = loc;
 							if (isFirst) {
 								isFirst = false;
-								first = prev;
 								firstLocation = prevLocation;
 							}
 							i++;
+							j++;
 						}
 
 						// match last to first
 						TrottoirPath mapTrottoir = firstLocation.mapTrottoir(
 								prevLocation, pietonSpeed);
 
-						batchInserter.addBidirectionalToInserter(mapTrottoir);
+						rabbitPublisher.addBidirectionalToInserter(mapTrottoir);
 					}
 				}
 
 			}
 		}
-//		batchInserter.flushAndShutdown();
-		
-		batchInserter.endWorker(worker);
+		// batchInserter.flushAndShutdown();
+
+		rabbitPublisher.endWorker(worker);
 	}
 }

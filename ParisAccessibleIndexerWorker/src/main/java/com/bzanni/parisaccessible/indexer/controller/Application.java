@@ -11,8 +11,9 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -32,11 +33,19 @@ import com.bzanni.parisaccessible.indexer.service.TrottoirIndexerService;
 @ImportResource({ "classpath:/META-INF/spring/servlet-context.xml" })
 public class Application {
 
+	
+
 	@Value("${rabbitmq_host}")
 	private String rabbitmqHost;
 
 	@Value("${rabbitmq_port}")
 	private Integer rabbitmqPort;
+
+	@Value("${rabbitmq_username}")
+	private String rabbitmqUsername;
+
+	@Value("${rabbitmq_password}")
+	private String rabbitmqPassword;
 
 	final static String workflowQueueName = "workflow";
 	final static String locationQueueName = "location";
@@ -46,10 +55,10 @@ public class Application {
 	public ConnectionFactory connectionFactory() {
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(
 				rabbitmqHost, rabbitmqPort);
+		connectionFactory.setUsername(rabbitmqUsername);
+		connectionFactory.setPassword(rabbitmqPassword);
 		return connectionFactory;
 	}
-	
-	
 
 	@Bean
 	Queue workflowQueue() {
@@ -65,17 +74,42 @@ public class Application {
 	Queue pathQueue() {
 		return new Queue(Application.pathQueueName, false);
 	}
-	
+
 	@Bean
 	TopicExchange exchange() {
 		return new TopicExchange("parisaccessible");
 	}
 
 	@Bean
-	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(queue.getName());
+	Binding workflowQueueBinding(Queue workflowQueue, TopicExchange exchange) {
+		return BindingBuilder.bind(workflowQueue).to(exchange)
+				.with(workflowQueue.getName());
 	}
 
+	@Bean
+	Binding locationQueueBinding(Queue locationQueue, TopicExchange exchange) {
+		return BindingBuilder.bind(locationQueue).to(exchange)
+				.with(locationQueue.getName());
+	}
+
+	@Bean
+	Binding pathQueueBinding(Queue pathQueue, TopicExchange exchange) {
+		return BindingBuilder.bind(pathQueue).to(exchange)
+				.with(pathQueue.getName());
+	}
+
+	@Bean
+	public MessageConverter jsonMessageConverter() {
+		Jackson2JsonMessageConverter jsonMessageConverter = new Jackson2JsonMessageConverter();
+		return jsonMessageConverter;
+	}
+
+	@Bean
+	public RabbitTemplate rabbitTemplate() {
+		RabbitTemplate template = new RabbitTemplate(connectionFactory());
+		template.setMessageConverter(jsonMessageConverter());
+		return template;
+	}
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(
@@ -105,7 +139,7 @@ public class Application {
 				final TrottoirIndexerService trottoirIndexer = run
 						.getBean(TrottoirIndexerService.class);
 
-				String index_worker = line.getOptionValue("total_worker");
+				String index_worker = line.getOptionValue("index_worker");
 				String total_worker = line.getOptionValue("total_worker");
 
 				Integer index_worker_int = Integer.valueOf(index_worker);

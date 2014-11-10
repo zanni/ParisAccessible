@@ -1,10 +1,16 @@
 package com.bzanni.parisaccessible.neo.business;
 
-import org.neo4j.graphdb.DynamicRelationshipType;
+import java.io.Serializable;
+
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
 
 @RelationshipEntity(type = "PIETON")
-public class PassagePietonPath extends Path {
+public class PassagePietonPath extends Path implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2672361275594713488L;
 
 	public PassagePietonPath(Location start, Location end, Double distance,
 			Double cost) {
@@ -12,7 +18,7 @@ public class PassagePietonPath extends Path {
 	}
 
 	@Override
-	public DynamicRelationshipType getRelationshipType() {
-		return DynamicRelationshipType.withName("PIETON");
+	public String getType() {
+		return "PIETON";
 	}
 }

@@ -1,12 +1,15 @@
 package com.bzanni.parisaccessible.neo.business;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.neo4j.graphdb.DynamicLabel;
-import org.neo4j.graphdb.Label;
+public class Location implements Serializable {
 
-public class Location {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8413877462450872080L;
 
 	private Long graphId;
 
@@ -14,9 +17,14 @@ public class Location {
 
 	private Double lat;
 
+	
+
 	private Double lon;
 
 	private String label;
+
+	public Location() {
+	}
 
 	public Location(String label, String id, Double lat, Double lon) {
 		this.id = id;
@@ -74,8 +82,19 @@ public class Location {
 		this.lon = lon;
 	}
 
-	public Label getLabel() {
-		return DynamicLabel.label(label);
+	public String getLabel() {
+		return label;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 }

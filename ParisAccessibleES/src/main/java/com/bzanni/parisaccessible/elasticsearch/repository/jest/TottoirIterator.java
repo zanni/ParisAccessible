@@ -20,7 +20,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class TottoirIterator implements Iterator<List<Trottoir>> {
 
-	private final static int DEFAULT_BULK = 20;
+	private final static int DEFAULT_BULK = 50;
 
 	private TrottoirRepository repository;
 
@@ -59,7 +59,8 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 	public TottoirIterator(TrottoirRepository repository, int index_worker,
 			int total_worker, int bulk) {
 		this.repository = repository;
-		this.bulk = bulk;engine = new JestQueryEngine();
+		this.bulk = bulk;
+		engine = new JestQueryEngine();
 		this.index_worker = index_worker;
 		this.total_worker = total_worker;
 		this.cursor = this.index_worker * this.bulk;
@@ -130,7 +131,10 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 	@Override
 	public boolean hasNext() {
-		
+
+		System.out
+				.println("query: from: " + cursor + " to: " + (cursor + bulk));
+
 		int marge = this.total_worker * bulk;
 
 		String query = engine.matchAllQuery();

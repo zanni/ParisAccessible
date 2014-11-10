@@ -3,20 +3,20 @@ package com.bzanni.parisaccessible.neo.business;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.neo4j.graphdb.DynamicRelationshipType;
-
-public abstract class Path {
+public class Path {
 
 	private Location start;
 	private Location end;
 	private Double cost;
 	private Double distance;
 	private boolean accessible = true;
+	private String type;
 
 	public Path() {
 	}
 
-	public Path(Location start, Location end, Double distance, Double cost) {
+	public Path(Location start, Location end, Double distance,
+			Double cost) {
 		this.start = start;
 		this.end = end;
 		this.cost = cost;
@@ -69,5 +69,9 @@ public abstract class Path {
 		this.distance = distance;
 	}
 
-	public abstract DynamicRelationshipType getRelationshipType();
+	public String getType() {
+		return "PATH";
+	}
+
+
 }

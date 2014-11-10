@@ -1,14 +1,29 @@
-name        "neo4j"
-description "Configuration for rabbitmq-server nodes"
+name        "rabbitmq"
+description "Configuration for rabbitmq nodes"
 
 run_list    "role[base]",
-			"recipe[rabbitmq-server]"
+			"recipe[rabbitmq]",
+			"recipe[rabbitmq::plugin_management]",
+			"recipe[rabbitmq::user_management]"
 
 default_attributes(
 	:rabbitmq => {
 		:use_distro_version => false,
-		:package => "http://www.rabbitmq.com/releases/rabbitmq-server/v3.4.1/rabbitmq-server_3.4.1-1_all.deb",
-		:enabled_plugins => ['rabbitmq_management','rabbitmq_management_visualiser']
+		:version => "3.4.1",
+		:enabled_plugins => ['rabbitmq_management','rabbitmq_management_visualiser'],
+		:enabled_users => [{
+			:name => "bzanni",
+			:password => "bzanni",
+			:tag => "administrator",
+			:rights => [
+				{
+					:vhost => "/",
+  					:conf => ".*",
+  					:write => ".*",
+  					:read => ".*"
+				}
+			]
+		}]
 
 	}
 )        
