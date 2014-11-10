@@ -1,8 +1,7 @@
-name        "neo4j"
-description "Configuration for neo4j nodes"
+name        "indexer_inserter"
+description "Configuration for indexer_inserter nodes"
 
 run_list    "role[base]",
-			"recipe[neo4j-server::tarball]",
 			"recipe[java]",
             "recipe[maven]",
              "recipe[parisaccessible::install]",

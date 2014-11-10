@@ -27,6 +27,9 @@ package "git"
  end
 
 directory "#{node['parisaccessible']['log']}" do
+  owner 'ubuntu'
+  group 'ubuntu'
+  mode '0777'
   action :create
 end
 directory "#{node['parisaccessible']['home']}/inject" do
@@ -59,6 +62,7 @@ bash "Build Application" do
   user "root"
   cwd "#{node['parisaccessible']['home']}"
   code <<-EOH
+  chmod -R 777 ../
   mvn clean package
   EOH
 end

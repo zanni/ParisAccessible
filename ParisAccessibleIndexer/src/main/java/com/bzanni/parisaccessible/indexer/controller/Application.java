@@ -2,6 +2,7 @@ package com.bzanni.parisaccessible.indexer.controller;
 
 import javax.annotation.Resource;
 
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -129,6 +130,7 @@ public class Application {
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(Application.workflowQueueName);
 		container.setMessageListener(workflowQueueAdapter);
+		container.setAcknowledgeMode(AcknowledgeMode.NONE);
 		return container;
 	}
 
@@ -140,6 +142,7 @@ public class Application {
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(Application.locationQueueName);
 		container.setMessageListener(locationQueueAdapter);
+		container.setAcknowledgeMode(AcknowledgeMode.NONE);
 		return container;
 	}
 
@@ -151,6 +154,7 @@ public class Application {
 		container.setConnectionFactory(connectionFactory);
 		container.setQueueNames(Application.pathQueueName);
 		container.setMessageListener(pathQueueAdapter);
+		container.setAcknowledgeMode(AcknowledgeMode.NONE);
 		return container;
 	}
 
