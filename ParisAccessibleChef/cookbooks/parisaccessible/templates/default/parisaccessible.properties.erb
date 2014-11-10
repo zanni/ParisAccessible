@@ -5,6 +5,16 @@ neo4j_data_path=<%= node[:parisaccessible][:neo4j_data_path] %>
 
 inject_path = <%=  node[:parisaccessible][:inject_path] %>
 
+rabbitmq_host = <%=  node[:parisaccessible][:rabbitmq_host] %>
+rabbitmq_port = <%=  node[:parisaccessible][:rabbitmq_port] %>
+rabbitmq_username = <%=  node[:parisaccessible][:rabbitmq_username] %>
+rabbitmq_password = <%=  node[:parisaccessible][:rabbitmq_password] %>
+
+
+
+memcached_url = <%= node[:parisaccessible][:memcached_url] %>
+memcached_port = <%= node[:parisaccessible][:memcached_port] %>
+
 ratp_gtfs_index_name <%= node[:parisaccessible][:ratp_gtfs_index_name] %>
 
 accesibility_index_name <%= node[:parisaccessible][:accesibility_index_name] %>

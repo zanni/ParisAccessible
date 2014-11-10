@@ -17,10 +17,18 @@ node.default['parisaccessible']['snapshot']['bucket'] = "bzanni"
 
 node.default["parisaccessible"]["elasticsearch_url"] = "http://192.168.33.10:9200"
 node.default["parisaccessible"]["neo4j_url"] = "http://localhost:7474/db/data"
-node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/graph.db"
+node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/batch.db"
 
 
 node.default["parisaccessible"]["inject_path"] = "/srv/ParisAccessible/inject/"
+
+node.default["parisaccessible"]["rabbitmq_host"]  = "localhost"
+node.default["parisaccessible"]["rabbitmq_port"]  = 5672
+node.default["parisaccessible"]["rabbitmq_username"]  = "bzanni"
+node.default["parisaccessible"]["rabbitmq_password"]  = "bzanni"
+
+node.default["parisaccessible"]["memcached_url"]  = "localhost"
+node.default["parisaccessible"]["memcached_port"]  = 11211
 
 node.default["parisaccessible"]["ratp_gtfs_index_name"] = "ratp_gtfs"
 node.default["parisaccessible"]["accesibility_index_name"] = "accessibility"

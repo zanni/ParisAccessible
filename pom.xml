@@ -19,6 +19,7 @@
          <module>ParisAccessibleIndexer</module>
         <module>ParisAccessibleNeo</module>
         <module>ParisAccessibleApp</module>
+        <module>ParisAccessibleIndexerWorker</module>
     </modules>
 
     <build>
