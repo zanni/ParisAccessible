@@ -38,6 +38,10 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 	public Iterator<List<Trottoir>> findAll() {
 		return new TottoirIterator(this);
 	}
+	
+	public Iterator<List<Trottoir>> findAllWorker(Integer index_worker, Integer total_worker) {
+		return new TottoirIterator(this, index_worker, total_worker);
+	}
 
 	private boolean mappings() throws Exception {
 

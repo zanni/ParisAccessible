@@ -13,8 +13,6 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
-import org.springframework.amqp.support.converter.JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -25,9 +23,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-import com.bzanni.parisaccessible.indexer.listener.LocationListener;
-import com.bzanni.parisaccessible.indexer.listener.PathListener;
-import com.bzanni.parisaccessible.indexer.listener.WorkflowListener;
 import com.bzanni.parisaccessible.indexer.service.TrottoirIndexerService;
 
 @Configuration
@@ -48,17 +43,13 @@ public class Application {
 	final static String pathQueueName = "path";
 
 	@Bean
-	public MessageConverter messageConverter(){
-		JsonMessageConverter jsonMessageConverter = new JsonMessageConverter();
-		return jsonMessageConverter;
-	}
-	
-	@Bean
 	public ConnectionFactory connectionFactory() {
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(
 				rabbitmqHost, rabbitmqPort);
 		return connectionFactory;
 	}
+	
+	
 
 	@Bean
 	Queue workflowQueue() {
@@ -74,7 +65,7 @@ public class Application {
 	Queue pathQueue() {
 		return new Queue(Application.pathQueueName, false);
 	}
-
+	
 	@Bean
 	TopicExchange exchange() {
 		return new TopicExchange("parisaccessible");
@@ -85,41 +76,6 @@ public class Application {
 		return BindingBuilder.bind(queue).to(exchange).with(queue.getName());
 	}
 
-	@Bean
-	SimpleMessageListenerContainer containerworkflowQueueName(
-			ConnectionFactory connectionFactory,
-			MessageListenerAdapter listenerAdapter) {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(Application.workflowQueueName);
-		WorkflowListener listener = new WorkflowListener();
-		container.setMessageListener(listener);
-		return container;
-	}
-
-	@Bean
-	SimpleMessageListenerContainer containerlocationQueueName(
-			ConnectionFactory connectionFactory,
-			MessageListenerAdapter listenerAdapter) {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(Application.locationQueueName);
-		LocationListener listener = new LocationListener();
-		container.setMessageListener(listener);
-		return container;
-	}
-
-	@Bean
-	SimpleMessageListenerContainer containerpathQueueName(
-			ConnectionFactory connectionFactory,
-			MessageListenerAdapter listenerAdapter) {
-		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(Application.pathQueueName);
-		PathListener listener = new PathListener();
-		container.setMessageListener(listener);
-		return container;
-	}
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(
@@ -130,6 +86,12 @@ public class Application {
 		// create the Options
 		Options options = new Options();
 		options.addOption("index_trottoir", "index_trottoir", false,
+				"do not hide entries starting with .");
+
+		options.addOption("index_worker", "index_worker", true,
+				"do not hide entries starting with .");
+
+		options.addOption("total_worker", "total_worker", true,
 				"do not hide entries starting with .");
 
 		options.addOption("index_trip", "index_trip", false,
@@ -143,7 +105,14 @@ public class Application {
 				final TrottoirIndexerService trottoirIndexer = run
 						.getBean(TrottoirIndexerService.class);
 
-				trottoirIndexer.indexTrottoir();
+				String index_worker = line.getOptionValue("total_worker");
+				String total_worker = line.getOptionValue("total_worker");
+
+				Integer index_worker_int = Integer.valueOf(index_worker);
+				Integer total_worker_int = Integer.valueOf(total_worker);
+
+				trottoirIndexer.indexTrottoir(index_worker_int,
+						total_worker_int);
 			} else if (line.hasOption("index_trip")) {
 
 			}

@@ -32,16 +32,37 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 	private JestQueryEngine engine;
 
+	private int index_worker = 0;
+
+	private int total_worker = 1;
+
+	public TottoirIterator(TrottoirRepository repository, int index_worker,
+			int total_worker) {
+		this.repository = repository;
+		this.bulk = TottoirIterator.DEFAULT_BULK;
+		engine = new JestQueryEngine();
+		this.index_worker = index_worker;
+		this.total_worker = total_worker;
+		this.cursor = this.index_worker * this.bulk;
+	}
+
 	public TottoirIterator(TrottoirRepository repository) {
 		this.repository = repository;
 		this.bulk = TottoirIterator.DEFAULT_BULK;
 		engine = new JestQueryEngine();
+		this.index_worker = 0;
+		this.total_worker = 1;
+		this.cursor = this.index_worker * this.bulk;
 
 	}
 
-	public TottoirIterator(TrottoirRepository repository, int bulk) {
+	public TottoirIterator(TrottoirRepository repository, int index_worker,
+			int total_worker, int bulk) {
 		this.repository = repository;
-		this.bulk = bulk;
+		this.bulk = bulk;engine = new JestQueryEngine();
+		this.index_worker = index_worker;
+		this.total_worker = total_worker;
+		this.cursor = this.index_worker * this.bulk;
 	}
 
 	private List<Trottoir> parse(JsonElement records) {
@@ -80,7 +101,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 					list.add(trottoir);
 				}
 			}
-			
+
 		}
 
 		try {
@@ -96,12 +117,12 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 	private List<Trottoir> parseResult(JsonObject result) {
 		if (result != null) {
-//			JsonElement nhits = result.get("nhits");
+			// JsonElement nhits = result.get("nhits");
 			JsonElement records = result.get("hits");
-			if(records != null){
+			if (records != null) {
 				return parse(records.getAsJsonObject().get("hits"));
 			}
-			
+
 		}
 
 		return null;
@@ -109,6 +130,8 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 	@Override
 	public boolean hasNext() {
+		
+		int marge = this.total_worker * bulk;
 
 		String query = engine.matchAllQuery();
 
@@ -126,7 +149,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 				// JsonElement fromJson = gson.fromJson(rd, JsonElement.class);
 				// sourceAsObjectList = execute.getSourceAsObjectList(klass);
-				cursor += bulk;
+				cursor += marge;
 				if (cursor > total) {
 					return false;
 				} else {
