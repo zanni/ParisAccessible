@@ -9,9 +9,8 @@ public class TransportPath extends Path implements Serializable {
 	 */
 	private static final long serialVersionUID = 2148870457829963876L;
 
-	public TransportPath(Location start, Location end, Double distance,
-			Double cost) {
-		super(start, end, distance, cost);
+	public TransportPath(Location start, Location end) {
+		super(start, end);
 	}
 
 	@Override

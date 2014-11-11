@@ -34,20 +34,15 @@ public class Location implements Serializable {
 	}
 
 	public PassagePietonPath mapPassagePieton(Location to, Double speed) {
-		return new PassagePietonPath(this, to, CostCompute.computeDistance(
-				this, to), CostCompute.computeCost(this, to, speed));
+		return new PassagePietonPath(this, to);
 	}
 
 	public TransportPath mapTransport(Location to, Double speed) {
-		return new TransportPath(this, to,
-				CostCompute.computeDistance(this, to), CostCompute.computeCost(
-						this, to, speed));
+		return new TransportPath(this, to);
 	}
 
 	public TrottoirPath mapTrottoir(Location to, Double speed) {
-		return new TrottoirPath(this, to,
-				CostCompute.computeDistance(this, to), CostCompute.computeCost(
-						this, to, speed));
+		return new TrottoirPath(this, to);
 	}
 
 	public Map<String, Object> getMap() {

@@ -12,9 +12,8 @@ public class PassagePietonPath extends Path implements Serializable {
 	 */
 	private static final long serialVersionUID = -2672361275594713488L;
 
-	public PassagePietonPath(Location start, Location end, Double distance,
-			Double cost) {
-		super(start, end, distance, cost);
+	public PassagePietonPath(Location start, Location end) {
+		super(start, end);
 	}
 
 	@Override

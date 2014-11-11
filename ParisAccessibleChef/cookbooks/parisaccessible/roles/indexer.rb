@@ -10,6 +10,9 @@ run_list    "role[base]",
             
 
 override_attributes(	
+	:maven => {
+		:setup_bin => true
+	,
 	 :java => {
           :install_flavor => "openjdk",
           :jdk_version =>  "7"

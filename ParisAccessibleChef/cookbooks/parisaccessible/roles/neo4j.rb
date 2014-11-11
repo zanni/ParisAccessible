@@ -2,11 +2,7 @@ name        "neo4j"
 description "Configuration for neo4j nodes"
 
 run_list    "role[base]",
-			"recipe[neo4j-server::tarball]",
-			"recipe[java]",
-            "recipe[maven]",
-             "recipe[parisaccessible::install]",
-			"recipe[parisaccessible::index_trottoir_inserter]"
+			"recipe[neo4j-server::tarball]"
 
 default_attributes(
 	:neo4j => {

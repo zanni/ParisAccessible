@@ -9,9 +9,8 @@ public class TrottoirPath extends Path implements Serializable {
 	 */
 	private static final long serialVersionUID = -8453759213686653544L;
 
-	public TrottoirPath(Location start, Location end, Double distance,
-			Double cost) {
-		super(start, end, distance, cost);
+	public TrottoirPath(Location start, Location end) {
+		super(start, end);
 	}
 
 	@Override

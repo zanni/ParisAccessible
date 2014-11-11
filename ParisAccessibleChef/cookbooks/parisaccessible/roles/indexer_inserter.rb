@@ -8,6 +8,9 @@ run_list    "role[base]",
 			"recipe[parisaccessible::index_trottoir_inserter]"
 
 default_attributes(
+	:maven => {
+		:setup_bin => true
+	},
 	:neo4j => {
 		:server => {
 			:enabled => false,

@@ -19,6 +19,7 @@
 template "/etc/init.d/trottoir_inserter" do
   source "java_upstart.erb"
   action :create
+  mode '0777'
   variables({
      :name => "trottoir_inserter",
      :commande => "ParisAccessibleIndexer/target/*.war",
