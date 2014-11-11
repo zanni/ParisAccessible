@@ -85,10 +85,10 @@ public class BatchInserterService {
 	}
 
 	public Long addLocationToInserter(Location location) {
-
+		
 		long createNode = inserter.createNode(location.getMap(),
 				DynamicLabel.label(location.getLabel()));
-		System.out.println("Create " + location.getLabel() + ": " + createNode);
+//		System.out.println("Create " + location.getLabel() + ": " + createNode);
 		location.setGraphId(createNode);
 
 		cache.set(location.getId(), location);
@@ -132,7 +132,7 @@ public class BatchInserterService {
 					DynamicRelationshipType.withName(path.getType()),
 					path.getMap());
 
-			System.out.println("Create REL: " + path.getType());
+//			System.out.println("Create REL: " + path.getType());
 		}
 
 	}
