@@ -20,7 +20,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class TottoirIterator implements Iterator<List<Trottoir>> {
 
-	private final static int DEFAULT_BULK = 100;
+	private final static int DEFAULT_BULK = 1000;
 
 	private TrottoirRepository repository;
 

@@ -73,18 +73,24 @@ public class IndexWorkerSyncService {
 					ackWorkerEnd.add(index_worker);
 					mailService.send(subject, "unexpected worker died "
 							+ index_worker);
+				} else {
+					mailService.send(subject, "receive stop from worker:"
+							+ index_worker);
 				}
 				if (ackWorkerEnd.size() == total_worker) {
 					Date end = new Date();
 					mailService.send(
 							subject,
-							"stop indexing time: "+Math.round((end.getTime() - start.getTime()) / 60 / 1000)+"min, nodes: " + batchService.getNodes()
+							"stop indexing time: "
+									+ Math.round((end.getTime() - start
+											.getTime()) / 60 / 1000)
+									+ "min, nodes: " + batchService.getNodes()
 									+ ", relationships: "
 									+ batchService.getRelationships());
 					context.close();
 					System.exit(0);
 				}
-				
+
 			} catch (AddressException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -145,8 +151,10 @@ public class IndexWorkerSyncService {
 			Integer s = (Integer) map.get("index_worker");
 
 			ackWorker(s);
-
 			total_worker = (Integer) map.get("total_worker");
+			mailService.send(subject, "receive start from worker:" + s + " over "+total_worker);
+
+			
 
 			if (ackWorker.size() == total_worker) {
 				mailService.send(subject, "start indexing with " + total_worker
