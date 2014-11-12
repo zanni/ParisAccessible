@@ -3,6 +3,8 @@ package com.bzanni.parisaccessible.neo.business;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Path {
 
 	private Location start;
@@ -45,6 +47,7 @@ public class Path {
 		this.accessible = accessible;
 	}
 
+	@JsonIgnore
 	public Map<String, Object> getMap() {
 		Map<String, Object> res = new HashMap<String, Object>();
 		res.put("cost", CostCompute.computeDistance(

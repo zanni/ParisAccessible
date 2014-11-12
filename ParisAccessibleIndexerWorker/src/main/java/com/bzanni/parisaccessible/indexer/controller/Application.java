@@ -66,11 +66,6 @@ public class Application {
 	}
 
 	@Bean
-	Queue locationQueue() {
-		return new Queue(Application.locationQueueName, false);
-	}
-
-	@Bean
 	Queue pathQueue() {
 		return new Queue(Application.pathQueueName, false);
 	}
@@ -83,19 +78,14 @@ public class Application {
 	@Bean
 	Binding workflowQueueBinding(Queue workflowQueue, TopicExchange exchange) {
 		return BindingBuilder.bind(workflowQueue).to(exchange)
-				.with(workflowQueue.getName());
+				.with(workflowQueue.getName()+".*");
 	}
 
-	@Bean
-	Binding locationQueueBinding(Queue locationQueue, TopicExchange exchange) {
-		return BindingBuilder.bind(locationQueue).to(exchange)
-				.with(locationQueue.getName());
-	}
 
 	@Bean
 	Binding pathQueueBinding(Queue pathQueue, TopicExchange exchange) {
 		return BindingBuilder.bind(pathQueue).to(exchange)
-				.with(pathQueue.getName());
+				.with(pathQueue.getName()+".*");
 	}
 
 	@Bean

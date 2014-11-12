@@ -3,35 +3,31 @@ package com.bzanni.parisaccessible.indexer.listener;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 
-import com.bzanni.parisaccessible.neo.service.BatchInserterService;
+import com.bzanni.parisaccessible.indexer.service.IndexWorkerSyncService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WorkflowListener implements MessageListener {
 
-	private BatchInserterService batchInserter;
+	private IndexWorkerSyncService syncService;
 
-	private ObjectMapper mapper;
-
-	public WorkflowListener(BatchInserterService batchInserter) {
-		this.batchInserter = batchInserter;
-		mapper = new ObjectMapper();
-		this.batchInserter.init();
+	public WorkflowListener(IndexWorkerSyncService syncService) {
+		this.syncService = syncService;
 	}
 
 	@Override
 	public void onMessage(Message message) {
 
 		try {
-			byte[] body = message.getBody();
-			Map<String, String> readValue = mapper.readValue(new String(body),
-					Map.class);
-
-			System.out.println(readValue);
+			
+			syncService.receiveWorflow(message);
+			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,6 +35,12 @@ public class WorkflowListener implements MessageListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

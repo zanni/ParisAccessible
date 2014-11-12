@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Location implements Serializable {
 
 	/**
@@ -11,13 +13,12 @@ public class Location implements Serializable {
 	 */
 	private static final long serialVersionUID = -8413877462450872080L;
 
+	@JsonIgnore
 	private Long graphId;
 
 	private String id;
 
 	private Double lat;
-
-	
 
 	private Double lon;
 
@@ -45,6 +46,7 @@ public class Location implements Serializable {
 		return new TrottoirPath(this, to);
 	}
 
+	@JsonIgnore
 	public Map<String, Object> getMap() {
 		Map<String, Object> res = new HashMap<String, Object>();
 		res.put("id", this.id);
@@ -80,7 +82,7 @@ public class Location implements Serializable {
 	public String getLabel() {
 		return label;
 	}
-	
+
 	public String getId() {
 		return id;
 	}

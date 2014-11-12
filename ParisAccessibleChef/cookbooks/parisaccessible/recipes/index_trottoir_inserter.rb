@@ -16,17 +16,17 @@
 #   EOH
 # end
 
-template "/etc/init.d/trottoir_inserter" do
+template "/etc/init.d/pa_index_insert" do
   source "java_upstart.erb"
   action :create
   mode '0777'
   variables({
-     :name => "trottoir_inserter",
+     :name => "pa_index_insert",
      :commande => "ParisAccessibleIndexer/target/*.war",
-     :log => "trottoir_inserter.log"
+     :log => "index_inserter.log"
   })
 end
-service 'trottoir_inserter' do
+service 'pa_index_insert' do
   action :start
   supports :start => true, :stop => true
 end

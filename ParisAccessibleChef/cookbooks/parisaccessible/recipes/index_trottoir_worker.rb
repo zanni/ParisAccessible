@@ -18,14 +18,14 @@ if node[:parisaccessible][:indexing][:workers]
 		#   java -jar -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleIndexerWorker/target/*.war --index_trottoir --index_worker #{$index} --total_worker #{node['parisaccessible']['indexing']['total_worker']} > #{node['parisaccessible']['log']}/index.trottoir.log  &
 		#   EOH
 		# end
-		template "/etc/init.d/trottoir_worker_#{$index}" do
+		template "/etc/init.d/pa_index_w#{$index}" do
 		  source "java_upstart.erb"
 		  action :create
 		  mode '0777'
 		  variables({
-		     :name => "trottoir_worker_#{$index}",
+		     :name => "pa_index_w#{$index}",
 		     :commande => "ParisAccessibleIndexerWorker/target/*.war --index_trottoir --index_worker #{$index} --total_worker #{node['parisaccessible']['indexing']['total_worker']}",
-		     :log => "trottoir_inserter.log"
+		     :log => "pa_index_w#{$index}.log"
 		  })
 		end
 	   $i +=1
@@ -33,11 +33,11 @@ if node[:parisaccessible][:indexing][:workers]
 	$i = 0
 	while $i < node[:parisaccessible][:indexing][:workers]  do
 		$index = $i + node[:parisaccessible][:indexing][:index_worker]
-		bash "trottoir_worker_#{$index}" do
+		bash "pa_index_w#{$index}" do
 		  user "root"
 		  cwd "#{node['parisaccessible']['home']}"
 		  code <<-EOH
-		  sudo service trottoir_worker_#{$index} start
+		  sudo service pa_index_w#{$index} start
 		  EOH
 		end
 	   $i +=1

@@ -27,11 +27,11 @@ if node[:parisaccessible][:snapshot][:neo]
 		bash "restore neo backup #{node['parisaccessible']['snapshot']['neo']['restore']}" do
 		  not_if { ::File.directory?("#{node['parisaccessible']['neo4j_data_path']}")  }
 		  user "root"
-		  cwd "#{node['parisaccessible']['neo4j_data_path']}/../"
+		  cwd "#{node['parisaccessible']['neo4j_data_path']}"
 		  code <<-EOH
-		  	aws s3 cp s3://bzanni/neo_backup/#{node['parisaccessible']['snapshot']['neo']['restore']} ./
-		  	tar xvzf #{node['parisaccessible']['snapshot']['neo']['restore']}
-		  	rm #{node['parisaccessible']['snapshot']['neo']['restore']}
+		  	aws s3 cp s3://bzanni/neo_backup/#{node['parisaccessible']['snapshot']['neo']['restore']}.tar.gz ./
+		  	tar xvzf #{node['parisaccessible']['snapshot']['neo']['restore']}.tar.gz
+		  	rm #{node['parisaccessible']['snapshot']['neo']['restore']}.tar.gz
 		  	chmod -R 777 #{node['parisaccessible']['neo4j_data_path']}
 		  EOH
 		end
@@ -42,11 +42,11 @@ if node[:parisaccessible][:snapshot][:neo]
 		bash "export neo backup #{node['parisaccessible']['snapshot']['neo']['export']}" do
 		  only_if { ::File.directory?("#{node['parisaccessible']['neo4j_data_path']}")  }
 		  user "root"
-		  cwd "#{node['parisaccessible']['neo4j_data_path']}/../"
+		  cwd "#{node['parisaccessible']['neo4j_data_path']}"
 		  code <<-EOH
-		  	tar cvzf #{node['parisaccessible']['snapshot']['neo']['export']} {node['parisaccessible']['neo4j_data_path']}/
-		  	aws s3 cp #{node['parisaccessible']['snapshot']['neo']['export']}  s3://bzanni/neo_backup/
-		  	rm #{node['parisaccessible']['snapshot']['neo']['export']}
+		  	tar cvzf #{node['parisaccessible']['snapshot']['neo']['export']}.tar.gz #{node['parisaccessible']['snapshot']['neo']['export']}
+		  	aws s3 cp #{node['parisaccessible']['snapshot']['neo']['export']}.tar.gz  s3://bzanni/neo_backup/
+		  	rm #{node['parisaccessible']['snapshot']['neo']['export']}.tar.gz
 		  EOH
 		end
 

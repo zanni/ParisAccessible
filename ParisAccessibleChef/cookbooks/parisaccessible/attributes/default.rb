@@ -17,7 +17,7 @@ node.default['parisaccessible']['snapshot']['bucket'] = "bzanni"
 
 node.default["parisaccessible"]["elasticsearch_url"] = "http://192.168.33.10:9200"
 node.default["parisaccessible"]["neo4j_url"] = "http://localhost:7474/db/data"
-node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/batch.db"
+node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/"
 
 
 node.default["parisaccessible"]["inject_path"] = "/srv/ParisAccessible/inject/"
@@ -53,6 +53,11 @@ node.default["parisaccessible"]["index_cost_trottoir_speed"] = 3
 
 node.default["parisaccessible"]["index_match_trottoir_passagepieton_distance"] = 5
 node.default["parisaccessible"]["index_match_trottoir_stop_distance"] = 5
+
+mail = Chef::DataBagItem.load('parisaccessible', 'mail')['_default'] rescue {}
+mail.each do |k, v|
+	node.default["parisaccessible"][k] = v
+end
 
 allocated_memory = "#{(node.memory.total.to_i * 0.8 ).floor / 1024}m"
 node.default[:elasticsearch][:allocated_memory] = allocated_memory

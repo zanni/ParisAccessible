@@ -1,53 +1,71 @@
 package com.bzanni.parisaccessible.indexer.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bzanni.parisaccessible.neo.business.Location;
 import com.bzanni.parisaccessible.neo.business.Path;
 
 @Service
 public class LocationPublisher {
 
+	private final static int BULK = 100;
+
+	private List<Object> pathsBulk = new ArrayList<Object>();
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
-	@Resource
-	private MessageConverter messageConverter;
-
-	public void startWorker(String worker) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("phase", "start");
-		map.put("worker", worker);
-		rabbitTemplate.convertAndSend("workflow",map);
+	public void startWorker(int index_worker, int total_worker) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cycle", "start");
+		map.put("index_worker", index_worker);
+		map.put("phase", "index");
+		map.put("total_worker", total_worker);
+		rabbitTemplate.convertAndSend("workflow", map);
 	}
 
-	public void endWorker(String worker) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("phase", "end");
-		map.put("worker", worker);
-		rabbitTemplate.convertAndSend("workflow",map);
+	public void endWorker(int index_worker, int total_worker) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cycle", "end");
+		map.put("index_worker", index_worker);
+		map.put("phase", "index");
+		map.put("total_worker", total_worker);
+		rabbitTemplate.convertAndSend("workflow", map);
 	}
 
-	public void addBidirectionalToInserter(Path path) {
-		rabbitTemplate.convertAndSend("path", path);
-	}
-
-	public void addBidirectionalToInserter(List<? extends Path> path) {
-		for (Path p : path) {
-			this.addBidirectionalToInserter(p);
+	public void addBidirectionalToInserter(int index_worker, int total_worker,
+			Path path) {
+		if (path != null) {
+			pathsBulk.add(path);
+			if (pathsBulk.size() >= LocationPublisher.BULK) {
+				rabbitTemplate.setExchange("parisaccessible");
+				rabbitTemplate
+						.convertAndSend("path." + index_worker, pathsBulk);
+				pathsBulk = new ArrayList<Object>();
+			}
 		}
 	}
 
-	public void addLocationToInserter(Location location) {
-		rabbitTemplate.convertAndSend("location", location);
+	public void addBidirectionalToInserter(int index_worker, int total_worker,
+			List<? extends Path> path) {
+		if (!path.isEmpty()) {
+			pathsBulk.addAll(path);
+			if (pathsBulk.size() >= LocationPublisher.BULK) {
+				rabbitTemplate.setExchange("parisaccessible");
+				rabbitTemplate
+						.convertAndSend("path." + index_worker, pathsBulk);
+				pathsBulk = new ArrayList<Object>();
+			}
+		}
+	}
+
+	public void emptyBulk(int index_worker, int total_worker) {
+		rabbitTemplate.setExchange("parisaccessible");
+		rabbitTemplate.convertAndSend("path." + index_worker, pathsBulk);
 	}
 }

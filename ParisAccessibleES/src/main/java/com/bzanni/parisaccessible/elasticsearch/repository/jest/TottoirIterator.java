@@ -20,7 +20,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class TottoirIterator implements Iterator<List<Trottoir>> {
 
-	private final static int DEFAULT_BULK = 50;
+	private final static int DEFAULT_BULK = 100;
 
 	private TrottoirRepository repository;
 
@@ -106,7 +106,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 		}
 
 		try {
-			System.out.println("imported: " + asJsonArray.size() + " with "
+			System.out.println("Downloaded: " + asJsonArray.size() + " with "
 					+ fail + " failures");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

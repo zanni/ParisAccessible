@@ -5,34 +5,28 @@ import java.io.IOException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 
-import com.bzanni.parisaccessible.neo.business.Path;
-import com.bzanni.parisaccessible.neo.service.BatchInserterService;
+import com.bzanni.parisaccessible.indexer.service.IndexWorkerSyncService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PathListener implements MessageListener {
 
-	private BatchInserterService batchInserter;
+	private IndexWorkerSyncService syncService;
 
-	private ObjectMapper mapper;
+	public PathListener(IndexWorkerSyncService syncService) {
+		this.syncService = syncService;
 
-	public PathListener(BatchInserterService batchInserter) {
-		this.batchInserter = batchInserter;
-		mapper = new ObjectMapper();
-		this.batchInserter.init();
 	}
 
 	@Override
 	public void onMessage(Message message) {
-
 		try {
+			
+			syncService.receivePath(message);
 
-			byte[] body = message.getBody();
-			Path readValue = mapper.readValue(new String(body), Path.class);
-
-			batchInserter.addBidirectionalToInserter(readValue);
 		} catch (JsonParseException e) {
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -44,5 +38,4 @@ public class PathListener implements MessageListener {
 		}
 
 	}
-
 }

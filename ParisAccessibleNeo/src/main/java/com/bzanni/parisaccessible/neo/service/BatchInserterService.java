@@ -1,10 +1,12 @@
 package com.bzanni.parisaccessible.neo.service;
 
-import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
@@ -26,6 +28,8 @@ import com.bzanni.parisaccessible.neo.business.Path;
 @Configurable
 public class BatchInserterService {
 
+	private final static long LONG_BULK = 100;
+
 	@Value("${neo4j_data_path}")
 	private String neoDataPath;
 
@@ -35,41 +39,45 @@ public class BatchInserterService {
 	private BatchInserter inserter;
 	private BatchInserterIndexProvider indexProvider;
 
-	public void deleteFolder(File folder) {
-		File[] files = folder.listFiles();
-		if (files != null) { // some JVMs return null for empty dirs
-			for (File f : files) {
-				if (f.isDirectory()) {
-					deleteFolder(f);
-				} else {
-					f.delete();
-				}
-			}
-		}
-		folder.delete();
-	}
+	private long nodes = 0;
+	private long relationships = 0;
 
+	// public void deleteFolder(File folder) {
+	// File[] files = folder.listFiles();
+	// if (files != null) { // some JVMs return null for empty dirs
+	// for (File f : files) {
+	// if (f.isDirectory()) {
+	// deleteFolder(f);
+	// } else {
+	// f.delete();
+	// }
+	// }
+	// }
+	// folder.delete();
+	// }
+
+	@PostConstruct
 	public void init() {
 		if (inserter == null) {
 			Map<String, String> config = new HashMap<>();
-			config.put("neostore.nodestore.db.mapped_memory", "25M");
-			config.put("neostore.relationshipstore.db.mapped_memory", "50M");
+			config.put("neostore.nodestore.db.mapped_memory", "90M");
+			config.put("neostore.relationshipstore.db.mapped_memory", "90M");
 			config.put("neostore.propertystore.db.mapped_memory", "90M");
 			config.put("neostore.propertystore.db.strings.mapped_memory",
-					"130M");
-			config.put("neostore.propertystore.db.arrays.mapped_memory", "130M");
-			// neostore.nodestore.db.mapped_memory=25M
-			// neostore.relationshipstore.db.mapped_memory=50M
-			// neostore.propertystore.db.mapped_memory=90M
-			// neostore.propertystore.db.strings.mapped_memory=130M
-			// neostore.propertystore.db.arrays.mapped_memory=130M
+					"200M");
+			config.put("neostore.propertystore.db.arrays.mapped_memory", "200M");
 
-			File file = new File(neoDataPath);
-			if (file.exists() && file.isDirectory()) {
-				deleteFolder(file);
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HH:mm:ss");
+			String folder = neoDataPath + "/" + format.format(new Date())
+					+ "_batch.db";
 
-			}
-			inserter = BatchInserters.inserter(neoDataPath,
+			// File file = new File(folder);
+			// if (file.exists() && file.isDirectory()) {
+			// deleteFolder(file);
+			//
+			// }
+
+			inserter = BatchInserters.inserter(folder,
 					new DefaultFileSystemAbstraction(), config);
 
 			// inserter.createDeferredSchemaIndex(TrottoirIndexerService.locationLabel)
@@ -85,13 +93,18 @@ public class BatchInserterService {
 	}
 
 	public Long addLocationToInserter(Location location) {
-		
+
 		long createNode = inserter.createNode(location.getMap(),
 				DynamicLabel.label(location.getLabel()));
-//		System.out.println("Create " + location.getLabel() + ": " + createNode);
+		// System.out.println("Create " + location.getLabel() + ": " +
+		// createNode);
 		location.setGraphId(createNode);
 
 		cache.set(location.getId(), location);
+		setNodes(getNodes() + 1);
+		if (getNodes() % BatchInserterService.LONG_BULK == 0) {
+			System.out.println("Nodes: " + getNodes());
+		}
 		return createNode;
 	}
 
@@ -128,11 +141,19 @@ public class BatchInserterService {
 					DynamicRelationshipType.withName(path.getType()),
 					path.getMap());
 
+			setRelationships(getRelationships() + 1);
+			if (getNodes() % BatchInserterService.LONG_BULK == 0) {
+				System.out.println("Relationships: " + getRelationships());
+			}
+
 			inserter.createRelationship(end, start,
 					DynamicRelationshipType.withName(path.getType()),
 					path.getMap());
 
-//			System.out.println("Create REL: " + path.getType());
+			setRelationships(getRelationships() + 1);
+			if (getNodes() % BatchInserterService.LONG_BULK == 0) {
+				System.out.println("Relationships: " + getRelationships());
+			}
 		}
 
 	}
@@ -140,6 +161,22 @@ public class BatchInserterService {
 	public void flushAndShutdown() {
 		indexProvider.shutdown();
 		inserter.shutdown();
+	}
+
+	public long getNodes() {
+		return nodes;
+	}
+
+	private void setNodes(long nodes) {
+		this.nodes = nodes;
+	}
+
+	public long getRelationships() {
+		return relationships;
+	}
+
+	private void setRelationships(long relationships) {
+		this.relationships = relationships;
 	}
 
 }
