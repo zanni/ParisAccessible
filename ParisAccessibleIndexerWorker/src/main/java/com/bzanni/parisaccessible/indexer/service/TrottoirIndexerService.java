@@ -201,9 +201,14 @@ public class TrottoirIndexerService {
 					GeoShapeMultiLineString obj = (GeoShapeMultiLineString) shape;
 					multilines = obj.getCoordinates();
 				}
+				
+				List<TrottoirPath> tempTrottoir = null;
+				List<TrottoirPath> tempLink = null;
 
 				if (multilines != null) {
 					int i = 0;
+					tempTrottoir = new ArrayList<TrottoirPath>();
+					tempLink = new ArrayList<TrottoirPath>();
 					for (List<List<Double>> line : multilines) {
 						String id = "trottoir_" + trottoir.getId() + "_" + i;
 						Location prevLocation = null;
@@ -225,25 +230,30 @@ public class TrottoirIndexerService {
 								TrottoirPath mapTrottoir = loc.mapTrottoir(
 										prevLocation, pietonSpeed);
 
-								rabbitPublisher
-										.addBidirectionalToInserter(
-												index_worker, total_worker,
-												mapTrottoir);
+								tempTrottoir.add(mapTrottoir);
+//								rabbitPublisher
+//										.addBidirectionalToInserter(
+//												index_worker, total_worker,
+//												mapTrottoir);
 							}
 
 							List<TrottoirPath> connectTrottoirLocationToPassagePieton = connectTrottoirLocationToPassagePieton(
 									index_worker, total_worker, loc, point);
+							
+							tempLink.addAll(connectTrottoirLocationToPassagePieton);
 
-							rabbitPublisher.addBidirectionalToInserter(
-									index_worker, total_worker,
-									connectTrottoirLocationToPassagePieton);
+//							rabbitPublisher.addBidirectionalToInserter(
+//									index_worker, total_worker,
+//									connectTrottoirLocationToPassagePieton);
 
 							List<TrottoirPath> connectTrottoirLocationToStop = connectTrottoirLocationToStop(
 									loc, point);
+							
+							tempLink.addAll(connectTrottoirLocationToStop);
 
-							rabbitPublisher.addBidirectionalToInserter(
-									index_worker, total_worker,
-									connectTrottoirLocationToStop);
+//							rabbitPublisher.addBidirectionalToInserter(
+//									index_worker, total_worker,
+//									connectTrottoirLocationToStop);
 
 							prevLocation = loc;
 							if (isFirst) {
@@ -257,9 +267,18 @@ public class TrottoirIndexerService {
 						// match last to first
 						TrottoirPath mapTrottoir = firstLocation.mapTrottoir(
 								prevLocation, pietonSpeed);
+						
+						tempTrottoir.add(mapTrottoir);
 
 						rabbitPublisher.addBidirectionalToInserter(
 								index_worker, total_worker, mapTrottoir);
+					}
+					
+					if(!tempLink.isEmpty()){
+						rabbitPublisher.addBidirectionalToInserter(
+								index_worker, total_worker, tempTrottoir);
+						rabbitPublisher.addBidirectionalToInserter(
+								index_worker, total_worker, tempLink);
 					}
 				}
 

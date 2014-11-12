@@ -144,10 +144,14 @@ public class IndexWorkerSyncService {
 		Map<String, Object> map = mapper.readValue(new String(body), Map.class);
 
 		if (map.get("cycle").equals("start")) {
-			SimpleDateFormat format = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			start = new Date();
-			subject = "Indexing " + format.format(start);
+			
+			if(ackWorker.size() == 0){
+				SimpleDateFormat format = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				start = new Date();
+				subject = "Indexing " + format.format(start);
+			}
+			
 			Integer s = (Integer) map.get("index_worker");
 
 			ackWorker(s);

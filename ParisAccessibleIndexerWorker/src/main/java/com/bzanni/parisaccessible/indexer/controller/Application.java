@@ -78,7 +78,7 @@ public class Application {
 	@Bean
 	Binding workflowQueueBinding(Queue workflowQueue, TopicExchange exchange) {
 		return BindingBuilder.bind(workflowQueue).to(exchange)
-				.with(workflowQueue.getName()+".*");
+				.with(workflowQueue.getName());
 	}
 
 
