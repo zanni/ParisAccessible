@@ -193,6 +193,14 @@ public class IndexWorkerSyncService {
 			ackWorkerEnd.add(s);
 
 		}
+		
+		if (map.get("cycle").equals("heartbeat")) {
+
+			Integer s = (Integer) map.get("index_worker");
+			total_worker = (Integer) map.get("total_worker");
+			ackWorker(s);
+
+		}
 	}
 
 }
