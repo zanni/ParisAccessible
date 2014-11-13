@@ -2,10 +2,7 @@ name        "snapshot"
 description "Configuration for snapshot nodes"
 
 run_list    "role[base]",
-            "recipe[java]",
-            "recipe[maven]",
       			"recipe[awscli]",
-            "recipe[parisaccessible::install]",
       			"recipe[parisaccessible::snapshot_neo]",
       			"recipe[parisaccessible::snapshot_es]"
 

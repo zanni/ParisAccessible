@@ -61,7 +61,7 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 		execute = client.getClient().execute(
 				new CreateIndex.Builder(this.getIndex()).settings(jsonObject)
 						.build());
-			
+
 		PutMapping putMapping = new PutMapping.Builder(this.getIndex(),
 				this.getType(), queryEngine.putMappingQuery(k)).build();
 
@@ -72,6 +72,21 @@ public abstract class AbstractJestRepository<T extends JestBusiness> {
 
 	public Iterator<List<T>> findAll() {
 		return new JestRequestIterator<T>(this, klass);
+	}
+
+	public Iterator<List<T>> findAll(String query) {
+		return new JestRequestIterator<T>(this, klass, query);
+	}
+
+	public Iterator<List<T>> findAllWorker(int index_worker, int total_worker) {
+		return new JestRequestIterator<T>(this, klass, index_worker,
+				total_worker);
+	}
+
+	public Iterator<List<T>> findAllWorker(int index_worker, int total_worker,
+			String query) {
+		return new JestRequestIterator<T>(this, klass, index_worker,
+				total_worker, query);
 	}
 
 	public void save(T object) throws Exception {

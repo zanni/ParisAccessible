@@ -34,15 +34,15 @@ public class Location implements Serializable {
 		this.label = label;
 	}
 
-	public PassagePietonPath mapPassagePieton(Location to, Double speed) {
+	public PassagePietonPath mapPassagePieton(Location to) {
 		return new PassagePietonPath(this, to);
 	}
 
-	public TransportPath mapTransport(Location to, Double speed) {
+	public TransportPath mapTransport(Location to) {
 		return new TransportPath(this, to);
 	}
 
-	public TrottoirPath mapTrottoir(Location to, Double speed) {
+	public TrottoirPath mapTrottoir(Location to) {
 		return new TrottoirPath(this, to);
 	}
 

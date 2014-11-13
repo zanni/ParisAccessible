@@ -25,26 +25,61 @@ public class JestRequestIterator<S extends JestBusiness> implements
 
 	private JestQueryEngine engine;
 
+	private int index_worker = 0;
+
+	private int total_worker = 1;
+
+	private String query;
+
 	public JestRequestIterator(AbstractJestRepository<S> repository,
-			Class<S> klass) {
-		this.repository = repository;
-		this.bulk = JestRequestIterator.DEFAULT_BULK;
-		this.klass = klass;
-		engine = new JestQueryEngine();
+			Class<S> klass, int index_worker, int total_worker) {
+		this(repository, klass, index_worker, total_worker, null,
+				JestRequestIterator.DEFAULT_BULK);
 
 	}
 
 	public JestRequestIterator(AbstractJestRepository<S> repository,
-			Class<S> klass, int bulk) {
+			Class<S> klass, int index_worker, int total_worker, String query) {
+		this(repository, klass, index_worker, total_worker, query,
+				JestRequestIterator.DEFAULT_BULK);
+
+	}
+
+	public JestRequestIterator(AbstractJestRepository<S> repository,
+			Class<S> klass) {
+		this(repository, klass, 0, 1, null, JestRequestIterator.DEFAULT_BULK);
+
+	}
+	
+	public JestRequestIterator(AbstractJestRepository<S> repository,
+			Class<S> klass, String query) {
+		this(repository, klass, 0, 1, query, JestRequestIterator.DEFAULT_BULK);
+
+	}
+
+	public JestRequestIterator(AbstractJestRepository<S> repository,
+			Class<S> klass, int index_worker, int total_worker, String query,
+			int bulk) {
+		this.bulk = bulk;
 		this.repository = repository;
 		this.bulk = bulk;
 		this.klass = klass;
+		engine = new JestQueryEngine();
+		this.index_worker = index_worker;
+		this.total_worker = total_worker;
+		this.cursor = this.index_worker * this.bulk;
+		if (query == null) {
+			query = engine.matchAllQuery();
+		}
 	}
 
 	@Override
 	public boolean hasNext() {
 
-		String query = engine.matchAllQuery();
+		System.out
+				.println("query: from: " + cursor + " to: " + (cursor + bulk));
+
+		int marge = this.total_worker * bulk;
 
 		Search build = new Search.Builder(query).setParameter("size", bulk)
 				.setParameter("from", cursor).addIndex(repository.getIndex())
@@ -56,7 +91,7 @@ public class JestRequestIterator<S extends JestBusiness> implements
 
 			if (execute.isSucceeded() && total != null) {
 				sourceAsObjectList = execute.getSourceAsObjectList(klass);
-				cursor += bulk;
+				cursor += marge;
 				if (cursor > total) {
 					return false;
 				} else {

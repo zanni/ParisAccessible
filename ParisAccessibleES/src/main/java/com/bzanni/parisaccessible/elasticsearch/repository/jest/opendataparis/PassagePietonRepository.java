@@ -3,6 +3,7 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,12 +20,14 @@ import com.bzanni.parisaccessible.elasticsearch.repository.jest.JestQueryEngine;
 public class PassagePietonRepository extends
 		AbstractJestRepository<PassagePieton> {
 
+	private final static String PASSAGEPIETON_TAG = "PVPPAPI";
+
 	@Value("${accesibility_index_name}")
 	private String index;
 
 	@Resource
 	private JestQueryEngine queryEngine;
-	
+
 	@Override
 	public String getIndex() {
 		return index;
@@ -56,7 +59,7 @@ public class PassagePietonRepository extends
 		// .add(new StringFieldMapper.Builder("import_notes").store(false)
 		// .index(false));
 		// return super.mappings(PassagePieton.class, 5, 0, root);
-		
+
 		return super.mappings(PassagePieton.class, 5, 0);
 	}
 
@@ -74,40 +77,33 @@ public class PassagePietonRepository extends
 	public List<PassagePieton> findStart(Double lat, Double lon, String distance)
 			throws Exception {
 
-//		FilteredQueryBuilder filteredQuery = QueryBuilders.filteredQuery(
-//				QueryBuilders.matchAllQuery(),
-//				FilterBuilders.geoDistanceFilter("start").lat(lat).lon(lon)
-//						.distance(distance));
-//
-//		String query = "{ \"query\":" + filteredQuery.buildAsBytes().toUtf8()
-//				+ "}";
-
-		Search count = new Search.Builder(queryEngine.geoDistanceQuery("start", lat, lon, distance)).addIndex(this.getIndex())
+		Search count = new Search.Builder(queryEngine.geoDistanceQuery("start",
+				lat, lon, distance)).addIndex(this.getIndex())
 				.addType(this.getType()).build();
 
 		SearchResult result = this.getClient().execute(count);
 
 		return result.getSourceAsObjectList(PassagePieton.class);
-		
+
 	}
 
 	public List<PassagePieton> findEnd(Double lat, Double lon, String distance)
 			throws Exception {
 
-//		FilteredQueryBuilder filteredQuery = QueryBuilders.filteredQuery(
-//				QueryBuilders.matchAllQuery(),
-//				FilterBuilders.geoDistanceFilter("end").lat(lat).lon(lon)
-//						.distance(distance));
-//
-//		String query = "{ \"query\":" + filteredQuery.buildAsBytes().toUtf8()
-//				+ "}";
-
-		Search count = new Search.Builder(queryEngine.geoDistanceQuery("end", lat, lon, distance)).addIndex(this.getIndex())
+		Search count = new Search.Builder(queryEngine.geoDistanceQuery("end",
+				lat, lon, distance)).addIndex(this.getIndex())
 				.addType(this.getType()).build();
 
 		SearchResult result = this.getClient().execute(count);
 
 		return result.getSourceAsObjectList(PassagePieton.class);
+	}
+
+	public Iterator<List<PassagePieton>> findAllFiltered(int index_worker,
+			int total_worker) {
+		String query = queryEngine.termQuery("info",
+				PassagePietonRepository.PASSAGEPIETON_TAG);
+		return this.findAllWorker(index_worker, total_worker, query);
 	}
 
 }

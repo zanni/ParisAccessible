@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -54,6 +55,11 @@ public class IndexWorkerSyncService {
 	private Date start;
 
 	public String subject;
+
+	@PostConstruct
+	public void init() {
+		batchService.init();
+	}
 
 	private class WorkerDied extends TimerTask {
 
@@ -144,21 +150,20 @@ public class IndexWorkerSyncService {
 		Map<String, Object> map = mapper.readValue(new String(body), Map.class);
 
 		if (map.get("cycle").equals("start")) {
-			
-			if(ackWorker.size() == 0){
+
+			if (ackWorker.size() == 0) {
 				SimpleDateFormat format = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
 				start = new Date();
 				subject = "Indexing " + format.format(start);
 			}
-			
+
 			Integer s = (Integer) map.get("index_worker");
 
 			ackWorker(s);
 			total_worker = (Integer) map.get("total_worker");
-			mailService.send(subject, "receive start from worker:" + s + " over "+total_worker);
-
-			
+			mailService.send(subject, "receive start from worker:" + s
+					+ " over " + total_worker);
 
 			if (ackWorker.size() == total_worker) {
 				mailService.send(subject, "start indexing with " + total_worker

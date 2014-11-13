@@ -66,7 +66,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 		this.cursor = this.index_worker * this.bulk;
 	}
 
-	private List<Trottoir> parse(JsonElement records) {
+	private static List<Trottoir> parse(JsonElement records) {
 		int fail = 0;
 		JsonArray asJsonArray = records.getAsJsonArray();
 		List<Trottoir> list = new ArrayList<Trottoir>();
@@ -116,7 +116,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 		return list;
 	}
 
-	private List<Trottoir> parseResult(JsonObject result) {
+	public static List<Trottoir> parseResult(JsonObject result) {
 		if (result != null) {
 			// JsonElement nhits = result.get("nhits");
 			JsonElement records = result.get("hits");

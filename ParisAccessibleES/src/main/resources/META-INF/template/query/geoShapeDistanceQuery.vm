@@ -1,11 +1,13 @@
 {
-    "query": {
-        "geo_shape": {
-		    "$field" : {
-		        "type" : "circle",
-		        "coordinates" : [$lat, $lon],
-		        "radius" : "$distance"
-		    }
-		}
-    }
+	"query":{
+	  "geo_shape": {
+			    "$field" : {
+			        "shape": {
+			        	"type" : "circle",
+				        "coordinates" : [$lat, $lon],
+				        "radius" : "$distance"
+			        }
+			    }
+			}
+	}
 }

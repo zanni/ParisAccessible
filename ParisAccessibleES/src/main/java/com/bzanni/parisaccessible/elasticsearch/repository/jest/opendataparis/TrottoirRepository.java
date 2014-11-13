@@ -2,6 +2,8 @@ package com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis;
 
 import io.searchbox.core.Count;
 import io.searchbox.core.CountResult;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 import java.util.Iterator;
 import java.util.List;
@@ -38,8 +40,9 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 	public Iterator<List<Trottoir>> findAll() {
 		return new TottoirIterator(this);
 	}
-	
-	public Iterator<List<Trottoir>> findAllWorker(Integer index_worker, Integer total_worker) {
+
+	public Iterator<List<Trottoir>> findAllWorker(Integer index_worker,
+			Integer total_worker) {
 		return new TottoirIterator(this, index_worker, total_worker);
 	}
 
@@ -71,6 +74,26 @@ public class TrottoirRepository extends AbstractJestRepository<Trottoir> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public List<Trottoir> search(Double lat, Double lon, String distance)
+			throws Exception {
+
+		// GeoShapeQueryBuilder geoShapeQuery = QueryBuilders.geoShapeQuery(
+		// "shape", new CircleBuilder().center(lat, lon).radius(distance));
+		//
+		// String query = "{ \"query\":" + geoShapeQuery.buildAsBytes().toUtf8()
+		// + "}";
+
+		Search count = new Search.Builder(queryEngine.geoShapeDistanceQuery(
+				"shape", lat, lon, distance))
+
+		// multiple index or types can be added.
+				.addIndex(this.getIndex()).addType(this.getType()).build();
+
+		SearchResult result = this.getClient().execute(count);
+
+		return TottoirIterator.parseResult(result.getJsonObject());
 	}
 
 	public Double count(Double lat, Double lon, String distance)

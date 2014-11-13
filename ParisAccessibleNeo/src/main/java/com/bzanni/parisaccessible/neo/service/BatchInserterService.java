@@ -41,22 +41,8 @@ public class BatchInserterService {
 
 	private long nodes = 0;
 	private long relationships = 0;
+	private String folder;
 
-	// public void deleteFolder(File folder) {
-	// File[] files = folder.listFiles();
-	// if (files != null) { // some JVMs return null for empty dirs
-	// for (File f : files) {
-	// if (f.isDirectory()) {
-	// deleteFolder(f);
-	// } else {
-	// f.delete();
-	// }
-	// }
-	// }
-	// folder.delete();
-	// }
-
-	@PostConstruct
 	public void init() {
 		if (inserter == null) {
 			Map<String, String> config = new HashMap<>();
@@ -68,20 +54,11 @@ public class BatchInserterService {
 			config.put("neostore.propertystore.db.arrays.mapped_memory", "200M");
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HH:mm:ss");
-			String folder = neoDataPath + "/" + format.format(new Date())
+			folder = neoDataPath + "/" + format.format(new Date())
 					+ "_batch.db";
-
-			// File file = new File(folder);
-			// if (file.exists() && file.isDirectory()) {
-			// deleteFolder(file);
-			//
-			// }
 
 			inserter = BatchInserters.inserter(folder,
 					new DefaultFileSystemAbstraction(), config);
-
-			// inserter.createDeferredSchemaIndex(TrottoirIndexerService.locationLabel)
-			// .on("id").create();
 
 			indexProvider = new LuceneBatchInserterIndexProvider(inserter);
 		}
@@ -104,6 +81,7 @@ public class BatchInserterService {
 		setNodes(getNodes() + 1);
 		if (getNodes() % BatchInserterService.LONG_BULK == 0) {
 			System.out.println("Nodes: " + getNodes());
+			System.out.println("Relationships: " + this.getRelationships());
 		}
 		return createNode;
 	}
@@ -142,25 +120,25 @@ public class BatchInserterService {
 					path.getMap());
 
 			setRelationships(getRelationships() + 1);
-			if (getNodes() % BatchInserterService.LONG_BULK == 0) {
-				System.out.println("Relationships: " + getRelationships());
-			}
+
 
 			inserter.createRelationship(end, start,
 					DynamicRelationshipType.withName(path.getType()),
 					path.getMap());
 
 			setRelationships(getRelationships() + 1);
-			if (getNodes() % BatchInserterService.LONG_BULK == 0) {
-				System.out.println("Relationships: " + getRelationships());
-			}
+
 		}
 
 	}
 
 	public void flushAndShutdown() {
+		System.out.println("Flushing ...");
+		System.out.println("Nodes: " + getNodes());
+		System.out.println("Relationships: " + this.getRelationships());
 		indexProvider.shutdown();
 		inserter.shutdown();
+		System.out.println("Clean shutdown");
 	}
 
 	public long getNodes() {

@@ -24,6 +24,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
+import com.bzanni.parisaccessible.indexer.service.PassagePietonIndexerService;
+import com.bzanni.parisaccessible.indexer.service.StopIndexerService;
 import com.bzanni.parisaccessible.indexer.service.TrottoirIndexerService;
 
 @Configuration
@@ -32,8 +34,6 @@ import com.bzanni.parisaccessible.indexer.service.TrottoirIndexerService;
 @EnableAutoConfiguration
 @ImportResource({ "classpath:/META-INF/spring/servlet-context.xml" })
 public class Application {
-
-	
 
 	@Value("${rabbitmq_host}")
 	private String rabbitmqHost;
@@ -81,11 +81,10 @@ public class Application {
 				.with(workflowQueue.getName());
 	}
 
-
 	@Bean
 	Binding pathQueueBinding(Queue pathQueue, TopicExchange exchange) {
 		return BindingBuilder.bind(pathQueue).to(exchange)
-				.with(pathQueue.getName()+".*");
+				.with(pathQueue.getName() + ".*");
 	}
 
 	@Bean
@@ -129,13 +128,24 @@ public class Application {
 				final TrottoirIndexerService trottoirIndexer = run
 						.getBean(TrottoirIndexerService.class);
 
+				final StopIndexerService stopIndexer = run
+						.getBean(StopIndexerService.class);
+
+				final PassagePietonIndexerService passagePietonIndexer = run
+						.getBean(PassagePietonIndexerService.class);
+
 				String index_worker = line.getOptionValue("index_worker");
 				String total_worker = line.getOptionValue("total_worker");
 
 				Integer index_worker_int = Integer.valueOf(index_worker);
 				Integer total_worker_int = Integer.valueOf(total_worker);
 
-				trottoirIndexer.indexTrottoir(index_worker_int,
+//				trottoirIndexer.indexTrottoir(index_worker_int,
+//						total_worker_int);
+
+//				stopIndexer.indexStop(index_worker_int, total_worker_int);
+
+				passagePietonIndexer.indexPassagePieton(index_worker_int,
 						total_worker_int);
 			} else if (line.hasOption("index_trip")) {
 
