@@ -140,10 +140,10 @@ public class Application {
 				Integer index_worker_int = Integer.valueOf(index_worker);
 				Integer total_worker_int = Integer.valueOf(total_worker);
 
-//				trottoirIndexer.indexTrottoir(index_worker_int,
-//						total_worker_int);
+				trottoirIndexer.indexTrottoir(index_worker_int,
+						total_worker_int);
 
-//				stopIndexer.indexStop(index_worker_int, total_worker_int);
+				stopIndexer.indexStop(index_worker_int, total_worker_int);
 
 				passagePietonIndexer.indexPassagePieton(index_worker_int,
 						total_worker_int);

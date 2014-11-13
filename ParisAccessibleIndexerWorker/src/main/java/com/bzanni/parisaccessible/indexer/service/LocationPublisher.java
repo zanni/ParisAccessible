@@ -14,7 +14,7 @@ import com.bzanni.parisaccessible.neo.business.Path;
 @Service
 public class LocationPublisher {
 
-	private final static int BULK = 1000;
+	private final static int BULK = 100;
 
 	private List<Object> pathsBulk = new ArrayList<Object>();
 	@Autowired

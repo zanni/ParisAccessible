@@ -16,6 +16,12 @@
 #   EOH
 # end
 
+if ::File.exists?("/etc/init.d/pa_index_insert")
+  service 'pa_index_insert' do
+    action :stop
+    supports :start => true, :stop => true
+  end
+end
 template "/etc/init.d/pa_index_insert" do
   source "java_upstart.erb"
   action :create
