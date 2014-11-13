@@ -21,22 +21,6 @@ end
    action :sync
  end
 
- git "/srv/Jest" do
-  user 'ubuntu'
-  group 'ubuntu'
-   repository "#{node['parisaccessible']['jest_repository']}"
-   reference "master"
-   action :sync
- end
-
- git "/srv/spatial" do
-  user 'ubuntu'
-  group 'ubuntu'
-   repository "#{node['parisaccessible']['neo_spatial_repository']}"
-   reference "master"
-   action :sync
- end
-
 directory "#{node['parisaccessible']['log']}" do
   owner 'ubuntu'
   group 'ubuntu'
@@ -55,23 +39,7 @@ end
 
 
 # if node[:parisaccessible][:compile] 
-  # bash "Build Jest" do
-  #   path ["/usr/local/maven/bin"]
-  #   cwd "/srv/Jest"
-  #   code <<-EOH
-  #   sudo chmod -R 777 ./
-  #    mvn clean package install -DskipTests=true
-  #   EOH
-  # end
-
-  # bash "Build spatial" do
-  #   cwd "/srv/spatial"
-  #   code <<-EOH
-  #   sudo chmod -R 777 ./
-  #   mvn clean package install -DskipTests=true
-  #   EOH
-  # end
-
+  
   bash "Build Application" do
     cwd "#{node['parisaccessible']['home']}"
     code <<-EOH

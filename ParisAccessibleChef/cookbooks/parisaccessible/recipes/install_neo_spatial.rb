@@ -6,6 +6,15 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+ git "/srv/spatial" do
+  user 'ubuntu'
+  group 'ubuntu'
+   repository "#{node['parisaccessible']['neo_spatial_repository']}"
+   reference "master"
+   action :sync
+ end
+ 
 service 'neo4j' do
 	  action :stop
 	  supports :status => true, :start => true, :stop => true, :restart => true

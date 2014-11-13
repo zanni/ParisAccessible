@@ -183,7 +183,7 @@ public class TrottoirIndexerService {
 
 		rabbitPublisher.startWorker(index_worker, total_worker);
 
-		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllWorker(
+		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllTrottoirWorker(
 				index_worker, total_worker);
 		while (findAll.hasNext()) {
 			List<Trottoir> trottoirs = findAll.next();
