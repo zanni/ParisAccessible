@@ -44,7 +44,7 @@ public class IndexWorkerSyncService {
 
 	private ObjectMapper mapper;
 
-	private List<Integer> ackWorker = new ArrayList<Integer>();
+	private  List<Integer> ackWorker = new ArrayList<Integer>();
 
 	private List<Integer> ackWorkerEnd = new ArrayList<Integer>();
 
@@ -111,7 +111,6 @@ public class IndexWorkerSyncService {
 	}
 
 	private void ackWorker(Integer worker) {
-		ackWorker.add(worker);
 		if (scheduled.get(worker) != null) {
 			scheduled.get(worker).cancel();
 		}
@@ -143,7 +142,7 @@ public class IndexWorkerSyncService {
 		batchService.addBidirectionalToInserter(readValue);
 	}
 
-	public void receiveWorflow(Message message) throws IOException,
+	public synchronized void receiveWorflow(Message message) throws IOException,
 			AddressException, MessagingException {
 		byte[] body = message.getBody();
 
@@ -157,9 +156,9 @@ public class IndexWorkerSyncService {
 				start = new Date();
 				subject = "Indexing " + format.format(start);
 			}
-
+			
 			Integer s = (Integer) map.get("index_worker");
-
+			ackWorker.add(s);
 			ackWorker(s);
 			total_worker = (Integer) map.get("total_worker");
 			mailService.send(subject, "receive start from worker:" + s

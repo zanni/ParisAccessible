@@ -133,6 +133,7 @@ public class StopIndexerService {
 				}
 			}
 		}
+		rabbitPublisher.emptyBulk(index_worker, total_worker);
 
 	}
 }

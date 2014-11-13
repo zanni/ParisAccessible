@@ -39,8 +39,6 @@ public class TrottoirIndexerService {
 
 	public void indexTrottoir(int index_worker, int total_worker) {
 
-		rabbitPublisher.startWorker(index_worker, total_worker);
-
 		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllTrottoirWorker(
 				index_worker, total_worker);
 		while (findAll.hasNext()) {
@@ -114,8 +112,8 @@ public class TrottoirIndexerService {
 
 			}
 		}
-		// batchInserter.flushAndShutdown();
+
 		rabbitPublisher.emptyBulk(index_worker, total_worker);
-		rabbitPublisher.endWorker(index_worker, total_worker);
+
 	}
 }

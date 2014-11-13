@@ -24,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
+import com.bzanni.parisaccessible.indexer.service.LocationPublisher;
 import com.bzanni.parisaccessible.indexer.service.PassagePietonIndexerService;
 import com.bzanni.parisaccessible.indexer.service.StopIndexerService;
 import com.bzanni.parisaccessible.indexer.service.TrottoirIndexerService;
@@ -134,12 +135,16 @@ public class Application {
 				final PassagePietonIndexerService passagePietonIndexer = run
 						.getBean(PassagePietonIndexerService.class);
 
+				final LocationPublisher locationPublisher = run
+						.getBean(LocationPublisher.class);
+
 				String index_worker = line.getOptionValue("index_worker");
 				String total_worker = line.getOptionValue("total_worker");
 
 				Integer index_worker_int = Integer.valueOf(index_worker);
 				Integer total_worker_int = Integer.valueOf(total_worker);
 
+				locationPublisher.startWorker(index_worker_int, total_worker_int);
 				trottoirIndexer.indexTrottoir(index_worker_int,
 						total_worker_int);
 
@@ -147,12 +152,14 @@ public class Application {
 
 				passagePietonIndexer.indexPassagePieton(index_worker_int,
 						total_worker_int);
+				
+				locationPublisher.endWorker(index_worker_int, total_worker_int);
 			} else if (line.hasOption("index_trip")) {
 
 			}
 
-		} catch (ParseException exp) {
-			System.out.println("Unexpected exception:" + exp.getMessage());
+		} catch (ParseException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

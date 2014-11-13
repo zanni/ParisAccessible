@@ -167,5 +167,6 @@ public class PassagePietonIndexerService {
 
 			}
 		}
+		rabbitPublisher.emptyBulk(index_worker, total_worker);
 	}
 }
