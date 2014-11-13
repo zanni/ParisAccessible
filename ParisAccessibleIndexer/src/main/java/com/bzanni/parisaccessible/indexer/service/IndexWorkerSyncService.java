@@ -77,7 +77,7 @@ public class IndexWorkerSyncService {
 
 				if (!expected) {
 					ackWorkerEnd.add(index_worker);
-					mailService.send(subject, "unexpected worker died "
+					mailService.send(subject, "worker timeout "
 							+ index_worker);
 				} else {
 					mailService.send(subject, "receive stop from worker:"
@@ -111,6 +111,22 @@ public class IndexWorkerSyncService {
 	}
 
 	private void ackWorker(Integer worker) {
+		if(ackWorkerEnd.contains(worker)){
+			ackWorkerEnd.remove(worker);
+			try {
+				mailService.send(subject, "worker up "
+						+ worker);
+			} catch (AddressException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if (scheduled.get(worker) != null) {
 			scheduled.get(worker).cancel();
 		}

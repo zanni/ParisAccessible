@@ -42,24 +42,6 @@ public class PassagePietonRepository extends
 			.toLowerCase();
 
 	private boolean mappings() throws Exception {
-		// Builder root = new RootObjectMapper.Builder(
-		// PassagePietonRepository.type)
-		// .add(new GeoPointFieldMapper.Builder("start").store(true)
-		// .index(true))
-		// .add(new GeoPointFieldMapper.Builder("end").store(true).index(
-		// true))
-		// .add(new StringFieldMapper.Builder("info").store(false).index(
-		// false))
-		// .add(new StringFieldMapper.Builder("libelle").store(false)
-		// .index(false))
-		// .add(new StringFieldMapper.Builder("info_ft_style")
-		// .store(false).index(false))
-		// .add(new StringFieldMapper.Builder("libelle_ft_style").store(
-		// false).index(false))
-		// .add(new StringFieldMapper.Builder("import_notes").store(false)
-		// .index(false));
-		// return super.mappings(PassagePieton.class, 5, 0, root);
-
 		return super.mappings(PassagePieton.class, 5, 0);
 	}
 

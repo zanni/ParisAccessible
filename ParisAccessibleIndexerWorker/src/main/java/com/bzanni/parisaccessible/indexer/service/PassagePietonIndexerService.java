@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.annotation.Resource;
 
@@ -23,7 +25,9 @@ import com.bzanni.parisaccessible.neo.business.TrottoirPath;
 @Service
 public class PassagePietonIndexerService {
 
-	private final static String DISTANCE_MATCH_TROTTOIR_PASSAGEPIETON = "5m";
+	private static final long delay = 2 * 60 * 1000;
+
+	private static final String DISTANCE_MATCH_TROTTOIR_PASSAGEPIETON = "5m";
 
 	@Resource
 	private TrottoirRepository trottoirRepository;
@@ -33,6 +37,22 @@ public class PassagePietonIndexerService {
 
 	@Resource
 	private LocationPublisher rabbitPublisher;
+
+	public class HeartbeatTask extends TimerTask {
+
+		private int index_worker;
+		private int total_worker;
+
+		public HeartbeatTask(int index_worker, int total_worker) {
+			this.index_worker = index_worker;
+			this.total_worker = total_worker;
+		}
+
+		@Override
+		public void run() {
+			rabbitPublisher.heartbeatWorker(index_worker, total_worker);
+		}
+	}
 
 	private Location prepareLocation(PassagePieton passage, boolean isStart) {
 		String start = (isStart) ? "start" : "end";
@@ -123,6 +143,10 @@ public class PassagePietonIndexerService {
 
 	public void indexPassagePieton(int index_worker, int total_worker) {
 
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(
+				new HeartbeatTask(index_worker, total_worker), 0, delay);
+
 		Iterator<List<PassagePieton>> findAllFiltered = passagePietonRepository
 				.findAllFiltered(index_worker, total_worker);
 		while (findAllFiltered.hasNext()) {
@@ -168,5 +192,6 @@ public class PassagePietonIndexerService {
 			}
 		}
 		rabbitPublisher.emptyBulk(index_worker, total_worker);
+		timer.cancel();
 	}
 }

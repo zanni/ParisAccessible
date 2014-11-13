@@ -37,6 +37,15 @@ public class LocationPublisher {
 		map.put("total_worker", total_worker);
 		rabbitTemplate.convertAndSend("workflow", map);
 	}
+	
+	public void heartbeatWorker(int index_worker, int total_worker) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cycle", "heartbeat");
+		map.put("index_worker", index_worker);
+		map.put("phase", "index");
+		map.put("total_worker", total_worker);
+		rabbitTemplate.convertAndSend("workflow", map);
+	}
 
 	public void addBidirectionalToInserter(int index_worker, int total_worker,
 			Path path) {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.annotation.Resource;
 
@@ -25,6 +27,8 @@ public class StopIndexerService {
 
 	private final static String DISTANCE_MATCH_TROTTOIR_STOP = "5m";
 
+	private static final long delay = 2 * 60 * 1000;
+
 	@Resource
 	private TrottoirRepository trottoirRepository;
 
@@ -34,8 +38,25 @@ public class StopIndexerService {
 	@Resource
 	private LocationPublisher rabbitPublisher;
 
+	public class HeartbeatTask extends TimerTask {
+
+		private int index_worker;
+		private int total_worker;
+
+		public HeartbeatTask(int index_worker, int total_worker) {
+			this.index_worker = index_worker;
+			this.total_worker = total_worker;
+		}
+
+		@Override
+		public void run() {
+			rabbitPublisher.heartbeatWorker(index_worker, total_worker);
+		}
+	}
+
 	private List<TrottoirPath> analyseTrottoir(String pointId, Double lat,
 			Double lon, Trottoir trottoir) {
+
 		List<TrottoirPath> res = new ArrayList<TrottoirPath>();
 		Double nearest = null;
 		List<Double> nearestPoint = null;
@@ -106,6 +127,9 @@ public class StopIndexerService {
 
 	public void indexStop(int index_worker, int total_worker) {
 
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new HeartbeatTask(index_worker, total_worker), 0 , delay);
+
 		Iterator<List<GtfsStop>> findAllWorker = stopRepository.findAllWorker(
 				index_worker, total_worker);
 		while (findAllWorker.hasNext()) {
@@ -134,6 +158,6 @@ public class StopIndexerService {
 			}
 		}
 		rabbitPublisher.emptyBulk(index_worker, total_worker);
-
+		timer.cancel();
 	}
 }
