@@ -42,7 +42,7 @@ public class TrottoirIndexerService {
 
 		Iterator<List<Trottoir>> findAll = trottoirRepository
 				.findAllTrottoirWorker(index_worker, total_worker);
-		while (findAll.hasNext() && z < 1) {
+		while (findAll.hasNext() ) {
 			List<Trottoir> trottoirs = findAll.next();
 			System.out.println("downloaded: " + trottoirs.size());
 			for (Trottoir trottoir : trottoirs) {
