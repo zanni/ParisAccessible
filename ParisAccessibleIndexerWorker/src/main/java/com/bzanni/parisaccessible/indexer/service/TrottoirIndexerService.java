@@ -21,6 +21,7 @@ import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.PassagePietonRepository;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
+import com.bzanni.parisaccessible.neo.business.CostCompute;
 import com.bzanni.parisaccessible.neo.business.Location;
 import com.bzanni.parisaccessible.neo.business.PassagePietonPath;
 import com.bzanni.parisaccessible.neo.business.TrottoirPath;
@@ -30,18 +31,18 @@ import com.bzanni.parisaccessible.neo.service.MemcachedService;
 @Configurable
 public class TrottoirIndexerService {
 
+	private static final int DISTANCE_MATCH_TROTTOIR_START_END = 2;
 	@Resource
 	private TrottoirRepository trottoirRepository;
-
 
 	@Resource
 	private LocationPublisher rabbitPublisher;
 
 	public void indexTrottoir(int index_worker, int total_worker) {
 
-		Iterator<List<Trottoir>> findAll = trottoirRepository.findAllTrottoirWorker(
-				index_worker, total_worker);
-		int z=0;
+		Iterator<List<Trottoir>> findAll = trottoirRepository
+				.findAllTrottoirWorker(index_worker, total_worker);
+		int z = 0;
 		while (findAll.hasNext() && z < 1) {
 			z++;
 			List<Trottoir> trottoirs = findAll.next();
@@ -59,11 +60,10 @@ public class TrottoirIndexerService {
 					GeoShapeMultiLineString obj = (GeoShapeMultiLineString) shape;
 					multilines = obj.getCoordinates();
 				}
-				
 
 				if (multilines != null) {
 					int i = 0;
-	
+
 					for (List<List<Double>> line : multilines) {
 						String id = "trottoir_" + trottoir.getId() + "_" + i;
 						Location prevLocation = null;
@@ -82,16 +82,14 @@ public class TrottoirIndexerService {
 							// link this location with previously created one if
 							// exists
 							if (prevLocation != null) {
-								TrottoirPath mapTrottoir = loc.mapTrottoir(
-										prevLocation);
+								TrottoirPath mapTrottoir = loc
+										.mapTrottoir(prevLocation);
 
 								rabbitPublisher
 										.addBidirectionalToInserter(
 												index_worker, total_worker,
 												mapTrottoir);
 							}
-
-
 
 							prevLocation = loc;
 							if (isFirst) {
@@ -102,14 +100,20 @@ public class TrottoirIndexerService {
 							j++;
 						}
 
-						// match last to first
-						TrottoirPath mapTrottoir = firstLocation.mapTrottoir(
-								prevLocation);
-						
-						rabbitPublisher.addBidirectionalToInserter(
-								index_worker, total_worker, mapTrottoir);
+						Double computeDistance = CostCompute.computeDistance(
+								firstLocation, prevLocation);
+
+						if (computeDistance < TrottoirIndexerService.DISTANCE_MATCH_TROTTOIR_START_END) {
+							// match last to first if distance between them <
+							// DISTANCE_MATCH_TROTTOIR_START_END
+							TrottoirPath mapTrottoir = firstLocation
+									.mapTrottoir(prevLocation);
+							rabbitPublisher.addBidirectionalToInserter(
+									index_worker, total_worker, mapTrottoir);
+						}
+
 					}
-				
+
 				}
 
 			}

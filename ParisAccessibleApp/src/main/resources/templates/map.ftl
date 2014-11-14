@@ -31,7 +31,7 @@
 	    });
 	    
 	    
-	      $http.get("http://bzanni:bzanni@54.172.16.97:9200/accessibility/trottoir/_search")
+	      $http.get("http://bzanni:bzanni@54.164.50.211:9200/accessibility/trottoir/_search")
 	    	.success(function(data, status){
 	    		console.log(data);
 	    		var paths = {}
@@ -49,10 +49,9 @@
 		    		for(var line in shape){
 		    			
 		    		
-		    			path.latlngs.push({lat: shape[line][1]- 0.000060, lng: shape[line][0]- 0.00070});
+		    			// path.latlngs.push({lat: shape[line][1]- 0.000060, lng: shape[line][0]- 0.00070});
 		    			
-		    			
-		    			
+		    			path.latlngs.push({lat: shape[line][0], lng: shape[line][1]});
 		    			
 		    			
 		    					    			

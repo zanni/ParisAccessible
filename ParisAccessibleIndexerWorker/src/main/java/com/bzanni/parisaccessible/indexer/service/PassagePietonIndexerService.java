@@ -20,6 +20,7 @@ import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.Pa
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.bzanni.parisaccessible.neo.business.CostCompute;
 import com.bzanni.parisaccessible.neo.business.Location;
+import com.bzanni.parisaccessible.neo.business.PassagePietonPath;
 import com.bzanni.parisaccessible.neo.business.TrottoirPath;
 
 @Service
@@ -157,6 +158,12 @@ public class PassagePietonIndexerService {
 				String startId = "pieton_" + pieton.getId() + "_start";
 				Location end = prepareLocation(pieton, false);
 				String endId = "pieton_" + pieton.getId() + "_end";
+
+				PassagePietonPath passagePietonPath = new PassagePietonPath(
+						start, end);
+				rabbitPublisher.addBidirectionalToInserter(index_worker,
+						total_worker, passagePietonPath);
+				
 				try {
 					List<Trottoir> search = trottoirRepository
 							.search(start.getLat(),

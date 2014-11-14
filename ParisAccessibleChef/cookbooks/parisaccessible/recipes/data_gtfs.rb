@@ -23,6 +23,11 @@ remote_file "#{node['parisaccessible']['home']}/inject/gtfs/ratp_gtfs.zip" do
   not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/gtfs/.done") }
 end
 
+cookbook_file "split_file.sh" do
+  path "#{node['parisaccessible']['home']}/inject/gtfs/split_file.sh"
+  action :create_if_missing
+end
+
 bash "unzip and split ratp_gtfs.zip" do
   user "root"
   cwd "#{node['parisaccessible']['home']}/inject/gtfs"
@@ -30,10 +35,10 @@ bash "unzip and split ratp_gtfs.zip" do
   code <<-EOH
   unzip ratp_gtfs.zip
   rm -rf ratp_gtfs.zip
-  split --lines=1000000 stop_times.txt stop_times.txt.
-  split --lines=50000 trips.txt trips.txt.
+   chmod +x split_file.sh
+  ./split_file.sh stop_times.txt #{node['parisaccessible']['injecting']['total_worker']}
+  ./split_file.sh trips.txt #{node['parisaccessible']['injecting']['total_worker']}
   chmod -R 777 ./
-  rm stop_times.txt
   touch .done
   EOH
 end

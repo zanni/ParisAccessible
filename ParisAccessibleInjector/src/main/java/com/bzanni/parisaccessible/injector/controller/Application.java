@@ -38,6 +38,12 @@ public class Application {
 
 		// create the Options
 		Options options = new Options();
+		options.addOption("index_worker", "index_worker", true,
+				"do not hide entries starting with .");
+
+		options.addOption("total_worker", "total_worker", true,
+				"do not hide entries starting with .");
+		
 		options.addOption("gtfs_route", "gtfs_route", false,
 				"do not hide entries starting with .");
 
@@ -78,6 +84,9 @@ public class Application {
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 
+			
+			
+			
 			if (line.hasOption("gtfs_route")) {
 				ratpGtfs.importRoute(500);
 				access.importRoute(500);
@@ -97,31 +106,69 @@ public class Application {
 				access.importEquipement(2000);
 			}
 			if (line.hasOption("access_trottoir")) {
+				
+				String index_worker = line.getOptionValue("index_worker");
+				String total_worker = line.getOptionValue("total_worker");
+
+				Integer index_worker_int = Integer.valueOf(index_worker);
+				Integer total_worker_int = Integer.valueOf(total_worker);
+				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_trottoir"));
+				
+				
 				File folder = new File(conf.getAccessibilityPath());
+				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							access.importTrottoir(name, 100);
+							
+							String[] split = name.split("\\.");
+							if(split.length == 3){
+								Integer index = Integer.valueOf(split[split.length - 1]);
+								
+								if(index!=null && index.equals(index_worker_int)){
+									access.importTrottoir(name, 100);
+								}
+							}
+							
+							
 						}
 					}
 				}
 			}
 			if (line.hasOption("access_passagepieton")) {
 
+				String index_worker = line.getOptionValue("index_worker");
+				String total_worker = line.getOptionValue("total_worker");
+
+				Integer index_worker_int = Integer.valueOf(index_worker);
+				Integer total_worker_int = Integer.valueOf(total_worker);
+				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("access_passagepieton"));
+				
+				
 				File folder = new File(conf.getAccessibilityPath());
+				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							access.importPassagePieton(name, 100);
-
+							
+							String[] split = name.split("\\.");
+							if(split.length == 3){
+								Integer index = Integer.valueOf(split[split.length - 1]);
+								
+								if(index!=null && index.equals(index_worker_int)){
+									access.importPassagePieton(name, 100);
+								}
+							}
+							
+							
 						}
 					}
 				}
@@ -129,39 +176,70 @@ public class Application {
 			}
 			if (line.hasOption("gtfs_trip")) {
 
+				String index_worker = line.getOptionValue("index_worker");
+				String total_worker = line.getOptionValue("total_worker");
+
+				Integer index_worker_int = Integer.valueOf(index_worker);
+				Integer total_worker_int = Integer.valueOf(total_worker);
+				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("gtfs_trip"));
-				File folder = new File(conf.getGtfsPath());
+				
+				
+				File folder = new File(conf.getAccessibilityPath());
+				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							GtfsTripCsvImportThread thread = run
-									.getBean(GtfsTripCsvImportThread.class);
-							thread.setBulk(2000);
-							thread.setCsvFile(name);
-							thread.run();
-
+							
+							String[] split = name.split("\\.");
+							if(split.length == 3){
+								Integer index = Integer.valueOf(split[split.length - 1]);
+								
+								if(index!=null && index.equals(index_worker_int)){
+									ratpGtfs.importTrip(name, 2000);
+								}
+							}
+							
+							
 						}
 					}
 				}
 			}
 			if (line.hasOption("gtfs_stoptime")) {
+				String index_worker = line.getOptionValue("index_worker");
+				String total_worker = line.getOptionValue("total_worker");
 
+				Integer index_worker_int = Integer.valueOf(index_worker);
+				Integer total_worker_int = Integer.valueOf(total_worker);
+				
 				Pattern compile = Pattern.compile(line
 						.getOptionValue("gtfs_stoptime"));
-				File folder = new File(conf.getGtfsPath());
+				
+				
+				File folder = new File(conf.getAccessibilityPath());
+				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
 						String name = fileEntry.getName();
 						Matcher matcher = compile.matcher(name);
 						if (matcher.find()) {
-							ratpGtfs.importStopTime(name, 2000);
+							
+							String[] split = name.split("\\.");
+							if(split.length == 3){
+								Integer index = Integer.valueOf(split[split.length - 1]);
+								
+								if(index!=null && index.equals(index_worker_int)){
+									ratpGtfs.importStopTime(name, 2000);
+								}
+							}
+							
+							
 						}
 					}
 				}
-
 			}
 
 			client.indexing(true);
