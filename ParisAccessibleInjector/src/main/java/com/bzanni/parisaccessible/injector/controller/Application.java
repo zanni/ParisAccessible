@@ -89,17 +89,18 @@ public class Application {
 			
 			if (line.hasOption("gtfs_route")) {
 				ratpGtfs.importRoute(500);
-				access.importRoute(500);
+				
 			}
 			if (line.hasOption("gtfs_stop")) {
 				ratpGtfs.importStop(2000);
-				ratpGtfs.importStopTransfert(2000);
-				access.importStop(2000);
+				ratpGtfs.importService(500);
 			}
 			if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
-				ratpGtfs.importService(500);
+				access.importRoute(500);
 				ratpGtfs.importServiceCalendar(500);
+				ratpGtfs.importStopTransfert(2000);
+				access.importStop(2000);
 
 			}
 			if (line.hasOption("access_equipement")) {
@@ -186,7 +187,7 @@ public class Application {
 						.getOptionValue("gtfs_trip"));
 				
 				
-				File folder = new File(conf.getAccessibilityPath());
+				File folder = new File(conf.getGtfsPath());
 				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
@@ -219,7 +220,7 @@ public class Application {
 						.getOptionValue("gtfs_stoptime"));
 				
 				
-				File folder = new File(conf.getAccessibilityPath());
+				File folder = new File(conf.getGtfsPath());
 				
 				for (File fileEntry : folder.listFiles()) {
 					if (!fileEntry.isDirectory()) {
