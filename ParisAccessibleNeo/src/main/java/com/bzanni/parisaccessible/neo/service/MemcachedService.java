@@ -3,8 +3,6 @@ package com.bzanni.parisaccessible.neo.service;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import javax.annotation.PostConstruct;
-
 import net.spy.memcached.MemcachedClient;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +21,11 @@ public class MemcachedService {
 
 	private MemcachedClient client;
 
-	@PostConstruct
 	public void init() {
 		try {
 			client = new MemcachedClient(new InetSocketAddress(memcachedHost,
 					memcachedPort));
-			
+
 			client.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

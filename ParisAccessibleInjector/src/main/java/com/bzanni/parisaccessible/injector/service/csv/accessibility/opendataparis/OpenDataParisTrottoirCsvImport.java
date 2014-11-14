@@ -1,6 +1,7 @@
 package com.bzanni.parisaccessible.injector.service.csv.accessibility.opendataparis;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -35,13 +36,28 @@ public class OpenDataParisTrottoirCsvImport extends
 	public Logger getLogger() {
 		return OpenDataParisTrottoirCsvImport.LOGGER;
 	}
-	
+
 	@Resource
 	private TrottoirRepository trottoirRepository;
 
 	@Override
 	public char delimiter() {
 		return ';';
+	}
+
+	public List<Double> adjustPoint(List<Double> point) {
+		Double lat = point.get(1) - 0.00006D;
+		Double lon = point.get(0) - 0.00070D;
+		return Arrays.asList(lat, lon);
+	}
+
+	private List<List<Double>> adjustLine(List<List<Double>> origin) {
+		List<List<Double>> des = new ArrayList<List<Double>>();
+
+		for (List<Double> point : origin) {
+			des.add(adjustPoint(point));
+		}
+		return des;
 	}
 
 	@Override
@@ -56,16 +72,34 @@ public class OpenDataParisTrottoirCsvImport extends
 		Trottoir eq = new Trottoir();
 
 		try {
-			shape = gson.fromJson(line[1],
+			GeoShapeLineString obj = gson.fromJson(line[1],
 					GeoShapeLineString.class);
+
+			List<List<Double>> adjustLine = adjustLine(obj.getCoordinates());
+
+			obj.setCoordinates(adjustLine);
+
+			shape = obj;
+
 		} catch (JsonSyntaxException e) {
-			shape = gson.fromJson(line[1],
+
+			GeoShapeMultiLineString obj = gson.fromJson(line[1],
 					GeoShapeMultiLineString.class);
+
+			List<List<List<Double>>> des = new ArrayList<List<List<Double>>>();
+			for (List<List<Double>> list : obj.getCoordinates()) {
+				List<List<Double>> adjustLine = adjustLine(list);
+				des.add(adjustLine);
+			}
+			
+			obj.setCoordinates(des);
+			shape = obj;
+			
 		}
 		eq.setShape(shape);
-//		eq.setNiveau(line[2]);
+		// eq.setNiveau(line[2]);
 		eq.setInfo(line[3]);
-//		eq.setLibelle(line[4]);
+		// eq.setLibelle(line[4]);
 		List<Trottoir> res = new ArrayList<Trottoir>();
 		res.add(eq);
 		return res;
