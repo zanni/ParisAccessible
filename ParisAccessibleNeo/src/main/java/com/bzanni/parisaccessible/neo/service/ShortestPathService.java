@@ -98,6 +98,7 @@ public class ShortestPathService {
 				buffer = new ArrayList<Node>();
 				tx.success();
 				tx.close();
+				tx = database.beginTx();
 				
 			}
 
