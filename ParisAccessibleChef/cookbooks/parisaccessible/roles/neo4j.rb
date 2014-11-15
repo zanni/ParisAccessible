@@ -9,6 +9,9 @@ default_attributes(
 		:server => {
 			:enabled => false,
 			:version => "2.1.4",
+			:jvm => {
+				:xmx => "4096"
+			},
 			:plugins => {
 				:spatial => {
 					:enable => false

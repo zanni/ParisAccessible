@@ -18,6 +18,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.PathExpanders;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.tooling.GlobalGraphOperations;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -48,8 +49,13 @@ public class ShortestPathService {
 	// SimplePointLayer createSimplePointLayer;
 
 	public void init(String dataFolder) {
-		database = new GraphDatabaseFactory().newEmbeddedDatabase(neoDataPath
-				+ "/" + dataFolder);
+		database = new GraphDatabaseFactory()
+				.newEmbeddedDatabaseBuilder(neoDataPath + "/" + dataFolder)
+				.setConfig(GraphDatabaseSettings.nodestore_mapped_memory_size,
+						"10M")
+				.setConfig(GraphDatabaseSettings.string_block_size, "60")
+				.setConfig(GraphDatabaseSettings.array_block_size, "300")
+				.newGraphDatabase();
 
 		SpatialDatabaseService spatialService = new SpatialDatabaseService(
 				database);
@@ -69,8 +75,18 @@ public class ShortestPathService {
 		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
 				.getAllNodes();
 		List<Node> buffer = new ArrayList<Node>();
+		int i = 0;
 		for (Node n : allNodes) {
-			mainPointsLayer.add(n);
+			buffer.add(n);
+			i++;
+			if (i % ShortestPathService.BULK_INDEX == 0) {
+				for (Node node : buffer) {
+					mainPointsLayer.add(node);
+				}
+				System.out.println("Indexed: " + i);
+				buffer = new ArrayList<Node>();
+			}
+
 		}
 
 	}
