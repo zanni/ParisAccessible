@@ -52,7 +52,11 @@ public class ShortestPathService {
 		database = new GraphDatabaseFactory()
 				.newEmbeddedDatabaseBuilder(neoDataPath + "/" + dataFolder)
 				.setConfig(GraphDatabaseSettings.nodestore_mapped_memory_size,
-						"10M")
+						"500M")
+				.setConfig(GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+						"2G")
+				.setConfig(GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+						"2G")
 				.setConfig(GraphDatabaseSettings.string_block_size, "60")
 				.setConfig(GraphDatabaseSettings.array_block_size, "300")
 				.newGraphDatabase();
