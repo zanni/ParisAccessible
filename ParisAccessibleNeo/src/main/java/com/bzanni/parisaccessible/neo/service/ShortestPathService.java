@@ -34,7 +34,7 @@ public class ShortestPathService {
 
 	public final static Double MATCH_DISTANCE_IN_METER = 5D;
 
-	public final static int BULK_INDEX = 1000;
+	public final static int BULK_INDEX = 10000;
 
 	@Value("${neo4j_data_path}")
 	private String neoDataPath;
@@ -88,17 +88,28 @@ public class ShortestPathService {
 			buffer.add(n);
 			i++;
 			if (i % ShortestPathService.BULK_INDEX == 0) {
+				database.beginTx();
 				for (Node node : buffer) {
-					mainPointsLayer.add(node);
+					if(node.hasProperty("lat") && node.hasProperty("lon")){
+						mainPointsLayer.add(node);
+					}	
 				}
 				System.out.println("Indexed: " + i);
 				buffer = new ArrayList<Node>();
 				tx.success();
 				tx.close();
-				database.beginTx();
+				
 			}
 
 		}
+		database.beginTx();
+		for (Node node : buffer) {
+			if(node.hasProperty("lat") && node.hasProperty("lon")){
+				mainPointsLayer.add(node);
+			}	
+		}
+		System.out.println("Indexed: " + i);
+		buffer = new ArrayList<Node>();
 		tx.success();
 		tx.close();
 	}

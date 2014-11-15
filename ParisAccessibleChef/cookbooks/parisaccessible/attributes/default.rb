@@ -19,7 +19,7 @@ node.default["parisaccessible"]["elasticsearch_url"] = "http://192.168.33.10:920
 node.default["parisaccessible"]["neo4j_url"] = "http://localhost:7474/db/data"
 node.default["parisaccessible"]["neo4j_data_path"] = "/var/lib/neo4j-server/data/"
 
-
+node.default["parisaccessible"]["parisaccessible_app_datafolder"] = "20141114_165109_batch.db"
 node.default["parisaccessible"]["inject_path"] = "/srv/ParisAccessible/inject/"
 
 node.default["parisaccessible"]["rabbitmq_host"]  = "localhost"
