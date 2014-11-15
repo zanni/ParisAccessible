@@ -33,6 +33,8 @@ public class ShortestPathService {
 
 	public final static Double MATCH_DISTANCE_IN_METER = 5D;
 
+	public final static int BULK_INDEX = 1000;
+
 	@Value("${neo4j_data_path}")
 	private String neoDataPath;
 
@@ -61,14 +63,16 @@ public class ShortestPathService {
 					"lat", "lon");
 		}
 
+		tx.success();
+		tx.close();
+
 		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
 				.getAllNodes();
+		List<Node> buffer = new ArrayList<Node>();
 		for (Node n : allNodes) {
 			mainPointsLayer.add(n);
 		}
 
-		tx.success();
-		tx.close();
 	}
 
 	private Node findNode(List<Double> point) {
@@ -76,7 +80,7 @@ public class ShortestPathService {
 
 		List<GeoPipeFlow> findClosestPointsTo = mainPointsLayer
 				.findClosestPointsTo(new Coordinate(point.get(0), point.get(1)));
-		
+
 		while (findClosestPointsTo.iterator().hasNext()) {
 			GeoPipeFlow next = findClosestPointsTo.iterator().next();
 			SpatialDatabaseRecord record = next.getRecord();
