@@ -63,12 +63,8 @@ public class ShortestPathService {
 
 		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
 				.getAllNodes();
-		int z = 0;
 		for (Node n : allNodes) {
-			z++;
 			mainPointsLayer.add(n);
-			if (z > 100)
-				break;
 		}
 
 		tx.success();

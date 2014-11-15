@@ -30,7 +30,7 @@
 	        }
 	    });
 	    
-	    
+	   /* 
 	      $http.get("http://bzanni:bzanni@54.164.50.211:9200/accessibility/trottoir/_search")
 	    	.success(function(data, status){
 	    		console.log(data);
@@ -66,6 +66,8 @@
 	    		
 		    			
 	    	});
+	    	
+	    	*/
 	    
 	    function drawPath(start, end){
 	  
@@ -83,18 +85,16 @@
 			     .success(function (data,status) {
 			          console.log(data);
 			          var paths = {};
-			          paths.p1 = {	type: "polyline",latlngs: [ ] }
-			           paths.p2 = {	type: "polyline",latlngs: [ ] }
-			           paths.p1 = {	type: "polyline",latlngs: [ ] }	
+			          paths.p0 = {	type: "polyline",latlngs: [ ] }
+			 
 
 			                
 			               
 		                
 			          for(var i in data){
 			          	var loc = data[i];
-			          	paths.p0.latlngs.push({lat: (loc.lon ), lng: loc.lat });
-			          	paths.p1.latlngs.push({lat: (loc.lon + 0.00008), lng: loc.lat + 0.00077});
-			          	paths.p2.latlngs.push({lat: (loc.lon + 0.00008), lng: loc.lat + 0.00077});
+			          	paths.p0.latlngs.push({lon: (loc.lon ), lat: loc.lat });
+			         
 			          }
 			          
 			          
@@ -118,11 +118,12 @@
        	
 			$scope.eventDetected = args.leafletEvent.latlng
 			
+			
        		$http
 			    .get('/location', {
 			        params: {
-			            lon: args.leafletEvent.latlng.lat,
-			            lat: args.leafletEvent.latlng.lng
+			            lat: args.leafletEvent.latlng.lat,
+			            lon: args.leafletEvent.latlng.lng
 			        }
 			     })
 			     .success(function(data, status){
@@ -130,20 +131,21 @@
 			     	 if(data){
 			     	
 				     	$scope.markers.push({
-				     		lng: data.lat,
-				     		lat: data.lon
+				     		lat: data.lat,
+				     		lng: data.lon
 				     	});
 				     	
 				     	if(!start){
 				     		start = {
-					     		lng: data.lat,
-					     		lat: data.lon
+					     		lat: data.lat,
+					     		lng: data.lon
 					     	}
 				     	}
+				     	
 				     	else {
 				     		end = {
-					     		lng: data.lat,
-					     		lat: data.lon
+					     		lat: data.lat,
+					     		lng: data.lon
 					     	}
 					     	
 					     	drawPath(start, end)
