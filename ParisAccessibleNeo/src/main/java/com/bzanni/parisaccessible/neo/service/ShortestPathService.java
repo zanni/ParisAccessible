@@ -53,9 +53,11 @@ public class ShortestPathService {
 				.newEmbeddedDatabaseBuilder(neoDataPath + "/" + dataFolder)
 				.setConfig(GraphDatabaseSettings.nodestore_mapped_memory_size,
 						"500M")
-				.setConfig(GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+				.setConfig(
+						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
 						"2G")
-				.setConfig(GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+				.setConfig(
+						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
 						"2G")
 				.setConfig(GraphDatabaseSettings.string_block_size, "60")
 				.setConfig(GraphDatabaseSettings.array_block_size, "300")
@@ -76,6 +78,8 @@ public class ShortestPathService {
 		tx.success();
 		tx.close();
 
+		tx = database.beginTx();
+
 		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
 				.getAllNodes();
 		List<Node> buffer = new ArrayList<Node>();
@@ -89,10 +93,14 @@ public class ShortestPathService {
 				}
 				System.out.println("Indexed: " + i);
 				buffer = new ArrayList<Node>();
+				tx.success();
+				tx.close();
+				database.beginTx();
 			}
 
 		}
-
+		tx.success();
+		tx.close();
 	}
 
 	private Node findNode(List<Double> point) {
