@@ -1,31 +1,22 @@
 package com.bzanni.parisaccessible.indexer.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShape;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeLineString;
 import com.bzanni.parisaccessible.elasticsearch.business.GeoShapeMultiLineString;
-import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStop;
-import com.bzanni.parisaccessible.elasticsearch.opendataparis.PassagePieton;
 import com.bzanni.parisaccessible.elasticsearch.opendataparis.Trottoir;
-import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
-import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.PassagePietonRepository;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.opendataparis.TrottoirRepository;
 import com.bzanni.parisaccessible.neo.business.CostCompute;
 import com.bzanni.parisaccessible.neo.business.Location;
-import com.bzanni.parisaccessible.neo.business.PassagePietonPath;
 import com.bzanni.parisaccessible.neo.business.TrottoirPath;
-import com.bzanni.parisaccessible.neo.service.MemcachedService;
 
 @Service
 @Configurable
@@ -42,7 +33,10 @@ public class TrottoirIndexerService {
 
 		Iterator<List<Trottoir>> findAll = trottoirRepository
 				.findAllTrottoirWorker(index_worker, total_worker);
-		while (findAll.hasNext() ) {
+		int z = 0;
+		while (findAll.hasNext() && z < 8 ) {
+			z++;
+			
 			List<Trottoir> trottoirs = findAll.next();
 			System.out.println("downloaded: " + trottoirs.size());
 			for (Trottoir trottoir : trottoirs) {

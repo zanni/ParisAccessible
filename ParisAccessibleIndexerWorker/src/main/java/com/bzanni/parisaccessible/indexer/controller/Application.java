@@ -145,6 +145,7 @@ public class Application {
 				Integer total_worker_int = Integer.valueOf(total_worker);
 
 				locationPublisher.startWorker(index_worker_int, total_worker_int);
+				
 				trottoirIndexer.indexTrottoir(index_worker_int,
 						total_worker_int);
 

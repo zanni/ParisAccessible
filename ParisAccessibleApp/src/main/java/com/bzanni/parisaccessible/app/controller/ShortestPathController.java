@@ -45,8 +45,8 @@ public class ShortestPathController {
 			@RequestParam("end_lon") Double end_lon) {
 
 		List<Location> findShortestPath = shortestPathService.findShortestPath(
-				Arrays.asList(start_lon, start_lat),
-				Arrays.asList(end_lon, end_lat));
+				Arrays.asList(start_lat, start_lon),
+				Arrays.asList(end_lat, end_lon));
 
 		return findShortestPath;
 

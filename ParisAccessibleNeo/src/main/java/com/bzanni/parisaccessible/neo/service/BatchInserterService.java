@@ -3,22 +3,16 @@ package com.bzanni.parisaccessible.neo.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
-import org.neo4j.gis.spatial.SimplePointLayer;
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Transaction;
 import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
 import org.neo4j.kernel.DefaultFileSystemAbstraction;
-import org.neo4j.tooling.GlobalGraphOperations;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
@@ -43,7 +37,7 @@ public class BatchInserterService {
 
 	private BatchInserter inserter;
 	private BatchInserterIndexProvider indexProvider;
-	
+
 	public static final Map<String, String> NEO4J_CFG = new HashMap<String, String>();
 	static {
 		NEO4J_CFG.put("neostore.nodestore.db.mapped_memory", "100M");
@@ -63,22 +57,15 @@ public class BatchInserterService {
 		if (inserter == null) {
 			cache.init();
 
-			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
 			folder = neoDataPath + "/" + format.format(new Date())
 					+ "_batch.db";
 
-			inserter = BatchInserters.inserter(folder,
-					new DefaultFileSystemAbstraction(), NEO4J_CFG);
-			
+			inserter = BatchInserters.inserter(folder, NEO4J_CFG);
 
-			indexProvider = new LuceneBatchInserterIndexProvider(inserter);
-			
-			
 
 		}
 	}
-	
-	
 
 	@PreDestroy
 	public void destroy() {
@@ -151,7 +138,19 @@ public class BatchInserterService {
 		System.out.println("Flushing ...");
 		System.out.println("Nodes: " + getNodes());
 		System.out.println("Relationships: " + this.getRelationships());
-		indexProvider.shutdown();
+		inserter.createDeferredSchemaIndex(
+				DynamicLabel.label("SIDWAY")).on("id")
+				.create();
+		
+		inserter.createDeferredSchemaIndex(
+				DynamicLabel.label("PIETON")).on("id")
+				.create();
+		
+		inserter.createDeferredSchemaIndex(
+				DynamicLabel.label("STOP")).on("id")
+				.create();
+		System.out.println("createDeferredSchemaIndex: ");
+		
 		inserter.shutdown();
 		System.out.println("Clean shutdown");
 	}

@@ -33,7 +33,7 @@ public class OpenDataParisPassagePietonCsvImport extends
 		return OpenDataParisPassagePietonCsvImport.LOGGER;
 	}
 	
-//	private final static String PASSAGEPIETON_TAG = "PVPPAPI";
+	private final static String PASSAGEPIETON_TAG = "PVPPAPI";
 
 	@Resource
 	private PassagePietonRepository passagePietonRepository;
@@ -49,10 +49,10 @@ public class OpenDataParisPassagePietonCsvImport extends
 			return null;
 		}
 		
-//		if(line[2] != OpenDataParisPassagePietonCsvImport.PASSAGEPIETON_TAG){
-//			return null;
-//		}
-//		
+		if(!line[2].equals(OpenDataParisPassagePietonCsvImport.PASSAGEPIETON_TAG)){
+			return null;
+		}
+		
 		List<PassagePieton> res = null;
 		String asString = line[0];
 		if (asString.indexOf("LineString") >= 0) {

@@ -59,7 +59,6 @@
 		    		 paths[i] = path;
 	    		}
 	    		
-	    		console.log(paths);
 	    		
 	    		$scope.paths = {p: paths[1], p2: paths[2], p3: paths[3]
 	    		, p4: paths[4], p5: paths[5]};
@@ -83,30 +82,59 @@
 			        }
 			     })
 			     .success(function (data,status) {
-			          console.log(data);
-			          var paths = {};
-			          paths.p0 = {	type: "polyline",latlngs: [ ] }
-			 
-
+					console.log(data);
+			          if(data.length > 0){
+				           var paths = {};
+				          paths.p0 = {	type: "polyline",latlngs: [ ] }
+				 
+	
+				                
+				               
 			                
-			               
-		                
-			          for(var i in data){
-			          	var loc = data[i];
-			          	paths.p0.latlngs.push({lon: (loc.lon ), lat: loc.lat });
-			         
+				          for(var i in data){
+				          	var loc = data[i];
+				          	console.log(loc);
+				          	paths.p0.latlngs.push({lng: (loc.lon ), lat: loc.lat });
+				         
+				          }
+				          
+				          
+				          
+				          
+				          console.log(start, end);
+				          
+				          markers = [
+				          {
+					     		lat: start.lat,
+					     		lng: start.lng
+					     	},
+					     	{
+					     		lat: end.lat,
+					     		lng: end.lng
+					     	}
+				          ];
+				          $scope.paths = paths;
+				          angular.extend($scope, {
+						
+					        paths: paths,
+					        markers: markers
+			
+					    	});
+					    	start = null;
+			       			 end = null;
+				          }
+				          else {
+				          angular.extend($scope, {
+						
+					        paths: paths,
+					        markers: []
+			
+					    });
+					    start = null;
+			       			 end = null;
 			          }
-			          
-			          
-			          
-			          start = null;
-			          console.log(paths);
-			          $scope.paths = paths;
-			          angular.extend($scope, {
-		
-				        paths: paths,
-		
-				    });
+			         
+				   
 			          
 			     });
 	    }
@@ -127,28 +155,33 @@
 			        }
 			     })
 			     .success(function(data, status){
-			     	console.log(data, status);
 			     	 if(data){
 			     	
 				     	$scope.markers.push({
 				     		lat: data.lat,
 				     		lng: data.lon
 				     	});
+				     	$scope.paths = {};
+
 				     	
-				     	if(!start){
+				     	if(start == null){
+				     	
 				     		start = {
 					     		lat: data.lat,
 					     		lng: data.lon
 					     	}
+					     	console.log("start", start)
 				     	}
 				     	
 				     	else {
+				     	
 				     		end = {
 					     		lat: data.lat,
 					     		lng: data.lon
 					     	}
-					     	
+					     	console.log("end", start, end)
 					     	drawPath(start, end)
+					     	 
 				     	}
 			     	}
 			     	

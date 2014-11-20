@@ -30,6 +30,8 @@ import com.google.gson.JsonSyntaxException;
 public class OpenDataParisTrottoirCsvImport extends
 		GenericCsvImporter<Trottoir> {
 
+	private final static String TROTTOIR_TAG = "BOR";
+	
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(OpenDataParisTrottoirCsvImport.class);
 
@@ -46,8 +48,8 @@ public class OpenDataParisTrottoirCsvImport extends
 	}
 
 	public List<Double> adjustPoint(List<Double> point) {
-		Double lat = point.get(1) - 0.00006D;
-		Double lon = point.get(0) - 0.00070D;
+		Double lon = point.get(1) - 0.00006D;
+		Double lat = point.get(0) - 0.00070D;
 		return Arrays.asList(lat, lon);
 	}
 
@@ -66,6 +68,11 @@ public class OpenDataParisTrottoirCsvImport extends
 		if (line.length < 5) {
 			return null;
 		}
+		
+		if(!line[3].equals(OpenDataParisTrottoirCsvImport.TROTTOIR_TAG)){
+			return null;
+		}
+		
 
 		Gson gson = new Gson();
 		GeoShape shape = null;
