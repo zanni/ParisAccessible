@@ -28,19 +28,27 @@ cookbook_file "split_file.sh" do
   action :create_if_missing
 end
 
-bash "unzip and split ratp_gtfs.zip" do
+bash "unzip ratp_gtfs.zip" do
   user "root"
   cwd "#{node['parisaccessible']['home']}/inject/gtfs"
-  not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/gtfs/.done") }
   code <<-EOH
   unzip ratp_gtfs.zip
   rm -rf ratp_gtfs.zip
    chmod +x split_file.sh
-  ./split_file.sh stop_times.txt #{node['parisaccessible']['injecting']['total_worker']}
-  ./split_file.sh trips.txt #{node['parisaccessible']['injecting']['total_worker']}
   chmod -R 777 ./
-  touch .done
   EOH
+end
+
+if node[:parisaccessible][:injecting]
+  bash "split ratp_gtfs.zip" do
+    user "root"
+    cwd "#{node['parisaccessible']['home']}/inject/gtfs"
+    code <<-EOH
+    ./split_file.sh stop_times.txt #{node['parisaccessible']['injecting']['total_worker']}
+    ./split_file.sh trips.txt #{node['parisaccessible']['injecting']['total_worker']}
+    chmod -R 777 ./
+    EOH
+  end
 end
 
 

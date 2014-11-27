@@ -83,55 +83,12 @@ public class ShortestPathService {
 					"lat", "lon");
 		}
 
-		saveLayerAsImage(mainPointsLayer, 600, 600);
+//		saveLayerAsImage(mainPointsLayer, 600, 600);
 
 		tx.success();
 		tx.close();
 
-		// tx = database.beginTx();
-		//
-		// Iterable<Node> allNodes = GlobalGraphOperations.at(database)
-		// .getAllNodes();
-		// List<Node> buffer = new ArrayList<Node>();
-		// int i = 0;
-		// int j = 0;
-		// for (Node n : allNodes) {
-		//
-		// buffer.add(n);
-		// i++;
-		// if (i % ShortestPathService.BULK_INDEX == 0) {
-		//
-		// database.beginTx();
-		// for (Node node : buffer) {
-		// if (node.hasProperty("lat") && node.hasProperty("lon")) {
-		// mainPointsLayer.add(node);
-		// j++;
-		//
-		// }
-		// }
-		// System.out.println("Indexed: " + j + " over " + i);
-		// buffer = new ArrayList<Node>();
-		// tx.success();
-		// tx.close();
-		// tx = database.beginTx();
-		//
-		// }
-		//
-		// if (i > 500000) {
-		// break;
-		// }
-		//
-		// }
-		// database.beginTx();
-		// for (Node node : buffer) {
-		// if (node.hasProperty("lat") && node.hasProperty("lon")) {
-		// mainPointsLayer.add(node);
-		// }
-		// }
-		// System.out.println("Indexed: " + i);
-		// buffer = new ArrayList<Node>();
-		// tx.success();
-		// tx.close();
+		
 
 	}
 

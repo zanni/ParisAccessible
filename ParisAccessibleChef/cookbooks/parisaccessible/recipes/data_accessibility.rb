@@ -42,22 +42,24 @@ cookbook_file "split_file.sh" do
   action :create_if_missing
 end
 
-bash "split trottoir.csv and passagepieton.csv" do
-  user "root"
-  cwd "#{node['parisaccessible']['home']}/inject/accessibility/"
-  not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/.done") }
-  code <<-EOH
-  chmod +x split_file.sh
+if node[:parisaccessible][:injecting]
+  bash "split trottoir.csv and passagepieton.csv" do
+    user "root"
+    cwd "#{node['parisaccessible']['home']}/inject/accessibility/"
+    not_if { ::File.exists?("#{node['parisaccessible']['home']}/inject/accessibility/.done") }
+    code <<-EOH
+    chmod +x split_file.sh
 
-  ./split_file.sh trottoir.csv #{node['parisaccessible']['injecting']['total_worker']}
-  ./split_file.sh passagepieton.csv #{node['parisaccessible']['injecting']['total_worker']}
-  ./split_file.sh route_access.csv #{node['parisaccessible']['injecting']['total_worker']}
-  ./split_file.sh stop_access.csv #{node['parisaccessible']['injecting']['total_worker']}
-  
-  chmod -R 777 ./
-  touch .done
-  EOH
-end
+    ./split_file.sh trottoir.csv #{node['parisaccessible']['injecting']['total_worker']}
+    ./split_file.sh passagepieton.csv #{node['parisaccessible']['injecting']['total_worker']}
+    ./split_file.sh route_access.csv #{node['parisaccessible']['injecting']['total_worker']}
+    ./split_file.sh stop_access.csv #{node['parisaccessible']['injecting']['total_worker']}
+    
+    chmod -R 777 ./
+    touch .done
+    EOH
+  end
+end 
 
 
 

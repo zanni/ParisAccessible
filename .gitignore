@@ -1,6 +1,7 @@
 .project
 .settings
 ParisAccessibleVagrant
+ParisAccessiblePacker
 inject
 */.classpath
 */.project

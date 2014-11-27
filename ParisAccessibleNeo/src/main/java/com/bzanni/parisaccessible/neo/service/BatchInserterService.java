@@ -1,6 +1,7 @@
 package com.bzanni.parisaccessible.neo.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +10,16 @@ import java.util.Map;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
+import org.neo4j.gis.spatial.SimplePointLayer;
+import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.DynamicRelationshipType;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.tooling.GlobalGraphOperations;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
@@ -34,8 +43,9 @@ public class BatchInserterService {
 	private MemcachedService cache;
 
 	private BatchInserter inserter;
-	private BatchInserterIndexProvider indexProvider;
+//	private BatchInserterIndexProvider indexProvider;
 
+	private final static String LAYER_NAME = "location";
 	public static final Map<String, String> NEO4J_CFG = new HashMap<String, String>();
 	static {
 		NEO4J_CFG.put("neostore.nodestore.db.mapped_memory", "100M");
@@ -129,6 +139,81 @@ public class BatchInserterService {
 
 		}
 
+	}
+
+	private void spatialIndex() {
+
+		GraphDatabaseService database = new GraphDatabaseFactory()
+				.newEmbeddedDatabaseBuilder(folder)
+				.setConfig(GraphDatabaseSettings.nodestore_mapped_memory_size,
+						"500M")
+				.setConfig(
+						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+						"2G")
+				.setConfig(
+						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
+						"2G")
+				.setConfig(GraphDatabaseSettings.string_block_size, "60")
+				.setConfig(GraphDatabaseSettings.array_block_size, "300")
+				.newGraphDatabase();
+
+		SpatialDatabaseService spatialService = new SpatialDatabaseService(
+				database);
+
+		Transaction tx = database.beginTx();
+
+		SimplePointLayer mainPointsLayer;
+
+		if (spatialService.containsLayer(BatchInserterService.LAYER_NAME)) {
+			mainPointsLayer = (SimplePointLayer) spatialService
+					.getLayer(BatchInserterService.LAYER_NAME);
+		} else {
+			mainPointsLayer = spatialService.createSimplePointLayer(
+					BatchInserterService.LAYER_NAME, "lat", "lon");
+		}
+
+		tx.success();
+		tx.close();
+		
+		tx = database.beginTx();
+
+		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
+				.getAllNodes();
+		List<Node> buffer = new ArrayList<Node>();
+		int i = 0;
+		int j = 0;
+		for (Node n : allNodes) {
+
+			buffer.add(n);
+			i++;
+			if (i % ShortestPathService.BULK_INDEX == 0) {
+
+				database.beginTx();
+				for (Node node : buffer) {
+					if (node.hasProperty("lat") && node.hasProperty("lon")) {
+						mainPointsLayer.add(node);
+						j++;
+					}
+				}
+				System.out.println("Indexed: " + j + " over " + i);
+				buffer = new ArrayList<Node>();
+				tx.success();
+				tx.close();
+				tx = database.beginTx();
+
+			}
+
+		}
+		database.beginTx();
+		for (Node node : buffer) {
+			if (node.hasProperty("lat") && node.hasProperty("lon")) {
+				mainPointsLayer.add(node);
+			}
+		}
+		System.out.println("Indexed: " + i);
+		buffer = new ArrayList<Node>();
+		tx.success();
+		tx.close();
 	}
 
 	public void flushAndShutdown() {
