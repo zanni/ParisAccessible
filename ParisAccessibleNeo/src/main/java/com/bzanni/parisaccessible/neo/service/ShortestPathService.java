@@ -26,6 +26,7 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.tooling.GlobalGraphOperations;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -81,14 +82,53 @@ public class ShortestPathService {
 		} else {
 			mainPointsLayer = spatialService.createSimplePointLayer("location",
 					"lat", "lon");
+
+
+			tx = database.beginTx();
+
+			Iterable<Node> allNodes = GlobalGraphOperations.at(database)
+					.getAllNodes();
+			List<Node> buffer = new ArrayList<Node>();
+			int i = 0;
+			int j = 0;
+			for (Node n : allNodes) {
+
+				buffer.add(n);
+				i++;
+				if (i % ShortestPathService.BULK_INDEX == 0) {
+
+					database.beginTx();
+					for (Node node : buffer) {
+						if (node.hasProperty("lat") && node.hasProperty("lon")) {
+							mainPointsLayer.add(node);
+							j++;
+						}
+					}
+					System.out.println("Indexed: " + j + " over " + i);
+					buffer = new ArrayList<Node>();
+					tx.success();
+					tx.close();
+					tx = database.beginTx();
+
+				}
+
+			}
+			database.beginTx();
+			for (Node node : buffer) {
+				if (node.hasProperty("lat") && node.hasProperty("lon")) {
+					mainPointsLayer.add(node);
+				}
+			}
+			System.out.println("Indexed: " + i);
+			buffer = new ArrayList<Node>();
+			tx.success();
+			tx.close();
 		}
 
-//		saveLayerAsImage(mainPointsLayer, 600, 600);
+		// saveLayerAsImage(mainPointsLayer, 600, 600);
 
 		tx.success();
 		tx.close();
-
-		
 
 	}
 
