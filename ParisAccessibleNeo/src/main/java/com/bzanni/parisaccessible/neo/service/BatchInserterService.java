@@ -21,7 +21,6 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.tooling.GlobalGraphOperations;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +42,7 @@ public class BatchInserterService {
 	private MemcachedService cache;
 
 	private BatchInserter inserter;
-//	private BatchInserterIndexProvider indexProvider;
+	// private BatchInserterIndexProvider indexProvider;
 
 	private final static String LAYER_NAME = "location";
 	public static final Map<String, String> NEO4J_CFG = new HashMap<String, String>();
@@ -174,7 +173,7 @@ public class BatchInserterService {
 
 		tx.success();
 		tx.close();
-		
+
 		tx = database.beginTx();
 
 		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
@@ -229,6 +228,8 @@ public class BatchInserterService {
 		inserter.createDeferredSchemaIndex(DynamicLabel.label("STOP")).on("id")
 				.create();
 		System.out.println("createDeferredSchemaIndex: ");
+
+		spatialIndex();
 
 		inserter.shutdown();
 		System.out.println("Clean shutdown");
