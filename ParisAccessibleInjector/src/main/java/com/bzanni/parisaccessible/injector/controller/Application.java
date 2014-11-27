@@ -30,6 +30,7 @@ import com.bzanni.parisaccessible.injector.service.util.ParisAccessibleConfigura
 @ImportResource({ "classpath:/META-INF/spring/servlet-context.xml" })
 public class Application {
 
+		
 	public static void main(String[] args) {
 		ConfigurableApplicationContext run = SpringApplication.run(
 				Application.class, args);
@@ -98,8 +99,8 @@ public class Application {
 			if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
 				access.importRoute(500);
-				ratpGtfs.importServiceCalendar(500);
-				ratpGtfs.importStopTransfert(2000);
+				//ratpGtfs.importServiceCalendar(500);
+				//ratpGtfs.importStopTransfert(2000);
 				access.importStop(2000);
 
 			}
@@ -167,6 +168,7 @@ public class Application {
 								if(index!=null && index.equals(index_worker_int)){
 									access.importPassagePieton(name, 100);
 								}
+								
 							}
 							
 							

@@ -14,6 +14,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.lambert.LambertPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.lambert.LambertZone;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
 import com.bzanni.parisaccessible.injector.service.util.GenericCsvImporter;
+import com.bzanni.parisaccessible.injector.service.util.MemcachedService;
 
 @Service
 public class RatpAccessibilityStopCsvImport extends
@@ -28,6 +29,9 @@ public class RatpAccessibilityStopCsvImport extends
 
 	@Resource
 	private GtfsStopRepository repository;
+	
+	@Resource
+	private MemcachedService cache;
 
 	@Override
 	public char delimiter() {

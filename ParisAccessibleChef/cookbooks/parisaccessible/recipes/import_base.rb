@@ -10,6 +10,7 @@
 $JAVA_OPTS = "-Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']}"
 $WAR = "ParisAccessibleInjector/target/*.war"
 
+# import route
 $NAME = "gtfs_route"
 $LOG = "#{node['parisaccessible']['log']}/inject.#{$NAME}.log"
 bash "import #{$NAME}" do
@@ -21,15 +22,7 @@ bash "import #{$NAME}" do
 end
 
 
-
-# bash "import gtfs_route" do
-#   user "root"
-#   cwd "#{node['parisaccessible']['home']}"
-#   code <<-EOH
-#   java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleInjector/target/*.war --gtfs_route > #{node['parisaccessible']['log']}/inject.gtfs_route.log  
-#   EOH
-# end
-
+# import stop
 $NAME = "gtfs_stop"
 $LOG = "#{node['parisaccessible']['log']}/inject.#{$NAME}.log"
 bash "import #{$NAME}" do
@@ -41,14 +34,7 @@ bash "import #{$NAME}" do
 end
 
 
-# bash "import gtfs_stop" do
-#   user "root"
-#   cwd "#{node['parisaccessible']['home']}"
-#   code <<-EOH
-#   java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleInjector/target/*.war --gtfs_stop > #{node['parisaccessible']['log']}/inject.gtfs_stop.log  
-#   EOH
-# end
-
+# import other
 $NAME = "gtfs_other"
 $LOG = "#{node['parisaccessible']['log']}/inject.#{$NAME}.log"
 bash "import #{$NAME}" do
@@ -59,13 +45,6 @@ bash "import #{$NAME}" do
   EOH
 end
 
-# bash "import gtfs_other" do
-#   user "root"
-#   cwd "#{node['parisaccessible']['home']}"
-#   code <<-EOH
-#   java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleInjector/target/*.war --gtfs_other > #{node['parisaccessible']['log']}/inject.gtfs_other.log  
-#   EOH
-# end
 
 $NAME = "access_equipement"
 $LOG = "#{node['parisaccessible']['log']}/inject.#{$NAME}.log"
@@ -77,13 +56,6 @@ bash "import #{$NAME}" do
   EOH
 end
 
-# bash "import access_equipement" do
-#   user "root"
-#   cwd "#{node['parisaccessible']['home']}"
-#   code <<-EOH
-#   java -jar -Xms2048m -Xmx2048m -Dparisaccessible_home=#{node['parisaccessible']['home']} ParisAccessibleInjector/target/*.war --access_equipement > #{node['parisaccessible']['log']}/inject.access_equipement.log  
-#   EOH
-# end
 
 
 

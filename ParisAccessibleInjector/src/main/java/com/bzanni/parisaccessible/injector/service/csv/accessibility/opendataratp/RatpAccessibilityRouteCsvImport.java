@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsRoute;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsRouteRepository;
 import com.bzanni.parisaccessible.injector.service.util.GenericCsvImporter;
+import com.bzanni.parisaccessible.injector.service.util.MemcachedService;
 
 @Service
 public class RatpAccessibilityRouteCsvImport extends
@@ -22,14 +23,13 @@ public class RatpAccessibilityRouteCsvImport extends
 	public Logger getLogger() {
 		return RatpAccessibilityRouteCsvImport.LOGGER;
 	}
-	
+
 	@Resource
 	private GtfsRouteRepository repository;
 
 	@Override
 	protected List<GtfsRoute> convert(String[] list) throws Exception {
-		List<GtfsRoute> findByShortName = repository
-				.findByShortName(list[1]);
+		List<GtfsRoute> findByShortName = repository.findByShortName(list[1]);
 		if (findByShortName == null) {
 			return null;
 		}
@@ -70,7 +70,7 @@ public class RatpAccessibilityRouteCsvImport extends
 	protected void savePack(List<GtfsRoute> pack) throws Exception {
 		repository.save(pack);
 	}
-	
+
 	@Override
 	public char delimiter() {
 		return ';';

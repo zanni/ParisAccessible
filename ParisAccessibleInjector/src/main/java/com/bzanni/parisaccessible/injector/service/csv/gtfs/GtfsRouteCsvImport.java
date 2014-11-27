@@ -1,8 +1,5 @@
 package com.bzanni.parisaccessible.injector.service.csv.gtfs;
 
-import io.searchbox.client.JestResult;
-import io.searchbox.client.JestResultHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class GtfsRouteCsvImport extends GenericCsvImporter<GtfsRoute> {
 	public Logger getLogger() {
 		return GtfsRouteCsvImport.LOGGER;
 	}
+
 	@Resource
 	private GtfsRouteRepository repository;
 

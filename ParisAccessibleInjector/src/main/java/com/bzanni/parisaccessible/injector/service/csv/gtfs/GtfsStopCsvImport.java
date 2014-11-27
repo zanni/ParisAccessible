@@ -13,6 +13,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.GeoPoint;
 import com.bzanni.parisaccessible.elasticsearch.business.gtfs.GtfsStop;
 import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsStopRepository;
 import com.bzanni.parisaccessible.injector.service.util.GenericCsvImporter;
+import com.bzanni.parisaccessible.injector.service.util.MemcachedService;
 
 @Service
 public class GtfsStopCsvImport extends GenericCsvImporter<GtfsStop> {
@@ -26,6 +27,7 @@ public class GtfsStopCsvImport extends GenericCsvImporter<GtfsStop> {
 	
 	@Resource
 	private GtfsStopRepository repository;
+	
 
 	@Override
 	public char delimiter() {
@@ -54,6 +56,7 @@ public class GtfsStopCsvImport extends GenericCsvImporter<GtfsStop> {
 
 	@Override
 	protected void savePack(List<GtfsStop> pack) throws Exception {
+	
 		repository.save(pack);
 	}
 

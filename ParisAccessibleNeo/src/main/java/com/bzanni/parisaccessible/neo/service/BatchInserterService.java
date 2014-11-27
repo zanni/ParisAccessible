@@ -11,8 +11,6 @@ import javax.annotation.Resource;
 
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
-import org.neo4j.kernel.DefaultFileSystemAbstraction;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
@@ -62,7 +60,6 @@ public class BatchInserterService {
 					+ "_batch.db";
 
 			inserter = BatchInserters.inserter(folder, NEO4J_CFG);
-
 
 		}
 	}
@@ -138,19 +135,16 @@ public class BatchInserterService {
 		System.out.println("Flushing ...");
 		System.out.println("Nodes: " + getNodes());
 		System.out.println("Relationships: " + this.getRelationships());
-		inserter.createDeferredSchemaIndex(
-				DynamicLabel.label("SIDWAY")).on("id")
-				.create();
-		
-		inserter.createDeferredSchemaIndex(
-				DynamicLabel.label("PIETON")).on("id")
-				.create();
-		
-		inserter.createDeferredSchemaIndex(
-				DynamicLabel.label("STOP")).on("id")
+		inserter.createDeferredSchemaIndex(DynamicLabel.label("SIDWAY"))
+				.on("id").create();
+
+		inserter.createDeferredSchemaIndex(DynamicLabel.label("PIETON"))
+				.on("id").create();
+
+		inserter.createDeferredSchemaIndex(DynamicLabel.label("STOP")).on("id")
 				.create();
 		System.out.println("createDeferredSchemaIndex: ");
-		
+
 		inserter.shutdown();
 		System.out.println("Clean shutdown");
 	}

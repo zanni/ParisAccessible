@@ -15,8 +15,7 @@ import com.bzanni.parisaccessible.elasticsearch.repository.jest.gtfs.GtfsService
 import com.bzanni.parisaccessible.injector.service.util.GenericCsvImporter;
 
 @Service
-public class GtfsServiceCsvImport extends
-		GenericCsvImporter<GtfsService> {
+public class GtfsServiceCsvImport extends GenericCsvImporter<GtfsService> {
 
 	private final static Logger LOGGER = LoggerFactory
 			.getLogger(GtfsServiceCsvImport.class);
@@ -24,6 +23,7 @@ public class GtfsServiceCsvImport extends
 	public Logger getLogger() {
 		return GtfsServiceCsvImport.LOGGER;
 	}
+
 	public final static SimpleDateFormat format = new SimpleDateFormat(
 			"yyyyMMdd");
 	@Resource
@@ -59,6 +59,7 @@ public class GtfsServiceCsvImport extends
 
 	@Override
 	protected void savePack(List<GtfsService> pack) throws Exception {
+
 		repository.save(pack);
 	}
 
