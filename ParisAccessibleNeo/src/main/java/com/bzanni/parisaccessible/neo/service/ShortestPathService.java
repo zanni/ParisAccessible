@@ -153,10 +153,6 @@ public class ShortestPathService {
 
 		double distance = 1;
 		int num = 1;
-		// List<GeoPipeFlow> findClosestPointsTo = mainPointsLayer
-		// .findClosestPointsTo(new Coordinate(point.get(0), point.get(1),
-		// distance));
-		//
 
 		LayerIndexReader index = mainPointsLayer.getIndex();
 		Envelope bbox = index.getBoundingBox();
@@ -201,120 +197,59 @@ public class ShortestPathService {
 	}
 
 	public List<Location> findShortestPath(List<Double> start, List<Double> end) {
-		// EstimateEvaluator<Double> estimateEvaluator = new
-		// EstimateEvaluator<Double>() {
-		// @Override
-		// public Double getCost(final Node node, final Node goal) {
-		// return 1D;
-		// }
-		// };
-		Transaction tx = database.beginTx();
-		// PathFinder<WeightedPath> astar = GraphAlgoFactory.aStar(
-		// PathExpanders.allTypesAndDirections(),
-		// CommonEvaluators.doubleCostEvaluator("cost", 1),
-		// estimateEvaluator);
 
-		//
+		Transaction tx = database.beginTx();
+
 
 		Node startNode = this.findNode(start);
 		Node endNode = this.findNode(end);
-		// WeightedPath findSinglePath = astar.findSinglePath(startNode,
-		// endNode);
 
-		// PathFinder<Path> finder = GraphAlgoFactory.shortestPath(PathExpanders
-		// .forTypesAndDirections(
-		// DynamicRelationshipType.withName("TROTTOIR"),
-		// Direction.BOTH,
-		// DynamicRelationshipType.withName("PIETON"),
-		// Direction.BOTH,
-		// DynamicRelationshipType.withName("TRANSPORT"),
-		// Direction.BOTH), 15);
 
 		PathFinder<Path> finder = GraphAlgoFactory.shortestPath(
 				PathExpanders.forDirection(Direction.OUTGOING), 100000);
 
 		Iterable<Path> findAllPaths = finder.findAllPaths(startNode, endNode);
-		Path path = findAllPaths.iterator().next();
-		if (path == null)
-			return null;
-		// EstimateEvaluator<Double> estimateEvaluator = new
-		// EstimateEvaluator<Double>() {
-		// @Override
-		// public Double getCost(final Node node, final Node goal) {
-		//
-		// if (node.hasProperty("lat") && node.hasProperty("lon")) {
-		// double dx = (Double) node.getProperty("lat")
-		// - (Double) goal.getProperty("lat");
-		// double dy = (Double) node.getProperty("lon")
-		// - (Double) goal.getProperty("lon");
-		// double result = Math
-		// .sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		//
-		// return result;
-		// }
-		//
-		// return 100000000D;
-		// }
-		// };
-		// PathFinder<WeightedPath> astar = GraphAlgoFactory
-		// .aStar(PathExpanders.allTypesAndDirections(),
-		// CommonEvaluators.doubleCostEvaluator("cost"),
-		// estimateEvaluator);
 
-		// WeightedPath path = astar.findSinglePath(startNode, endNode);
+		Iterator<Path> iterator2 = findAllPaths.iterator();
+		if(iterator2.hasNext()){
+			Path path = findAllPaths.iterator().next();
+			if (path == null)
+				return null;
 
-		Iterator<PropertyContainer> iterator = path.iterator();
-		while (iterator.hasNext()) {
-			PropertyContainer next = iterator.next();
-			System.out.println(next);
-			for (String str : next.getPropertyKeys()) {
-				System.out.println(str + " : " + next.getProperty(str));
+			Iterator<PropertyContainer> iterator = path.iterator();
+			while (iterator.hasNext()) {
+				PropertyContainer next = iterator.next();
+				System.out.println(next);
+				for (String str : next.getPropertyKeys()) {
+					System.out.println(str + " : " + next.getProperty(str));
+				}
+
 			}
 
-		}
+			List<Location> list = new ArrayList<Location>();
 
-		// for (Relationship rel : path.relationships()) {
-		// System.out
-		// .println("-----------------------------------------------");
-		// System.out.println("rel----------------");
-		// for (String string : rel.getPropertyKeys()) {
-		// System.out.println(string + " : " + rel.getProperty(string));
-		// }
-		//
-		// Node startNode2 = rel.getStartNode();
-		// System.out.println("start----------------");
-		// for (String string : startNode2.getPropertyKeys()) {
-		// System.out.println(string + " : "
-		// + startNode2.getProperty(string));
-		// }
-		// System.out.println("end----------------");
-		// Node getEndNode = rel.getEndNode();
-		// for (String string : getEndNode.getPropertyKeys()) {
-		// System.out.println(string + " : "
-		// + getEndNode.getProperty(string));
-		// }
-		// }
-		List<Location> list = new ArrayList<Location>();
+			for (Node nodeById : path.nodes()) {
+				Node n = database.getNodeById(nodeById.getId());
+				if (n.hasProperty("lat")) {
+					Double lat = (Double) n.getProperty("lat");
+					Double lon = (Double) n.getProperty("lon");
+					String id = (String) n.getProperty("id");
+					Location loc = new Location();
+					loc.setId(id);
+					loc.setLat(lat);
+					loc.setLon(lon);
+					loc.setGraphId(n.getId());
+					list.add(loc);
+				}
 
-		for (Node nodeById : path.nodes()) {
-			Node n = database.getNodeById(nodeById.getId());
-			if (n.hasProperty("lat")) {
-				Double lat = (Double) n.getProperty("lat");
-				Double lon = (Double) n.getProperty("lon");
-				String id = (String) n.getProperty("id");
-				Location loc = new Location();
-				loc.setId(id);
-				loc.setLat(lat);
-				loc.setLon(lon);
-				loc.setGraphId(n.getId());
-				list.add(loc);
 			}
+			tx.close();
 
+			if (list.size() <= 2)
+				return Collections.emptyList();
+			return list;
 		}
-		tx.close();
-
-		if (list.size() <= 2)
-			return Collections.emptyList();
-		return list;
+		return null;
+		
 	}
 }
