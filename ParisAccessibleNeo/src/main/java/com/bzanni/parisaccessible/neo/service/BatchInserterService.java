@@ -33,7 +33,7 @@ import com.bzanni.parisaccessible.neo.business.Path;
 @Configurable
 public class BatchInserterService {
 
-	private final static long LONG_BULK = 100;
+	private final static long LONG_BULK = 1000;
 
 	@Value("${neo4j_data_path}")
 	private String neoDataPath;
@@ -229,10 +229,16 @@ public class BatchInserterService {
 				.create();
 		System.out.println("createDeferredSchemaIndex: ");
 
-		spatialIndex();
-
 		inserter.shutdown();
+		
 		System.out.println("Clean shutdown");
+		
+		spatialIndex();
+		
+		System.out.println("Spatial index");
+
+		
+		
 	}
 
 	public long getNodes() {

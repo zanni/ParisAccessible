@@ -3,6 +3,8 @@ package com.bzanni.parisaccessible.indexer.service;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.annotation.Resource;
 
@@ -26,19 +28,39 @@ public class TrottoirIndexerService {
 	@Resource
 	private TrottoirRepository trottoirRepository;
 
+	private static final long delay = 30 * 1000;
+
 	@Resource
 	private LocationPublisher rabbitPublisher;
 
+	public class HeartbeatTask extends TimerTask {
+
+		private int index_worker;
+		private int total_worker;
+
+		public HeartbeatTask(int index_worker, int total_worker) {
+			this.index_worker = index_worker;
+			this.total_worker = total_worker;
+		}
+
+		@Override
+		public void run() {
+			rabbitPublisher.heartbeatWorker(index_worker, total_worker);
+		}
+	}
+
 	public void indexTrottoir(int index_worker, int total_worker) {
+
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(
+				new HeartbeatTask(index_worker, total_worker), 0, delay);
 
 		Iterator<List<Trottoir>> findAll = trottoirRepository
 				.findAllTrottoirWorker(index_worker, total_worker);
-		int z = 0;
-		while (findAll.hasNext() && z < 8 ) {
-			z++;
-			
+
+		while (findAll.hasNext()) {
+
 			List<Trottoir> trottoirs = findAll.next();
-			System.out.println("downloaded: " + trottoirs.size());
 			for (Trottoir trottoir : trottoirs) {
 				GeoShape shape = trottoir.getShape();
 				List<List<List<Double>>> multilines = null;
@@ -112,6 +134,7 @@ public class TrottoirIndexerService {
 		}
 
 		rabbitPublisher.emptyBulk(index_worker, total_worker);
+		timer.cancel();
 
 	}
 }

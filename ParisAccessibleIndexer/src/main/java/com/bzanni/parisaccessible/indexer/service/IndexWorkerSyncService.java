@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class IndexWorkerSyncService {
 
-	private static final long delay = 3 * 60 * 1000;
+	private static final long delay = 1 * 60 * 1000;
 
 	@Autowired
 	private ConfigurableApplicationContext context;

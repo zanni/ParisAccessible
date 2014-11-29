@@ -26,7 +26,7 @@ import com.bzanni.parisaccessible.neo.business.TrottoirPath;
 @Service
 public class PassagePietonIndexerService {
 
-	private static final long delay = 2 * 60 * 1000;
+	private static final long delay = 30 * 1000;
 
 	private static final String DISTANCE_MATCH_TROTTOIR_PASSAGEPIETON = "5m";
 
@@ -163,7 +163,7 @@ public class PassagePietonIndexerService {
 						start, end);
 				rabbitPublisher.addBidirectionalToInserter(index_worker,
 						total_worker, passagePietonPath);
-				
+
 				try {
 					List<Trottoir> search = trottoirRepository
 							.search(start.getLat(),

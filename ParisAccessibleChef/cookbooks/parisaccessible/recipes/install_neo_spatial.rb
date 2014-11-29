@@ -15,17 +15,13 @@
    action :sync
  end
  
-service 'neo4j' do
-	  action :stop
-	  supports :status => true, :start => true, :stop => true, :restart => true
-	end
+
 bash "Build spatial" do
   user "root"
   cwd "/srv/spatial"
   code <<-EOH
   chmod -R 777 ./
-  mvn clean package install -DskipTests=true
-  
+  mvn package install -DskipTests=true
   EOH
 end
 

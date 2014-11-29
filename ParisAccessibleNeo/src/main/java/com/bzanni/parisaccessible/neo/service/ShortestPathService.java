@@ -40,7 +40,7 @@ public class ShortestPathService {
 
 	public final static Double MATCH_DISTANCE_IN_METER = 5D;
 
-	public final static int BULK_INDEX = 10000;
+	public final static int BULK_INDEX = 1000;
 
 	@Value("${neo4j_data_path}")
 	private String neoDataPath;

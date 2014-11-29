@@ -27,7 +27,7 @@ public class StopIndexerService {
 
 	private final static String DISTANCE_MATCH_TROTTOIR_STOP = "5m";
 
-	private static final long delay = 2 * 60 * 1000;
+	private static final long delay = 30 * 1000;
 
 	@Resource
 	private TrottoirRepository trottoirRepository;
@@ -128,7 +128,8 @@ public class StopIndexerService {
 	public void indexStop(int index_worker, int total_worker) {
 
 		Timer timer = new Timer(true);
-		timer.scheduleAtFixedRate(new HeartbeatTask(index_worker, total_worker), 0 , delay);
+		timer.scheduleAtFixedRate(
+				new HeartbeatTask(index_worker, total_worker), 0, delay);
 
 		Iterator<List<GtfsStop>> findAllWorker = stopRepository.findAllWorker(
 				index_worker, total_worker);
