@@ -76,12 +76,15 @@ public class IndexWorkerSyncService {
 				boolean expected = ackWorkerEnd.contains(index_worker);
 
 				if (!expected) {
-//					ackWorkerEnd.add(index_worker);
+					
+					ackWorkerEnd.add(index_worker);
 					mailService.send(subject, "worker timeout "
 							+ index_worker);
 				} else {
+					
 					mailService.send(subject, "receive stop from worker:"
 							+ index_worker);
+					
 				}
 				if (ackWorkerEnd.size() == total_worker) {
 					Date end = new Date();
@@ -189,9 +192,9 @@ public class IndexWorkerSyncService {
 
 		if (map.get("cycle").equals("end")) {
 
-			Integer s = (Integer) map.get("index_worker");
-			total_worker = (Integer) map.get("total_worker");
-			ackWorkerEnd.add(s);
+//			Integer s = (Integer) map.get("index_worker");
+//			total_worker = (Integer) map.get("total_worker");
+//			ackWorkerEnd.add(s);
 
 		}
 		

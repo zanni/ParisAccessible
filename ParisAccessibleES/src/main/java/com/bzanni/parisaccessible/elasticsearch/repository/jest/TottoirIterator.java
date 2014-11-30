@@ -67,7 +67,6 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 	}
 
 	private static List<Trottoir> parse(JsonElement records) {
-		int fail = 0;
 		JsonArray asJsonArray = records.getAsJsonArray();
 		List<Trottoir> list = new ArrayList<Trottoir>();
 		for (int i = 0; i < asJsonArray.size(); i++) {
@@ -94,7 +93,7 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 						shape = gson.fromJson(fields.get("shape"),
 								GeoShapeMultiLineString.class);
 					} catch (JsonSyntaxException ex) {
-						fail++;
+						ex.printStackTrace();
 					}
 				}
 				if (shape != null) {
@@ -105,14 +104,6 @@ public class TottoirIterator implements Iterator<List<Trottoir>> {
 
 		}
 
-		try {
-			System.out.println("Downloaded: " + asJsonArray.size() + " with "
-					+ fail + " failures");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		}
 		return list;
 	}
 
