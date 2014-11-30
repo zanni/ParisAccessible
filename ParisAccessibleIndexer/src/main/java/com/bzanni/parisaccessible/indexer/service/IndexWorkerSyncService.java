@@ -76,7 +76,7 @@ public class IndexWorkerSyncService {
 				boolean expected = ackWorkerEnd.contains(index_worker);
 
 				if (!expected) {
-					ackWorkerEnd.add(index_worker);
+//					ackWorkerEnd.add(index_worker);
 					mailService.send(subject, "worker timeout "
 							+ index_worker);
 				} else {
@@ -93,6 +93,7 @@ public class IndexWorkerSyncService {
 									+ "min, nodes: " + batchService.getNodes()
 									+ ", relationships: "
 									+ batchService.getRelationships());
+					
 					context.close();
 					System.exit(0);
 				}

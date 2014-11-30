@@ -41,6 +41,9 @@ public class BatchInserterService {
 	@Resource
 	private MemcachedService cache;
 
+	@Resource
+	private SpatialIndexerService spatialIndexerService;
+
 	private BatchInserter inserter;
 	// private BatchInserterIndexProvider indexProvider;
 
@@ -140,80 +143,6 @@ public class BatchInserterService {
 
 	}
 
-	private void spatialIndex() {
-
-		GraphDatabaseService database = new GraphDatabaseFactory()
-				.newEmbeddedDatabaseBuilder(folder)
-				.setConfig(GraphDatabaseSettings.nodestore_mapped_memory_size,
-						"500M")
-				.setConfig(
-						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
-						"2G")
-				.setConfig(
-						GraphDatabaseSettings.relationshipstore_mapped_memory_size,
-						"2G")
-				.setConfig(GraphDatabaseSettings.string_block_size, "60")
-				.setConfig(GraphDatabaseSettings.array_block_size, "300")
-				.newGraphDatabase();
-
-		SpatialDatabaseService spatialService = new SpatialDatabaseService(
-				database);
-
-		Transaction tx = database.beginTx();
-
-		SimplePointLayer mainPointsLayer;
-
-		if (spatialService.containsLayer(BatchInserterService.LAYER_NAME)) {
-			mainPointsLayer = (SimplePointLayer) spatialService
-					.getLayer(BatchInserterService.LAYER_NAME);
-		} else {
-			mainPointsLayer = spatialService.createSimplePointLayer(
-					BatchInserterService.LAYER_NAME, "lat", "lon");
-		}
-
-		tx.success();
-		tx.close();
-
-		tx = database.beginTx();
-
-		Iterable<Node> allNodes = GlobalGraphOperations.at(database)
-				.getAllNodes();
-		List<Node> buffer = new ArrayList<Node>();
-		int i = 0;
-		int j = 0;
-		for (Node n : allNodes) {
-
-			buffer.add(n);
-			i++;
-			if (i % ShortestPathService.BULK_INDEX == 0) {
-
-				database.beginTx();
-				for (Node node : buffer) {
-					if (node.hasProperty("lat") && node.hasProperty("lon")) {
-						mainPointsLayer.add(node);
-						j++;
-					}
-				}
-				System.out.println("Indexed: " + j + " over " + i);
-				buffer = new ArrayList<Node>();
-				tx.success();
-				tx.close();
-				tx = database.beginTx();
-
-			}
-
-		}
-		database.beginTx();
-		for (Node node : buffer) {
-			if (node.hasProperty("lat") && node.hasProperty("lon")) {
-				mainPointsLayer.add(node);
-			}
-		}
-		System.out.println("Indexed: " + i);
-		buffer = new ArrayList<Node>();
-		tx.success();
-		tx.close();
-	}
 
 	public void flushAndShutdown() {
 		System.out.println("Flushing ...");
@@ -230,15 +159,13 @@ public class BatchInserterService {
 		System.out.println("createDeferredSchemaIndex: ");
 
 		inserter.shutdown();
-		
+
 		System.out.println("Clean shutdown");
-		
-		spatialIndex();
-		
+
+		spatialIndexerService.index(folder);
+
 		System.out.println("Spatial index");
 
-		
-		
 	}
 
 	public long getNodes() {

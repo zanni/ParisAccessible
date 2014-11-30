@@ -7,13 +7,11 @@ import java.util.List;
 
 import org.geotools.data.neo4j.StyledImageExporter;
 import org.neo4j.gis.spatial.Layer;
-import org.neo4j.gis.spatial.LayerIndexReader;
 import org.neo4j.gis.spatial.ShapefileExporter;
 import org.neo4j.gis.spatial.SimplePointLayer;
 import org.neo4j.gis.spatial.SpatialDatabaseRecord;
 import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.gis.spatial.pipes.GeoPipeline;
-import org.neo4j.gis.spatial.rtree.Envelope;
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphdb.Direction;
@@ -22,11 +20,9 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.PathExpanders;
 import org.neo4j.graphdb.PropertyContainer;
-import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.tooling.GlobalGraphOperations;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -48,13 +44,18 @@ public class ShortestPathService {
 	GraphDatabaseService database;
 	SpatialDatabaseService spatialService;
 
-	SimplePointLayer mainPointsLayer;
+	SimplePointLayer sidwayLayer;
+	SimplePointLayer pietonLayer;
+	SimplePointLayer stopLayer;
 
-	private static enum SHORTEST_PATH implements RelationshipType {
-		SIDWAY
+	private SimplePointLayer getOrCreateLayer(
+			SpatialDatabaseService spatialService, String name) {
+		if (spatialService.containsLayer(name)) {
+			return (SimplePointLayer) spatialService.getLayer(name);
+		} else {
+			return spatialService.createSimplePointLayer(name, "lat", "lon");
+		}
 	}
-
-	// SimplePointLayer createSimplePointLayer;
 
 	public void init(String dataFolder) {
 		database = new GraphDatabaseFactory()
@@ -76,54 +77,12 @@ public class ShortestPathService {
 
 		Transaction tx = database.beginTx();
 
-		if (spatialService.containsLayer("location")) {
-			mainPointsLayer = (SimplePointLayer) spatialService
-					.getLayer("location");
-		} else {
-			mainPointsLayer = spatialService.createSimplePointLayer("location",
-					"lat", "lon");
-
-
-			tx = database.beginTx();
-
-			Iterable<Node> allNodes = GlobalGraphOperations.at(database)
-					.getAllNodes();
-			List<Node> buffer = new ArrayList<Node>();
-			int i = 0;
-			int j = 0;
-			for (Node n : allNodes) {
-
-				buffer.add(n);
-				i++;
-				if (i % ShortestPathService.BULK_INDEX == 0) {
-
-					database.beginTx();
-					for (Node node : buffer) {
-						if (node.hasProperty("lat") && node.hasProperty("lon")) {
-							mainPointsLayer.add(node);
-							j++;
-						}
-					}
-					System.out.println("Indexed: " + j + " over " + i);
-					buffer = new ArrayList<Node>();
-					tx.success();
-					tx.close();
-					tx = database.beginTx();
-
-				}
-
-			}
-			database.beginTx();
-			for (Node node : buffer) {
-				if (node.hasProperty("lat") && node.hasProperty("lon")) {
-					mainPointsLayer.add(node);
-				}
-			}
-			System.out.println("Indexed: " + i);
-			buffer = new ArrayList<Node>();
-			tx.success();
-			tx.close();
-		}
+		sidwayLayer = getOrCreateLayer(spatialService,
+				SpatialIndexerService.SIDWAY_LAYER_NAME);
+		pietonLayer = getOrCreateLayer(spatialService,
+				SpatialIndexerService.PIETON_LAYER_NAME);
+		stopLayer = getOrCreateLayer(spatialService,
+				SpatialIndexerService.STOP_LAYER_NAME);
 
 		// saveLayerAsImage(mainPointsLayer, 600, 600);
 
@@ -148,18 +107,63 @@ public class ShortestPathService {
 		}
 	}
 
-	private Node findNode(List<Double> point) {
+	public Location findClosestSidwayToPoint(List<Double> point) {
+		Node n = findClosestNodeToPoint(sidwayLayer, point);
+		return fromNode(n);
+	}
+
+	public Location findClosestStopToPoint(List<Double> point) {
+		Node n = findClosestNodeToPoint(stopLayer, point);
+		return fromNode(n);
+	}
+
+	public Location findClosestPietonToPoint(List<Double> point) {
+		Node n = findClosestNodeToPoint(pietonLayer, point);
+		return fromNode(n);
+	}
+
+	public List<Location> findAllInEnvelope(List<Double> p1, List<Double> p2) {
+		List<Node> res = new ArrayList<Node>();
+		res.addAll(findNodeInEnvelope(sidwayLayer, p1, p2));
+		res.addAll(findNodeInEnvelope(pietonLayer, p1, p2));
+		res.addAll(findNodeInEnvelope(stopLayer, p1, p2));
+		List<Location> loc = new ArrayList<Location>();
+		for(Node n : res){
+			loc.add(fromNode(n));
+		}
+		return loc;
+	}
+
+	private List<Node> findNodeInEnvelope(SimplePointLayer layer,
+			List<Double> p1, List<Double> p2) {
+		List<SpatialDatabaseRecord> results = GeoPipeline.startContainSearch(
+				layer,
+				layer.getGeometryFactory().toGeometry(
+						new com.vividsolutions.jts.geom.Envelope(15.0, 16.0,
+								56.0, 57.0))).toSpatialDatabaseRecordList();
+
+		List<Node> res = new ArrayList<Node>();
+		while (results.iterator().hasNext()) {
+			SpatialDatabaseRecord record = results.iterator().next();
+
+			res.add(record.getGeomNode());
+		}
+		return res;
+	}
+
+	private Node findClosestNodeToPoint(SimplePointLayer layer,
+			List<Double> point) {
 		Transaction tx = database.beginTx();
 
-		double distance = 1;
-		int num = 1;
-
-		LayerIndexReader index = mainPointsLayer.getIndex();
-		Envelope bbox = index.getBoundingBox();
-		double[] centre = bbox.centre();
+		// double distance = 1;
+		// int num = 1;
+		//
+		// LayerIndexReader index = layer.getIndex();
+		// Envelope bbox = index.getBoundingBox();
+		// double[] centre = bbox.centre();
 
 		GeoPipeline startNearestNeighborLatLonSearch = GeoPipeline
-				.startNearestNeighborLatLonSearch(mainPointsLayer,
+				.startNearestNeighborLatLonSearch(layer,
 						new Coordinate(point.get(0), point.get(1)), 1.0D).sort(
 						"OrthodromicDistance");
 		List<SpatialDatabaseRecord> results = startNearestNeighborLatLonSearch
@@ -167,8 +171,7 @@ public class ShortestPathService {
 
 		while (results.iterator().hasNext()) {
 			SpatialDatabaseRecord record = results.iterator().next();
-			System.out.println(record.getNodeId() + " : "
-					+ record.getGeomNode().getId());
+
 			return database.getNodeById(record.getNodeId());
 		}
 		tx.close();
@@ -190,20 +193,12 @@ public class ShortestPathService {
 		return loc;
 	}
 
-	public Location findLocation(List<Double> point) {
-		Node n = this.findNode(point);
-		return fromNode(n);
-
-	}
-
 	public List<Location> findShortestPath(List<Double> start, List<Double> end) {
 
 		Transaction tx = database.beginTx();
 
-
-		Node startNode = this.findNode(start);
-		Node endNode = this.findNode(end);
-
+		Node startNode = this.findClosestNodeToPoint(sidwayLayer, start);
+		Node endNode = this.findClosestNodeToPoint(sidwayLayer, end);
 
 		PathFinder<Path> finder = GraphAlgoFactory.shortestPath(
 				PathExpanders.forDirection(Direction.OUTGOING), 100000);
@@ -211,7 +206,7 @@ public class ShortestPathService {
 		Iterable<Path> findAllPaths = finder.findAllPaths(startNode, endNode);
 
 		Iterator<Path> iterator2 = findAllPaths.iterator();
-		if(iterator2.hasNext()){
+		if (iterator2.hasNext()) {
 			Path path = findAllPaths.iterator().next();
 			if (path == null)
 				return null;
@@ -250,6 +245,6 @@ public class ShortestPathService {
 			return list;
 		}
 		return null;
-		
+
 	}
 }

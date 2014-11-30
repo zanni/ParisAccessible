@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,13 +52,48 @@ public class ShortestPathController {
 		return findShortestPath;
 
 	}
+	
+	@RequestMapping(value = "/envelope", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Location> findEnvelope(@RequestParam("p1Lat") Double p1Lat,
+			@RequestParam("p1Lon") Double p1Lon, @RequestParam("p2Lat") Double p2Lat,
+			@RequestParam("p2Lon") Double p2Lon) {
+
+		return shortestPathService.findAllInEnvelope(Arrays.asList(p1Lat,
+				p1Lon), Arrays.asList(p2Lat,
+						p2Lon));
+
+	}
 
 	@RequestMapping(value = "/location", method = RequestMethod.GET)
 	@ResponseBody
-	public Location findShortestPath(@RequestParam("lat") Double lat,
+	public Location findClosestLocation(@RequestParam("lat") Double lat,
 			@RequestParam("lon") Double lon) {
 
-		return shortestPathService.findLocation(Arrays.asList(lat, lon));
+		return shortestPathService.findClosestSidwayToPoint(Arrays.asList(lat,
+				lon));
 
 	}
+
+	@RequestMapping(value = "/location/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public Location findShortestPath(@PathVariable("type") String type,
+			@RequestParam("lat") Double lat, @RequestParam("lon") Double lon) {
+
+		if(type.equals("sidway")){
+			return shortestPathService.findClosestSidwayToPoint(Arrays.asList(lat,
+					lon));
+		}
+		else if(type.equals("pieton")){
+			return shortestPathService.findClosestPietonToPoint(Arrays.asList(lat,
+					lon));
+		}
+		else if(type.equals("stop")){
+			return shortestPathService.findClosestStopToPoint(Arrays.asList(lat,
+					lon));
+		}
+		return null;
+
+	}
+
 }

@@ -159,12 +159,14 @@ public class PassagePietonIndexerService {
 				Location end = prepareLocation(pieton, false);
 				String endId = "pieton_" + pieton.getId() + "_end";
 
+				// passage pieton interconnection
 				PassagePietonPath passagePietonPath = new PassagePietonPath(
 						start, end);
 				rabbitPublisher.addBidirectionalToInserter(index_worker,
 						total_worker, passagePietonPath);
 
 				try {
+					// connect start with trottoir
 					List<Trottoir> search = trottoirRepository
 							.search(start.getLat(),
 									start.getLon(),
@@ -178,6 +180,7 @@ public class PassagePietonIndexerService {
 						rabbitPublisher.addBidirectionalToInserter(
 								index_worker, total_worker, analyseTrottoir);
 					}
+					// connect end with trottoir
 					search = trottoirRepository
 							.search(end.getLat(),
 									end.getLon(),
