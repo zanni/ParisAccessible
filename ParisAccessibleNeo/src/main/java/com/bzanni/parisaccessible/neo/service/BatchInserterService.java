@@ -1,7 +1,6 @@
 package com.bzanni.parisaccessible.neo.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,16 +9,8 @@ import java.util.Map;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
-import org.neo4j.gis.spatial.SimplePointLayer;
-import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.DynamicRelationshipType;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.tooling.GlobalGraphOperations;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -45,9 +36,7 @@ public class BatchInserterService {
 	private SpatialIndexerService spatialIndexerService;
 
 	private BatchInserter inserter;
-	// private BatchInserterIndexProvider indexProvider;
 
-	private final static String LAYER_NAME = "location";
 	public static final Map<String, String> NEO4J_CFG = new HashMap<String, String>();
 	static {
 		NEO4J_CFG.put("neostore.nodestore.db.mapped_memory", "100M");
@@ -78,7 +67,9 @@ public class BatchInserterService {
 
 	@PreDestroy
 	public void destroy() {
-		this.flushAndShutdown();
+		if (inserter != null) {
+			this.flushAndShutdown();
+		}
 	}
 
 	public Long addLocationToInserter(Location location) {
@@ -142,7 +133,6 @@ public class BatchInserterService {
 		}
 
 	}
-
 
 	public void flushAndShutdown() {
 		System.out.println("Flushing ...");
