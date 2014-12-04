@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/lib/leaflet.label.css" />
     <script>
         var app = angular.module("demoapp", ["leaflet-directive"]);
-        app.controller("DemoController", [ "$scope", '$http', function($scope, $http) {
+        
+        app.controller("DemoController", [ "$scope", "leafletData", '$http', function($scope, $leafletData, $http) {
 			angular.extend($scope, {
 	        center: {
 				            lat: 48.85131011191184,
@@ -68,6 +69,9 @@
 	    	
 	    	*/
 	    
+	    
+	    
+	    
 	    function drawPath(start, end){
 	  
 	    
@@ -75,10 +79,10 @@
 	    $http
 			    .get('/path', {
 			        params: {
-			            start_lat: start.lat,
-			            start_lon: start.lng,
-			            end_lat: end.lat,
-			            end_lon: end.lng
+			            start_lat: start.lng,
+			            start_lon: start.lat,
+			            end_lat: end.lng,
+			            end_lon: end.lat
 			        }
 			     })
 			     .success(function (data,status) {
@@ -94,15 +98,11 @@
 				          for(var i in data){
 				          	var loc = data[i];
 				          	console.log(loc);
-				          	paths.p0.latlngs.push({lng: (loc.lon ), lat: loc.lat });
+				          	paths.p0.latlngs.push({lng: (loc.lat ), lat: loc.lon });
 				         
 				          }
 				          
-				          
-				          
-				          
-				          console.log(start, end);
-				          
+				          				          
 				          markers = [
 				          {
 					     		lat: start.lat,
@@ -131,13 +131,60 @@
 			
 					    });
 					    start = null;
-			       			 end = null;
+			       		end = null;
 			          }
 			         
 				   
 			          
 			     });
 	    }
+	    
+	    $leafletData.getMap().then(function(map) {
+	    	var bounds = map.getBounds();
+	    	console.log(bounds.getNorthEast());
+	    	
+	    	$scope.markers.push({
+					     		lng: bounds.getSouthEast().lng,
+					     		lat: bounds.getSouthEast().lat
+					     	});
+					     	
+					     	$scope.markers.push({
+					     		lng: bounds.getNorthWest().lng,
+					     		lat: bounds.getNorthWest().lat
+					     	});
+              $http
+			    .get('/envelope', {
+			    
+			        params: {
+			            p1Lat: bounds.getNorthWest().lng,
+			            p1Lon: bounds.getNorthWest().lat,
+			            p2Lat: bounds.getSouthEast().lng,
+			            p2Lon: bounds.getSouthEast().lat
+			        }
+			     })
+			     
+			     
+			     
+			     .success(function(data, status){
+			     
+			     	 if(data){
+			     	 console.log(data.length)
+			     	 	for(var i in data){
+			     	 		if(i > 20) return;
+			     	 		
+			     	 		$scope.markers.push({
+					     		lng: data[i].lon,
+					     		lat: data[i].lat
+					     	});
+					     	
+					     	
+					     	
+			     	 	}
+			     	 }
+			     	
+			     })
+			     
+            });	
          
         var start = null;
         var end = null;
@@ -146,20 +193,20 @@
        	
 			$scope.eventDetected = args.leafletEvent.latlng
 			
-			
+					
        		$http
 			    .get('/location', {
 			        params: {
-			            lat: args.leafletEvent.latlng.lat,
-			            lon: args.leafletEvent.latlng.lng
+			            lon: args.leafletEvent.latlng.lat,
+			            lat: args.leafletEvent.latlng.lng
 			        }
 			     })
 			     .success(function(data, status){
 			     	 if(data){
 			     	
 				     	$scope.markers.push({
-				     		lat: data.lat,
-				     		lng: data.lon
+				     		lng: data.lat,
+				     		lat: data.lon
 				     	});
 				     	$scope.paths = {};
 
@@ -167,19 +214,17 @@
 				     	if(start == null){
 				     	
 				     		start = {
-					     		lat: data.lat,
-					     		lng: data.lon
+					     		lng: data.lat,
+					     		lat: data.lon
 					     	}
-					     	console.log("start", start)
 				     	}
 				     	
 				     	else {
 				     	
 				     		end = {
-					     		lat: data.lat,
-					     		lng: data.lon
+					     		lng: data.lat,
+					     		lat: data.lon
 					     	}
-					     	console.log("end", start, end)
 					     	drawPath(start, end)
 					     	 
 				     	}

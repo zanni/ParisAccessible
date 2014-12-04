@@ -7,11 +7,13 @@ import java.util.List;
 
 import org.geotools.data.neo4j.StyledImageExporter;
 import org.neo4j.gis.spatial.Layer;
+import org.neo4j.gis.spatial.LayerIndexReader;
 import org.neo4j.gis.spatial.ShapefileExporter;
 import org.neo4j.gis.spatial.SimplePointLayer;
 import org.neo4j.gis.spatial.SpatialDatabaseRecord;
 import org.neo4j.gis.spatial.SpatialDatabaseService;
 import org.neo4j.gis.spatial.pipes.GeoPipeline;
+import org.neo4j.gis.spatial.rtree.Envelope;
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphdb.Direction;
@@ -124,9 +126,12 @@ public class ShortestPathService {
 
 	public List<Location> findAllInEnvelope(List<Double> p1, List<Double> p2) {
 		List<Node> res = new ArrayList<Node>();
-		res.addAll(findNodeInEnvelope(sidwayLayer, p1, p2));
+		
+		
+//		res.addAll(findNodeInEnvelope(sidwayLayer, p1, p2));
+		
 		res.addAll(findNodeInEnvelope(pietonLayer, p1, p2));
-		res.addAll(findNodeInEnvelope(stopLayer, p1, p2));
+//		res.addAll(findNodeInEnvelope(stopLayer, p1, p2));
 		List<Location> loc = new ArrayList<Location>();
 		for(Node n : res){
 			loc.add(fromNode(n));
@@ -136,18 +141,24 @@ public class ShortestPathService {
 
 	private List<Node> findNodeInEnvelope(SimplePointLayer layer,
 			List<Double> p1, List<Double> p2) {
-		List<SpatialDatabaseRecord> results = GeoPipeline.startContainSearch(
+		Transaction tx = database.beginTx();
+		
+		
+		List<SpatialDatabaseRecord> results = GeoPipeline.startWithinSearch(
 				layer,
 				layer.getGeometryFactory().toGeometry(
-						new com.vividsolutions.jts.geom.Envelope(15.0, 16.0,
-								56.0, 57.0))).toSpatialDatabaseRecordList();
+						new com.vividsolutions.jts.geom.Envelope(p2.get(0), p2.get(1),
+								p1.get(0), p1.get(1)))).toSpatialDatabaseRecordList();
 
+		
 		List<Node> res = new ArrayList<Node>();
-		while (results.iterator().hasNext()) {
-			SpatialDatabaseRecord record = results.iterator().next();
+		Iterator<SpatialDatabaseRecord> iterator = results.iterator();
+		while (iterator.hasNext()) {
+			SpatialDatabaseRecord record = iterator.next();
 
 			res.add(record.getGeomNode());
 		}
+		tx.close();
 		return res;
 	}
 
@@ -158,9 +169,9 @@ public class ShortestPathService {
 		// double distance = 1;
 		// int num = 1;
 		//
-		// LayerIndexReader index = layer.getIndex();
-		// Envelope bbox = index.getBoundingBox();
-		// double[] centre = bbox.centre();
+		 LayerIndexReader index = layer.getIndex();
+		 Envelope bbox = index.getBoundingBox();
+		 double[] centre = bbox.centre();
 
 		GeoPipeline startNearestNeighborLatLonSearch = GeoPipeline
 				.startNearestNeighborLatLonSearch(layer,
