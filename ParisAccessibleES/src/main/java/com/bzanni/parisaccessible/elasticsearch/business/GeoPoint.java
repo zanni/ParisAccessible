@@ -3,6 +3,11 @@ package com.bzanni.parisaccessible.elasticsearch.business;
 import java.util.ArrayList;
 
 public class GeoPoint extends ArrayList<Double> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -822282867703046670L;
+
 	// private double lat;
 	// private double lon;
 
@@ -15,10 +20,10 @@ public class GeoPoint extends ArrayList<Double> {
 	}
 
 	public Double getLat() {
-		return this.get(1);
+		return this.get(0);
 	}
 
 	public Double getLon() {
-		return this.get(0);
+		return this.get(1);
 	}
 }
