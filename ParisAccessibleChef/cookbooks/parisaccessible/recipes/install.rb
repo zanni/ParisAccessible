@@ -37,7 +37,7 @@ template "#{node['parisaccessible']['home']}/parisaccessible.properties" do
   action :create
 end
 
-include_recipe "parisaccessible::install_neo_spatial"
+#include_recipe "parisaccessible::install_neo_spatial"
 
 
 # if node[:parisaccessible][:compile] 
