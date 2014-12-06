@@ -13,8 +13,9 @@ public class GeoPoint extends ArrayList<Double> {
 
 	public GeoPoint(double latitude, double longitude) {
 		super();
-		this.add(latitude);
+		
 		this.add(longitude);
+		this.add(latitude);
 		
 //		this.lat = latitude;
 //		this.lon = longitude;
