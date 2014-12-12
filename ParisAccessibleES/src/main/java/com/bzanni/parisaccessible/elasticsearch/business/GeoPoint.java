@@ -6,17 +6,23 @@ public class GeoPoint extends ArrayList<Double>  {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -8233066789180416479L;
 
-	// private double lat;
-	// private double lon;
+	/**
+	 * 
+	 */
 
+	public GeoPoint(){
+		super();
+		this.add(0D);
+		this.add(0D);
+	}
+	
 	public GeoPoint(double latitude, double longitude) {
 		
 		this.add(longitude);
 		this.add(latitude);
 		
-//		this.lat = latitude;
-//		this.lon = longitude;
 	}
 
 	public Double getLat() {
@@ -25,5 +31,13 @@ public class GeoPoint extends ArrayList<Double>  {
 
 	public Double getLon() {
 		return this.get(0);
+	}
+	
+	public void setLat(Double value){
+		this.set(1, value);
+	}
+	
+	public void setLon(Double value){
+		this.set(0, value);
 	}
 }
