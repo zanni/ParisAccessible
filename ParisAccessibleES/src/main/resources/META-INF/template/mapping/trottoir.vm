@@ -2,8 +2,7 @@
 "trottoir": {
     "properties": {
        "info": {
-          "type": "string",
-          "store": true
+          "type": "string"
        },
        "shape": {
           "type": "geo_shape"

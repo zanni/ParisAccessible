@@ -22,12 +22,10 @@
           "index": "no"
        },
        "location": {
-          "type": "geo_point",
-          "store": true
+          "type": "geo_point"
        },
        "nom": {
-          "type": "string",
-          "store": true
+          "type": "string"
        },
        "numero": {
           "type": "string",
@@ -38,8 +36,7 @@
           "index": "no"
        },
        "type": {
-          "type": "string",
-          "store": true
+          "type": "string"
        },
        "voie": {
           "type": "string",
