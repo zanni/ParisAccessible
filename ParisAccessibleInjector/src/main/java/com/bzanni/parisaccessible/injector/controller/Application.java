@@ -93,8 +93,8 @@ public class Application {
 				
 			}
 			if (line.hasOption("gtfs_stop")) {
-				//ratpGtfs.importStop(2000);
-				//ratpGtfs.importService(500);
+				ratpGtfs.importStop(2000);
+				ratpGtfs.importService(500);
 				access.importStop(2000);
 			}
 			if (line.hasOption("gtfs_other")) {
