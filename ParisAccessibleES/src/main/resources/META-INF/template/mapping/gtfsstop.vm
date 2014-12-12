@@ -2,39 +2,31 @@
 "gtfsstop": {
     "properties": {
        "accessibleUFR": {
-          "type": "boolean",
-          "store": true
+          "type": "boolean"
        },
        "annonceSonoreProchainArret": {
-          "type": "boolean",
-          "store": true
+          "type": "boolean"
        },
        "annonceSonoreSituationPerturbe": {
-          "type": "boolean",
-          "store": true
+          "type": "boolean"
        },
        "annonceVisuelleProchainArret": {
-          "type": "boolean",
-          "store": true
+          "type": "boolean"
        },
        "annonceVisuelleSituationPerturbe": {
-          "type": "boolean",
-          "store": true
+          "type": "boolean"
        },
        "description": {
-          "type": "string",
-          "index": "no"
+          "type": "string"
        },
        "id": {
           "type": "string"
        },
        "location": {
-          "type": "geo_point",
-          "store": true
+          "type": "geo_point"
        },
        "name": {
-          "type": "string",
-          "store": true
+          "type": "string"
        },
        "transferts": {
           "properties": {

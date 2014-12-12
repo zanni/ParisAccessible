@@ -34,7 +34,7 @@ bash "unzip ratp_gtfs.zip" do
   code <<-EOH
   unzip ratp_gtfs.zip
   rm -rf ratp_gtfs.zip
-   chmod +x split_file.sh
+  chmod +x split_file.sh
   chmod -R 777 ./
   EOH
 end

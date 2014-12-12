@@ -81,7 +81,7 @@ public class Application {
 				.getBean(ParisAccessibleJestClient.class);
 
 		try {
-			client.indexing(false);
+			client.indexing(true);
 			// parse the command line arguments
 			CommandLine line = parser.parse(options, args);
 
