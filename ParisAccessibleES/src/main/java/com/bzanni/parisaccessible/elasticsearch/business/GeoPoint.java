@@ -2,30 +2,28 @@ package com.bzanni.parisaccessible.elasticsearch.business;
 
 import java.util.ArrayList;
 
-public class GeoPoint  {
+public class GeoPoint extends ArrayList<Double>  {
 	/**
 	 * 
 	 */
 
-	private ArrayList<Double> pin;
 	// private double lat;
 	// private double lon;
 
 	public GeoPoint(double latitude, double longitude) {
-		pin = new ArrayList<Double>();
 		
-		pin.add(longitude);
-		pin.add(latitude);
+		this.add(longitude);
+		this.add(latitude);
 		
 //		this.lat = latitude;
 //		this.lon = longitude;
 	}
 
 	public Double getLat() {
-		return pin.get(0);
+		return this.get(1);
 	}
 
 	public Double getLon() {
-		return pin.get(1);
+		return this.get(0);
 	}
 }
