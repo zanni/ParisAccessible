@@ -14,8 +14,6 @@ public class GeoPoint extends ArrayList<Double>  {
 
 	public GeoPoint(){
 		super();
-		this.add(0D);
-		this.add(0D);
 	}
 	
 	public GeoPoint(double latitude, double longitude) {
@@ -26,18 +24,24 @@ public class GeoPoint extends ArrayList<Double>  {
 	}
 
 	public Double getLat() {
-		return this.get(1);
+		if(this.size() == 2){
+			return this.get(1);
+		}
+		return null;
 	}
 
 	public Double getLon() {
-		return this.get(0);
+		if(this.size() == 2){
+			return this.get(0);
+		}
+		return null;
 	}
 	
 	public void setLat(Double value){
-		this.set(1, value);
+		this.add(0, value);
 	}
 	
 	public void setLon(Double value){
-		this.set(0, value);
+		this.add(1, value);
 	}
 }

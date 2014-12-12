@@ -25,16 +25,46 @@
           "id": 2,
           "color": "#6ED0E0",
           "alias": "",
-          "pin": false,
+          "pin": true,
           "type": "lucene",
           "enable": true,
-          "query": "_type:equipement"
+          "query": "_type:passagepieton"
+        },
+        "3": {
+          "id": 3,
+          "color": "#EF843C",
+          "alias": "",
+          "pin": true,
+          "type": "lucene",
+          "enable": false,
+          "query": "_type:gtfsstoptime"
+        },
+        "4": {
+          "id": 4,
+          "color": "#E24D42",
+          "alias": "",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "_type:trottoir"
+        },
+        "5": {
+          "id": 5,
+          "color": "#1F78C1",
+          "alias": "",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "_type:passagepieton"
         }
       },
       "ids": [
         0,
         1,
-        2
+        2,
+        3,
+        4,
+        5
       ]
     },
     "filter": {
@@ -44,10 +74,10 @@
   },
   "rows": [
     {
-      "title": "Graph",
+      "title": "Stop",
       "height": "350px",
       "editable": true,
-      "collapse": false,
+      "collapse": true,
       "collapsable": true,
       "panels": [
         {
@@ -61,10 +91,9 @@
           "spyable": true,
           "tooltip": "name",
           "queries": {
-            "mode": "pinned",
+            "mode": "selected",
             "ids": [
-              0,
-              1
+              0
             ]
           },
           "title": "stop"
@@ -76,14 +105,17 @@
           "type": "table",
           "loadingEditor": false,
           "size": 100,
-          "pages": 5,
+          "pages": 1,
           "offset": 0,
           "sort": [
             "_score",
             "desc"
           ],
           "overflow": "height",
-          "fields": [],
+          "fields": [
+            "name",
+            "location"
+          ],
           "highlight": [],
           "sortable": true,
           "header": true,
@@ -104,16 +136,16 @@
             "font-size": "9pt"
           },
           "normTimes": true,
-          "title": "STOP"
+          "title": "stop"
         }
       ],
       "notice": false
     },
     {
-      "title": "Events",
+      "title": "Equipement",
       "height": "350px",
       "editable": true,
-      "collapse": false,
+      "collapse": true,
       "collapsable": true,
       "panels": [
         {
@@ -173,6 +205,138 @@
         }
       ],
       "notice": false
+    },
+    {
+      "title": "Passage Pieton",
+      "height": "350px",
+      "editable": true,
+      "collapse": true,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "bettermap",
+          "loadingEditor": false,
+          "field": "start",
+          "size": 1000,
+          "spyable": true,
+          "tooltip": "libelle",
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              2
+            ]
+          },
+          "title": "passagepieton"
+        },
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "bettermap",
+          "loadingEditor": false,
+          "field": "end",
+          "size": 1000,
+          "spyable": true,
+          "tooltip": "libelle",
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2
+            ]
+          },
+          "title": "end"
+        },
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "table",
+          "loadingEditor": false,
+          "size": 100,
+          "pages": 5,
+          "offset": 0,
+          "sort": [
+            "_score",
+            "desc"
+          ],
+          "overflow": "height",
+          "fields": [],
+          "highlight": [],
+          "sortable": true,
+          "header": true,
+          "paging": true,
+          "field_list": false,
+          "all_fields": false,
+          "trimFactor": 300,
+          "localTime": false,
+          "timeField": "@timestamp",
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              2
+            ]
+          },
+          "style": {
+            "font-size": "9pt"
+          },
+          "normTimes": true,
+          "title": "passagepieton"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "count",
+      "height": "150px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "_type",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "bar",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              4,
+              5
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "count"
+        }
+      ],
+      "notice": false
     }
   ],
   "editable": true,
@@ -193,6 +357,9 @@
       "query": "*",
       "pinned": true,
       "history": [
+        "_type:passagepieton",
+        "_type:trottoir",
+        "_type:gtfsstoptime",
         "_type:equipement",
         "_type:gtfsstop",
         "*"
