@@ -56,6 +56,15 @@
           "type": "lucene",
           "enable": true,
           "query": "_type:passagepieton"
+        },
+        "6": {
+          "id": 6,
+          "color": "#BA43A9",
+          "alias": "",
+          "pin": true,
+          "type": "lucene",
+          "enable": true,
+          "query": "_type:gtfsroute"
         }
       },
       "ids": [
@@ -64,7 +73,8 @@
         2,
         3,
         4,
-        5
+        5,
+        6
       ]
     },
     "filter": {
@@ -74,10 +84,149 @@
   },
   "rows": [
     {
+      "title": "count",
+      "height": "150px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "_type",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "bar",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "count"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "Route",
+      "height": "150px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "accessibleUFR",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "bar",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": "",
+          "title": "accessibility"
+        },
+        {
+          "error": false,
+          "span": 8,
+          "editable": true,
+          "type": "table",
+          "loadingEditor": false,
+          "size": 100,
+          "pages": 5,
+          "offset": 0,
+          "sort": [
+            "_score",
+            "desc"
+          ],
+          "overflow": "height",
+          "fields": [
+            "name",
+            "longName",
+            "annonceVisuelleProchainArret",
+            "annonceSonoreProchainArret",
+            "accessibleUFR"
+          ],
+          "highlight": [],
+          "sortable": true,
+          "header": true,
+          "paging": true,
+          "field_list": false,
+          "all_fields": false,
+          "trimFactor": 300,
+          "localTime": false,
+          "timeField": "@timestamp",
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              6
+            ]
+          },
+          "style": {
+            "font-size": "9pt"
+          },
+          "normTimes": true,
+          "title": "route"
+        }
+      ],
+      "notice": false
+    },
+    {
       "title": "Stop",
       "height": "350px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "collapsable": true,
       "panels": [
         {
@@ -114,7 +263,8 @@
           "overflow": "height",
           "fields": [
             "name",
-            "location"
+            "location",
+            "description"
           ],
           "highlight": [],
           "sortable": true,
@@ -145,7 +295,7 @@
       "title": "Equipement",
       "height": "350px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "collapsable": true,
       "panels": [
         {
@@ -168,7 +318,7 @@
         },
         {
           "error": false,
-          "span": 8,
+          "span": 4,
           "editable": true,
           "type": "table",
           "loadingEditor": false,
@@ -185,7 +335,7 @@
           "sortable": true,
           "header": true,
           "paging": true,
-          "field_list": true,
+          "field_list": false,
           "all_fields": false,
           "trimFactor": 300,
           "localTime": false,
@@ -202,6 +352,43 @@
           },
           "normTimes": true,
           "title": "equipement"
+        },
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "handicapMoteur",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "pie",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "all",
+            "ids": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": ""
         }
       ],
       "notice": false
@@ -210,7 +397,7 @@
       "title": "Passage Pieton",
       "height": "350px",
       "editable": true,
-      "collapse": true,
+      "collapse": false,
       "collapsable": true,
       "panels": [
         {
@@ -246,7 +433,10 @@
             "ids": [
               0,
               1,
-              2
+              2,
+              4,
+              5,
+              6
             ]
           },
           "title": "end"
@@ -292,19 +482,60 @@
       "notice": false
     },
     {
-      "title": "count",
-      "height": "150px",
+      "title": "Trottoir",
+      "height": "350px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
       "panels": [
         {
           "error": false,
+          "span": 8,
+          "editable": true,
+          "type": "table",
+          "loadingEditor": false,
+          "size": 100,
+          "pages": 5,
+          "offset": 0,
+          "sort": [
+            "_score",
+            "desc"
+          ],
+          "overflow": "height",
+          "fields": [
+            "_id",
+            "info",
+            "shape.type"
+          ],
+          "highlight": [],
+          "sortable": true,
+          "header": true,
+          "paging": true,
+          "field_list": true,
+          "all_fields": false,
+          "trimFactor": 300,
+          "localTime": false,
+          "timeField": "@timestamp",
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              4
+            ]
+          },
+          "style": {
+            "font-size": "9pt"
+          },
+          "normTimes": true,
+          "title": "trottoir"
+        },
+        {
+          "error": false,
           "span": 4,
           "editable": true,
           "type": "terms",
           "loadingEditor": false,
-          "field": "_type",
+          "field": "info",
           "exclude": [],
           "missing": true,
           "other": true,
@@ -317,23 +548,18 @@
           "tilt": false,
           "labels": true,
           "arrangement": "horizontal",
-          "chart": "bar",
+          "chart": "pie",
           "counter_pos": "above",
           "spyable": true,
           "queries": {
-            "mode": "all",
+            "mode": "selected",
             "ids": [
-              0,
-              1,
-              2,
-              4,
-              5
+              4
             ]
           },
           "tmode": "terms",
           "tstat": "total",
-          "valuefield": "",
-          "title": "count"
+          "valuefield": ""
         }
       ],
       "notice": false

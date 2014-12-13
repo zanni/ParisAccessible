@@ -90,18 +90,19 @@ public class Application {
 			
 			if (line.hasOption("gtfs_route")) {
 				ratpGtfs.importRoute(500);
+				access.importRoute(500);
 				
 			}
 			if (line.hasOption("gtfs_stop")) {
 				ratpGtfs.importStop(2000);
-				ratpGtfs.importService(500);
 				access.importStop(2000);
+				ratpGtfs.importStopTransfert(2000);
 			}
 			if (line.hasOption("gtfs_other")) {
 				ratpGtfs.importAgency(500);
-				access.importRoute(500);
+				ratpGtfs.importService(500);
 				ratpGtfs.importServiceCalendar(500);
-				ratpGtfs.importStopTransfert(2000);
+				
 				
 
 			}

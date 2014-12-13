@@ -103,10 +103,6 @@ public class StopIndexerService {
 				}
 			}
 		}
-
-		Double distanceNearestSecondNearest = CostCompute.computeDistance(
-				nearestPoint, secondNearestPoint);
-
 		Location nearestLoc = new Location("SIDWAY", nearestId,
 				nearestPoint.get(0), nearestPoint.get(1));
 
@@ -114,13 +110,24 @@ public class StopIndexerService {
 				nearestPoint.get(0), nearestPoint.get(1));
 
 		Location stopLocation = new Location("STOP", pointId, lat, lon);
-		if (distanceNearestSecondNearest > nearest
-				&& distanceNearestSecondNearest > secondNearest) {
+		
+		if(nearestPoint != null && secondNearestPoint != null){
+			Double distanceNearestSecondNearest = CostCompute.computeDistance(
+					nearestPoint, secondNearestPoint);
 
-			res.add(new TrottoirPath(secondNearestLoc, stopLocation));
+			
+			
+			if (distanceNearestSecondNearest > nearest
+					&& distanceNearestSecondNearest > secondNearest) {
+
+				res.add(new TrottoirPath(secondNearestLoc, stopLocation));
+			}
+
+			res.add(new TrottoirPath(nearestLoc, stopLocation));
 		}
-
-		res.add(new TrottoirPath(nearestLoc, stopLocation));
+		else if (nearestPoint != null){
+			res.add(new TrottoirPath(nearestLoc, stopLocation));
+		}
 
 		return res;
 	}
@@ -146,7 +153,7 @@ public class StopIndexerService {
 					for (Trottoir t : search) {
 						List<TrottoirPath> analyseTrottoir = analyseTrottoir(
 								key, stop.getLocation().getLat(), stop
-										.getLocation().getLat(), t);
+										.getLocation().getLon(), t);
 
 						rabbitPublisher.addBidirectionalToInserter(
 								index_worker, total_worker, analyseTrottoir);

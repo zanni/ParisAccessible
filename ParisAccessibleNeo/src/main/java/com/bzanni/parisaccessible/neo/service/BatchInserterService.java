@@ -49,6 +49,7 @@ public class BatchInserterService {
 	}
 
 	private long nodes = 0;
+	private long fromCache = 0;
 	private long relationships = 0;
 	private String folder;
 
@@ -83,7 +84,7 @@ public class BatchInserterService {
 		cache.set(location.getId(), location);
 		setNodes(getNodes() + 1);
 		if (getNodes() % BatchInserterService.LONG_BULK == 0) {
-			System.out.println("Nodes: " + getNodes());
+			System.out.println("Nodes: " + getNodes() + ", fromCache: "+fromCache);
 			System.out.println("Relationships: " + this.getRelationships());
 		}
 		return createNode;
@@ -102,6 +103,7 @@ public class BatchInserterService {
 			String id = path.getStart().getId();
 			Location s = (Location) cache.get(id);
 			if (s != null && s.getGraphId() != null) {
+				fromCache++;
 				start = s.getGraphId();
 			} else {
 				start = this.addLocationToInserter(path.getStart());
@@ -111,6 +113,7 @@ public class BatchInserterService {
 			String id = path.getEnd().getId();
 			Location s = (Location) cache.get(id);
 			if (s != null && s.getGraphId() != null) {
+				fromCache++;
 				end = s.getGraphId();
 			} else {
 				end = this.addLocationToInserter(path.getEnd());
