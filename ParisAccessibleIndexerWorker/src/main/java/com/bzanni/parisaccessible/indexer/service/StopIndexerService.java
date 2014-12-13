@@ -146,8 +146,8 @@ public class StopIndexerService {
 				try {
 					String key = "stop_" + stop.getId();
 					List<Trottoir> search = trottoirRepository.search(stop
-							.getLocation().getLon(), stop.getLocation()
-							.getLat(),
+							.getLocation().getLat(), stop.getLocation()
+							.getLon(),
 							StopIndexerService.DISTANCE_MATCH_TROTTOIR_STOP);
 
 					for (Trottoir t : search) {

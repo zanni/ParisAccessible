@@ -91,7 +91,7 @@ public class TrottoirIndexerService {
 							// edge
 							String key = id + "_" + j;
 							Location loc = new Location("SIDWAY", key,
-									point.get(0), point.get(1));
+									point.get(1), point.get(0));
 							// rabbitPublisher.addLocationToInserter(loc);
 							// link this location with previously created one if
 							// exists

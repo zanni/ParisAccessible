@@ -140,51 +140,43 @@
 	    }
 	    
 	    $leafletData.getMap().then(function(map) {
-	    	var bounds = map.getBounds();
-	    	console.log(bounds.getNorthEast());
+	    	// var bounds = map.getBounds();
+	    	// console.log(bounds.getNorthEast());
 	    	
-	    	$scope.markers.push({
-					     		lng: bounds.getSouthEast().lng,
-					     		lat: bounds.getSouthEast().lat
-					     	});
+	    	// $scope.markers.push({
+	     // 		lng: bounds.getSouthEast().lng,
+	     // 		lat: bounds.getSouthEast().lat
+	     // 	});
 					     	
-					     	$scope.markers.push({
-					     		lng: bounds.getNorthWest().lng,
-					     		lat: bounds.getNorthWest().lat
-					     	});
-              $http
-			    .get('/envelope', {
-			    
-			        params: {
-			            p1Lat: bounds.getNorthWest().lng,
-			            p1Lon: bounds.getNorthWest().lat,
-			            p2Lat: bounds.getSouthEast().lng,
-			            p2Lon: bounds.getSouthEast().lat
-			        }
-			     })
+	     // 	$scope.markers.push({
+	     // 		lng: bounds.getNorthWest().lng,
+	     // 		lat: bounds.getNorthWest().lat
+	     // 	});
+			
+			$http.get('/envelope', {
+
+			    params: {
+			        p1Lat: bounds.getNorthWest().lng,
+			        p1Lon: bounds.getNorthWest().lat,
+			        p2Lat: bounds.getSouthEast().lng,
+			        p2Lon: bounds.getSouthEast().lat
+			    }
+			 })
+			 .success(function(data, status){ 
+		     	 if(data){
+		     	 console.log(data.length)
+		     	 	for(var i in data){
+		     	 		if(i > 20) return;
+		     	 		
+		     	 		$scope.markers.push({
+				     		lng: data[i].lon,
+				     		lat: data[i].lat
+				     	});
+		     	 	}
+		     	}
+		    })
 			     
-			     
-			     
-			     .success(function(data, status){
-			     
-			     	 if(data){
-			     	 console.log(data.length)
-			     	 	for(var i in data){
-			     	 		if(i > 20) return;
-			     	 		
-			     	 		$scope.markers.push({
-					     		lng: data[i].lon,
-					     		lat: data[i].lat
-					     	});
-					     	
-					     	
-					     	
-			     	 	}
-			     	 }
-			     	
-			     })
-			     
-            });	
+        });	
          
         var start = null;
         var end = null;

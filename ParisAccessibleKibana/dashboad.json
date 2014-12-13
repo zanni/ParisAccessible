@@ -157,17 +157,12 @@
           "tilt": false,
           "labels": true,
           "arrangement": "horizontal",
-          "chart": "bar",
+          "chart": "pie",
           "counter_pos": "above",
           "spyable": true,
           "queries": {
-            "mode": "all",
+            "mode": "selected",
             "ids": [
-              0,
-              1,
-              2,
-              4,
-              5,
               6
             ]
           },
@@ -224,7 +219,7 @@
     },
     {
       "title": "Stop",
-      "height": "350px",
+      "height": "150px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
@@ -293,7 +288,7 @@
     },
     {
       "title": "Equipement",
-      "height": "350px",
+      "height": "150px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
@@ -376,14 +371,9 @@
           "counter_pos": "above",
           "spyable": true,
           "queries": {
-            "mode": "all",
+            "mode": "selected",
             "ids": [
-              0,
-              1,
-              2,
-              4,
-              5,
-              6
+              1
             ]
           },
           "tmode": "terms",
@@ -395,7 +385,7 @@
     },
     {
       "title": "Passage Pieton",
-      "height": "350px",
+      "height": "150px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
@@ -483,11 +473,43 @@
     },
     {
       "title": "Trottoir",
-      "height": "350px",
+      "height": "150px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
       "panels": [
+        {
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "terms",
+          "loadingEditor": false,
+          "field": "info",
+          "exclude": [],
+          "missing": true,
+          "other": true,
+          "size": 10,
+          "order": "count",
+          "style": {
+            "font-size": "10pt"
+          },
+          "donut": false,
+          "tilt": false,
+          "labels": true,
+          "arrangement": "horizontal",
+          "chart": "pie",
+          "counter_pos": "above",
+          "spyable": true,
+          "queries": {
+            "mode": "selected",
+            "ids": [
+              4
+            ]
+          },
+          "tmode": "terms",
+          "tstat": "total",
+          "valuefield": ""
+        },
         {
           "error": false,
           "span": 8,
@@ -528,38 +550,6 @@
           },
           "normTimes": true,
           "title": "trottoir"
-        },
-        {
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "terms",
-          "loadingEditor": false,
-          "field": "info",
-          "exclude": [],
-          "missing": true,
-          "other": true,
-          "size": 10,
-          "order": "count",
-          "style": {
-            "font-size": "10pt"
-          },
-          "donut": false,
-          "tilt": false,
-          "labels": true,
-          "arrangement": "horizontal",
-          "chart": "pie",
-          "counter_pos": "above",
-          "spyable": true,
-          "queries": {
-            "mode": "selected",
-            "ids": [
-              4
-            ]
-          },
-          "tmode": "terms",
-          "tstat": "total",
-          "valuefield": ""
         }
       ],
       "notice": false
