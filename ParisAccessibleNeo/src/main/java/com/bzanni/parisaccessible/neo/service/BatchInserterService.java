@@ -49,6 +49,9 @@ public class BatchInserterService {
 	}
 
 	private long nodes = 0;
+	private long sidways = 0;
+	private long stops = 0;
+	private long pietons = 0;
 	private long fromCache = 0;
 	private long relationships = 0;
 	private String folder;
@@ -83,8 +86,20 @@ public class BatchInserterService {
 
 		cache.set(location.getId(), location);
 		setNodes(getNodes() + 1);
+		
+		if(location.getLabel().equals("SIDWAY")){
+			setSidways(getSidways() + 1);
+		}
+		else if(location.getLabel().equals("PIETON")){
+			setPietons(getPietons() + 1);
+		}
+		else if(location.getLabel().equals("STOP")){
+			setStops(getStops() + 1);
+		}
+		
 		if (getNodes() % BatchInserterService.LONG_BULK == 0) {
 			System.out.println("Nodes: " + getNodes() + ", fromCache: "+fromCache);
+			System.out.println("Sidway: " + getSidways() + ", Pieton: "+getPietons() + ", Stops: "+getStops());
 			System.out.println("Relationships: " + this.getRelationships());
 		}
 		return createNode;
@@ -175,6 +190,30 @@ public class BatchInserterService {
 
 	private void setRelationships(long relationships) {
 		this.relationships = relationships;
+	}
+
+	public long getSidways() {
+		return sidways;
+	}
+
+	public void setSidways(long sidways) {
+		this.sidways = sidways;
+	}
+
+	public long getStops() {
+		return stops;
+	}
+
+	public void setStops(long stops) {
+		this.stops = stops;
+	}
+
+	public long getPietons() {
+		return pietons;
+	}
+
+	public void setPietons(long pietons) {
+		this.pietons = pietons;
 	}
 
 }

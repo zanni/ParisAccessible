@@ -11,7 +11,7 @@ import com.bzanni.parisaccessible.elasticsearch.business.JestBusiness;
 public class JestRequestIterator<S extends JestBusiness> implements
 		Iterator<List<S>> {
 
-	private final static int DEFAULT_BULK = 20;
+	private final static int DEFAULT_BULK = 1000;
 
 	private AbstractJestRepository<S> repository;
 

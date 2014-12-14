@@ -94,7 +94,9 @@ public class IndexWorkerSyncService {
 									+ Math.round((end.getTime() - start
 											.getTime()) / 60 / 1000)
 									+ "min, nodes: " + batchService.getNodes()
-									+ ", relationships: "
+									+ "(sidway: "+batchService.getSidways()
+									+ ",pieton: "+batchService.getPietons()
+									+ ",stop: "+batchService.getStops()+"), relationships: "
 									+ batchService.getRelationships());
 					
 					context.close();
