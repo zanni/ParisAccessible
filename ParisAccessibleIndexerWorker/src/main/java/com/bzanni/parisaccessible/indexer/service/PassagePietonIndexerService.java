@@ -121,10 +121,10 @@ public class PassagePietonIndexerService {
 					nearestPoint, secondNearestPoint);
 
 			Location nearestLoc = new Location("SIDWAY", nearestId,
-					nearestPoint.get(0), nearestPoint.get(1));
+					nearestPoint.get(1), nearestPoint.get(0));
 
 			Location secondNearestLoc = new Location("SIDWAY", secondNearestId,
-					nearestPoint.get(0), nearestPoint.get(1));
+					nearestPoint.get(1), nearestPoint.get(0));
 
 			if (distanceNearestSecondNearest > nearest
 					&& distanceNearestSecondNearest > secondNearest) {
@@ -135,7 +135,7 @@ public class PassagePietonIndexerService {
 			res.add(new TrottoirPath(nearestLoc, stopLocation));
 		} else if (nearestPoint != null) {
 			Location nearestLoc = new Location("SIDWAY", nearestId,
-					nearestPoint.get(0), nearestPoint.get(1));
+					nearestPoint.get(1), nearestPoint.get(0));
 			res.add(new TrottoirPath(nearestLoc, stopLocation));
 		}
 

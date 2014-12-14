@@ -104,10 +104,10 @@ public class StopIndexerService {
 			}
 		}
 		Location nearestLoc = new Location("SIDWAY", nearestId,
-				nearestPoint.get(0), nearestPoint.get(1));
+				nearestPoint.get(1), nearestPoint.get(0));
 
 		Location secondNearestLoc = new Location("SIDWAY", secondNearestId,
-				nearestPoint.get(0), nearestPoint.get(1));
+				nearestPoint.get(1), nearestPoint.get(0));
 
 		Location stopLocation = new Location("STOP", pointId, lat, lon);
 		
@@ -115,8 +115,6 @@ public class StopIndexerService {
 			Double distanceNearestSecondNearest = CostCompute.computeDistance(
 					nearestPoint, secondNearestPoint);
 
-			
-			
 			if (distanceNearestSecondNearest > nearest
 					&& distanceNearestSecondNearest > secondNearest) {
 
