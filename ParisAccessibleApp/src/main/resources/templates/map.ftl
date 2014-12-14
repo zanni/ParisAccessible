@@ -140,41 +140,41 @@
 	    }
 	    
 	    $leafletData.getMap().then(function(map) {
-	    	var bounds = map.getBounds();
-	    	console.log(bounds.getNorthEast());
+	  //   	var bounds = map.getBounds();
+	  //   	console.log(bounds.getNorthEast());
 	    	
-	    	$scope.markers.push({
-	     		lng: bounds.getSouthEast().lng,
-	     		lat: bounds.getSouthEast().lat
-	     	});
+	  //   	$scope.markers.push({
+	  //    		lng: bounds.getSouthEast().lng,
+	  //    		lat: bounds.getSouthEast().lat
+	  //    	});
 					     	
-	     	$scope.markers.push({
-	     		lng: bounds.getNorthWest().lng,
-	     		lat: bounds.getNorthWest().lat
-	     	});
+	  //    	$scope.markers.push({
+	  //    		lng: bounds.getNorthWest().lng,
+	  //    		lat: bounds.getNorthWest().lat
+	  //    	});
 			
-			$http.get('/envelope', {
+			// $http.get('/envelope', {
 
-			    params: {
-			        p1Lat: bounds.getNorthWest().lat,
-			        p1Lon: bounds.getNorthWest().lng,
-			        p2Lat: bounds.getSouthEast().lat,
-			        p2Lon: bounds.getSouthEast().lng
-			    }
-			 })
-			 .success(function(data, status){ 
-		     	 if(data){
-		     	 console.log(data.length)
-		     	 	for(var i in data){
-		     	 		if(i > 20) return;
+			//     params: {
+			//         p1Lat: bounds.getNorthWest().lat,
+			//         p1Lon: bounds.getNorthWest().lng,
+			//         p2Lat: bounds.getSouthEast().lat,
+			//         p2Lon: bounds.getSouthEast().lng
+			//     }
+			//  })
+			//  .success(function(data, status){ 
+		 //     	 if(data){
+		 //     	 console.log(data.length)
+		 //     	 	for(var i in data){
+		 //     	 		if(i > 20) return;
 		     	 		
-		     	 		$scope.markers.push({
-				     		lng: data[i].lat,
-				     		lat: data[i].lon
-				     	});
-		     	 	}
-		     	}
-		    })
+		 //     	 		$scope.markers.push({
+			// 	     		lng: data[i].lat,
+			// 	     		lat: data[i].lon
+			// 	     	});
+		 //     	 	}
+		 //     	}
+		 //    })
 			     
         });	
          
@@ -215,8 +215,8 @@
 				     	else {
 				     	
 				     		end = {
-					     		lng: data.lat,
-					     		lat: data.lon
+					     		lng: data.lon,
+					     		lat: data.lat
 					     	}
 					     	drawPath(start, end)
 					     	 
