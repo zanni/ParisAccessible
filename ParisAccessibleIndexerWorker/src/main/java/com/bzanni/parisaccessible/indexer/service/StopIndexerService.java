@@ -100,7 +100,9 @@ public class StopIndexerService {
 						secondNearestId = key;
 						secondNearestPoint = point;
 					}
+					j++;
 				}
+				i++;
 			}
 		}
 		Location nearestLoc = new Location("SIDWAY", nearestId,

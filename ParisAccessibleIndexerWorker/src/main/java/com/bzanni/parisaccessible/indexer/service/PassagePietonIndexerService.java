@@ -111,7 +111,9 @@ public class PassagePietonIndexerService {
 						secondNearestId = key;
 						secondNearestPoint = point;
 					}
+					j++;
 				}
+				i++;
 			}
 		}
 

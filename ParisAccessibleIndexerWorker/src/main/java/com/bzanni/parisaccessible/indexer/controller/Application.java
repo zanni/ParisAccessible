@@ -147,13 +147,15 @@ public class Application {
 				locationPublisher.startWorker(index_worker_int,
 						total_worker_int);
 
+				trottoirIndexer.indexTrottoir(index_worker_int,
+						total_worker_int);
+				
 				stopIndexer.indexStop(index_worker_int, total_worker_int);
 
 				passagePietonIndexer.indexPassagePieton(index_worker_int,
 						total_worker_int);
 
-				trottoirIndexer.indexTrottoir(index_worker_int,
-						total_worker_int);
+				
 
 				locationPublisher.endWorker(index_worker_int, total_worker_int);
 			} else if (line.hasOption("index_trip")) {

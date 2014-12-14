@@ -110,9 +110,10 @@ public class TrottoirIndexerService {
 								isFirst = false;
 								firstLocation = prevLocation;
 							}
-							i++;
+							
 							j++;
 						}
+						i++;
 
 						Double computeDistance = CostCompute.computeDistance(
 								firstLocation, prevLocation);
