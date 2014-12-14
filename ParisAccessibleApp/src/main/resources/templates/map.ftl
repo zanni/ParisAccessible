@@ -186,6 +186,7 @@
 			$scope.eventDetected = args.leafletEvent.latlng
 			
 			console.log(args.leafletEvent.latlng)
+
        		$http
 			    .get('/location', {
 			        params: {
