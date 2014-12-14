@@ -140,26 +140,26 @@
 	    }
 	    
 	    $leafletData.getMap().then(function(map) {
-	    	// var bounds = map.getBounds();
-	    	// console.log(bounds.getNorthEast());
+	    	var bounds = map.getBounds();
+	    	console.log(bounds.getNorthEast());
 	    	
-	    	// $scope.markers.push({
-	     // 		lng: bounds.getSouthEast().lng,
-	     // 		lat: bounds.getSouthEast().lat
-	     // 	});
+	    	$scope.markers.push({
+	     		lng: bounds.getSouthEast().lng,
+	     		lat: bounds.getSouthEast().lat
+	     	});
 					     	
-	     // 	$scope.markers.push({
-	     // 		lng: bounds.getNorthWest().lng,
-	     // 		lat: bounds.getNorthWest().lat
-	     // 	});
+	     	$scope.markers.push({
+	     		lng: bounds.getNorthWest().lng,
+	     		lat: bounds.getNorthWest().lat
+	     	});
 			
 			$http.get('/envelope', {
 
 			    params: {
-			        p1Lat: bounds.getNorthWest().lng,
-			        p1Lon: bounds.getNorthWest().lat,
-			        p2Lat: bounds.getSouthEast().lng,
-			        p2Lon: bounds.getSouthEast().lat
+			        p1Lat: bounds.getNorthWest().lat,
+			        p1Lon: bounds.getNorthWest().lng,
+			        p2Lat: bounds.getSouthEast().lat,
+			        p2Lon: bounds.getSouthEast().lng
 			    }
 			 })
 			 .success(function(data, status){ 
@@ -169,8 +169,8 @@
 		     	 		if(i > 20) return;
 		     	 		
 		     	 		$scope.markers.push({
-				     		lng: data[i].lon,
-				     		lat: data[i].lat
+				     		lng: data[i].lat,
+				     		lat: data[i].lon
 				     	});
 		     	 	}
 		     	}
@@ -189,16 +189,16 @@
        		$http
 			    .get('/location', {
 			        params: {
-			            lon: args.leafletEvent.latlng.lat,
-			            lat: args.leafletEvent.latlng.lng
+			            lon: args.leafletEvent.latlng.lng,
+			            lat: args.leafletEvent.latlng.lat
 			        }
 			     })
 			     .success(function(data, status){
 			     	 if(data){
 			     	
 				     	$scope.markers.push({
-				     		lng: data.lat,
-				     		lat: data.lon
+				     		lng: data.lon,
+				     		lat: data.lat
 				     	});
 				     	$scope.paths = {};
 
@@ -206,8 +206,8 @@
 				     	if(start == null){
 				     	
 				     		start = {
-					     		lng: data.lat,
-					     		lat: data.lon
+					     		lng: data.lon,
+					     		lat: data.lat
 					     	}
 				     	}
 				     	

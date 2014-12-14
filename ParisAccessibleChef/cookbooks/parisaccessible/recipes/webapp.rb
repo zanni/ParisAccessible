@@ -32,7 +32,11 @@ template "/etc/init.d/pa_webapp" do
      :log => "webapp.log"
   })
 end
-# service 'pa_webapp' do
-#   action :start
-#   supports :start => true, :stop => true
-# end
+service 'neo4j' do
+  action :stop
+  supports :start => true, :stop => true
+end
+service 'pa_webapp' do
+  action :start
+  supports :start => true, :stop => true
+end
