@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.geotools.data.neo4j.StyledImageExporter;
+import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.gis.spatial.Layer;
 import org.neo4j.gis.spatial.LayerIndexReader;
 import org.neo4j.gis.spatial.ShapefileExporter;
@@ -45,6 +46,7 @@ public class ShortestPathService {
 
 	GraphDatabaseService database;
 	SpatialDatabaseService spatialService;
+	ExecutionEngine engine;
 
 	SimplePointLayer sidwayLayer;
 	SimplePointLayer pietonLayer;
@@ -76,6 +78,8 @@ public class ShortestPathService {
 
 		SpatialDatabaseService spatialService = new SpatialDatabaseService(
 				database);
+		
+		 engine = new ExecutionEngine( database );
 
 		Transaction tx = database.beginTx();
 
@@ -211,6 +215,7 @@ public class ShortestPathService {
 		Node startNode = this.findClosestNodeToPoint(sidwayLayer, start);
 		Node endNode = this.findClosestNodeToPoint(sidwayLayer, end);
 
+		
 		PathFinder<Path> finder = GraphAlgoFactory.shortestPath(
 				PathExpanders.forDirection(Direction.OUTGOING), 100000);
 

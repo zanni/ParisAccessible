@@ -77,13 +77,17 @@ public class BatchInserterService {
 	}
 
 	public Long addLocationToInserter(Location location) {
-
-		long createNode = inserter.createNode(location.getMap(),
-				DynamicLabel.label(location.getLabel()));
-		// System.out.println("Create " + location.getLabel() + ": " +
-		// createNode);
-		location.setGraphId(createNode);
-
+		Long createNode = null;
+		if(location.getGraphId() != null){
+			inserter.createNode(location.getGraphId(), location.getMap(),
+					DynamicLabel.label(location.getLabel()));
+			
+		}
+		else {
+			createNode = inserter.createNode(location.getMap(),
+					DynamicLabel.label(location.getLabel()));
+			location.setGraphId(createNode);	
+		}
 		cache.set(location.getId(), location);
 		setNodes(getNodes() + 1);
 		
